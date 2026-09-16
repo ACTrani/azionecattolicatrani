@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ac-trani/scheda-evento",
+  "title": "Scheda dell'evento",
+  "category": "widgets",
+  "icon": "location-alt",
+  "description": "Quando, dove e come iscriversi: il riquadro informativo della pagina di un evento.",
+  "keywords": ["evento", "data", "luogo", "ics", "ac"],
+  "textdomain": "ac-trani",
+  "usesContext": ["postId", "postType"],
+  "attributes": {
+    "calendario": { "type": "boolean", "default": true },
+    "mappa":      { "type": "boolean", "default": true }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "ac-trani-blocchi",
+  "render": "file:./render.php"
+}

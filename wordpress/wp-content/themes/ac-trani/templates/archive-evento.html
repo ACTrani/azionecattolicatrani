@@ -1,0 +1,22 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+	<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|60"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--70);margin-bottom:var(--wp--preset--spacing--60)">
+		<!-- wp:heading {"level":1,"fontSize":"titolo-1"} -->
+		<h1 class="wp-block-heading has-titolo-1-font-size">Eventi</h1>
+		<!-- /wp:heading -->
+		<!-- wp:paragraph {"fontSize":"grande","textColor":"inchiostro-tenue"} -->
+		<p class="has-inchiostro-tenue-color has-text-color has-grande-font-size">Gli appuntamenti dell'Azione Cattolica diocesana, settore per settore. Il calendario si può <a href="/calendario.ics">sottoscrivere</a> dal proprio telefono.</p>
+		<!-- /wp:paragraph -->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:ac-trani/elenco-eventi {"align":"wide","quando":"futuri","numero":24,"titolo":"Prossimi appuntamenti","linkArchivio":false} /-->
+
+	<!-- wp:ac-trani/elenco-eventi {"align":"wide","quando":"passati","numero":12,"layout":"elenco","titolo":"Già svolti","linkArchivio":false,"style":{"spacing":{"margin":{"top":"var:preset|spacing|80"}}}} /-->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

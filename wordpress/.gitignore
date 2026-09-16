@@ -1,0 +1,9 @@
+# Su Git stanno solo il tema e il plugin. Tutto il resto vive nei volumi Docker.
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/languages/
+wp-content/debug.log
+
+# Gli zip prodotti da «Crea tema a blocchi»: si scompattano dentro
+# wp-content/themes/ac-trani/ e si committa il contenuto, non l'archivio.
+*.zip

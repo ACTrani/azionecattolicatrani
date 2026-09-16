@@ -1,0 +1,88 @@
+# Ambiente locale WordPress — traccia A (il sito che andrà in produzione).
+#
+#   cd wordpress
+#   ./bin/avvia.sh            primo avvio: alza i container e allestisce il sito
+#   docker compose down       ferma tutto (i dati restano)
+#   ./bin/azzera.sh           cancella il database e riparte da zero
+#
+# Le porte sono diverse da quelle del vecchio sito (8080/3307), così i due
+# ambienti possono girare insieme.
+
+name: actrani-wp
+
+services:
+  wp:
+    image: wordpress:6.8-php8.3-apache
+    ports:
+      - "8081:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      # Credenziali locali usa e getta: questo ambiente non è esposto in rete.
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_DEBUG_DISPLAY', false);
+        define('WP_DEBUG_LOG', true);
+        define('WP_ENVIRONMENT_TYPE', 'local');
+        /* Dimensioni generose: le locandine PDF degli eventi pesano. */
+        @ini_set('upload_max_filesize', '32M');
+        @ini_set('post_max_size', '32M');
+    volumes:
+      - wpcore:/var/www/html
+      # Solo tema e plugin vivono su Git: il resto (core, upload) sta nel volume.
+      - ./wp-content/themes/ac-trani:/var/www/html/wp-content/themes/ac-trani
+      - ./wp-content/plugins/ac-trani-core:/var/www/html/wp-content/plugins/ac-trani-core
+      - ./contenuti-demo:/var/www/html/wp-content/contenuti-demo:ro
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:11.4
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+    volumes:
+      - dbdata:/var/lib/mysql
+    ports:
+      - "3308:3306"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # Non è un servizio che resta acceso: si usa con `docker compose run --rm cli ...`
+  # per lanciare WP-CLI (installazione, import dei contenuti, esportazione del tema).
+  cli:
+    image: wordpress:cli-php8.3
+    user: "33:33"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      # Senza una HOME scrivibile WP-CLI si lamenta a ogni comando.
+      HOME: /tmp
+    volumes:
+      - wpcore:/var/www/html
+      - ./wp-content/themes/ac-trani:/var/www/html/wp-content/themes/ac-trani
+      - ./wp-content/plugins/ac-trani-core:/var/www/html/wp-content/plugins/ac-trani-core
+      - ./contenuti-demo:/var/www/html/wp-content/contenuti-demo:ro
+      - ./bin:/allestimento:ro
+    depends_on:
+      db:
+        condition: service_healthy
+      wp:
+        condition: service_started
+    entrypoint: ["wp"]
+    command: ["--info"]
+
+volumes:
+  wpcore:
+  dbdata:

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ac-trani/elenco-documenti",
+  "title": "Elenco documenti",
+  "category": "widgets",
+  "icon": "media-document",
+  "description": "Documenti e modulistica da scaricare, con ricerca e filtri.",
+  "keywords": ["documenti", "modulistica", "download", "ac"],
+  "textdomain": "ac-trani",
+  "attributes": {
+    "numero":  { "type": "number",  "default": 10 },
+    "settore": { "type": "string",  "default": "" },
+    "anno":    { "type": "string",  "default": "" },
+    "tipo":    { "type": "string",  "default": "" },
+    "filtri":  { "type": "boolean", "default": false },
+    "titolo":  { "type": "string",  "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "ac-trani-blocchi",
+  "viewScript": "file:./filtri.js",
+  "render": "file:./render.php"
+}

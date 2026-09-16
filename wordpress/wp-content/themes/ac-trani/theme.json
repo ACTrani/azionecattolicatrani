@@ -1,0 +1,196 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"useRootPaddingAwareAlignments": true,
+		"layout": {
+			"contentSize": "38rem",
+			"wideSize": "76rem"
+		},
+		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"custom": true,
+			"palette": [
+				{ "slug": "pietra",           "name": "Pietra di Trani",   "color": "#f7f2e9" },
+				{ "slug": "pietra-scura",     "name": "Pietra scura",      "color": "#ece4d6" },
+				{ "slug": "carta",            "name": "Carta",             "color": "#fffdf8" },
+				{ "slug": "inchiostro",       "name": "Inchiostro",        "color": "#14202f" },
+				{ "slug": "inchiostro-tenue", "name": "Inchiostro tenue",  "color": "#4a5a6d" },
+				{ "slug": "blu",              "name": "Blu Adriatico",     "color": "#1f3f6b" },
+				{ "slug": "blu-scuro",        "name": "Blu profondo",      "color": "#12283f" },
+				{ "slug": "ocra",             "name": "Ocra",              "color": "#c0761b" },
+				{ "slug": "ocra-chiara",      "name": "Ocra chiara",       "color": "#e8a33f" },
+				{ "slug": "bordo",            "name": "Bordo",             "color": "#d9cfbd" },
+				{ "slug": "bordo-tenue",      "name": "Bordo tenue",       "color": "#e6ded0" }
+			]
+		},
+		"typography": {
+			"fluid": true,
+			"defaultFontSizes": false,
+			"customFontSize": true,
+			"lineHeight": true,
+			"fontFamilies": [
+				{
+					"slug": "display",
+					"name": "Titoli (Fraunces)",
+					"fontFamily": "Fraunces, Georgia, 'Times New Roman', serif",
+					"fontFace": [
+						{
+							"fontFamily": "Fraunces",
+							"fontStyle": "normal",
+							"fontWeight": "100 900",
+							"fontStretch": "normal",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/caratteri/fraunces-latin.woff2" ]
+						},
+						{
+							"fontFamily": "Fraunces",
+							"fontStyle": "normal",
+							"fontWeight": "100 900",
+							"fontStretch": "normal",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF",
+							"src": [ "file:./assets/caratteri/fraunces-latin-ext.woff2" ]
+						}
+					]
+				},
+				{
+					"slug": "corpo",
+					"name": "Testo (Archivo)",
+					"fontFamily": "Archivo, system-ui, -apple-system, 'Segoe UI', sans-serif",
+					"fontFace": [
+						{
+							"fontFamily": "Archivo",
+							"fontStyle": "normal",
+							"fontWeight": "100 900",
+							"fontStretch": "normal",
+							"fontDisplay": "swap",
+							"src": [ "file:./assets/caratteri/archivo-latin.woff2" ]
+						},
+						{
+							"fontFamily": "Archivo",
+							"fontStyle": "normal",
+							"fontWeight": "100 900",
+							"fontStretch": "normal",
+							"fontDisplay": "swap",
+							"unicodeRange": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF",
+							"src": [ "file:./assets/caratteri/archivo-latin-ext.woff2" ]
+						}
+					]
+				}
+			],
+			"fontSizes": [
+				{ "slug": "piccolo",     "name": "Piccolo",       "size": "0.83rem", "fluid": { "min": "0.83rem", "max": "0.94rem" } },
+				{ "slug": "medio",       "name": "Testo",         "size": "1rem",    "fluid": { "min": "1rem",    "max": "1.13rem" } },
+				{ "slug": "grande",      "name": "Grande",        "size": "1.2rem",  "fluid": { "min": "1.2rem",  "max": "1.45rem" } },
+				{ "slug": "titolo-3",    "name": "Titolo 3",      "size": "1.44rem", "fluid": { "min": "1.44rem", "max": "1.86rem" } },
+				{ "slug": "titolo-2",    "name": "Titolo 2",      "size": "1.73rem", "fluid": { "min": "1.73rem", "max": "2.39rem" } },
+				{ "slug": "titolo-1",    "name": "Titolo 1",      "size": "2.07rem", "fluid": { "min": "2.07rem", "max": "3.06rem" } },
+				{ "slug": "monumentale", "name": "Monumentale",   "size": "2.49rem", "fluid": { "min": "2.49rem", "max": "3.93rem" } }
+			]
+		},
+		"spacing": {
+			"units": [ "px", "rem", "em", "vh", "vw", "%" ],
+			"padding": true,
+			"margin": true,
+			"blockGap": true,
+			"defaultSpacingSizes": false,
+			"spacingSizes": [
+				{ "slug": "10", "name": "1 — minimo",   "size": "0.25rem" },
+				{ "slug": "20", "name": "2",            "size": "0.5rem" },
+				{ "slug": "30", "name": "3",            "size": "0.75rem" },
+				{ "slug": "40", "name": "4 — base",     "size": "1rem" },
+				{ "slug": "50", "name": "5",            "size": "1.5rem" },
+				{ "slug": "60", "name": "6",            "size": "2.25rem" },
+				{ "slug": "70", "name": "7 — sezione",  "size": "3.5rem" },
+				{ "slug": "80", "name": "8",            "size": "5rem" },
+				{ "slug": "90", "name": "9 — respiro",  "size": "7.5rem" }
+			]
+		},
+		"border": { "color": true, "radius": true, "style": true, "width": true },
+		"shadow": {
+			"defaultPresets": false,
+			"presets": [
+				{ "slug": "carta", "name": "Carta", "shadow": "0 1px 0 #d9cfbd, 0 12px 28px -18px rgba(20, 32, 47, 0.5)" }
+			]
+		},
+		"custom": {
+			"raggio": "2px",
+			"larghezzaTesto": "38rem",
+			"transizione": "220ms cubic-bezier(0.2, 0.7, 0.3, 1)"
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--pietra)",
+			"text": "var(--wp--preset--color--inchiostro)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--corpo)",
+			"fontSize": "var(--wp--preset--font-size--medio)",
+			"lineHeight": "1.65"
+		},
+		"spacing": {
+			"blockGap": "var(--wp--preset--spacing--50)",
+			"padding": { "left": "var(--wp--preset--spacing--50)", "right": "var(--wp--preset--spacing--50)" }
+		},
+		"elements": {
+			"link": {
+				"color": { "text": "var(--wp--preset--color--blu)" },
+				":hover": { "color": { "text": "var(--wp--preset--color--ocra)" } }
+			},
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "600",
+					"lineHeight": "1.12",
+					"letterSpacing": "-0.01em"
+				},
+				"color": { "text": "var(--wp--preset--color--inchiostro)" }
+			},
+			"h1": { "typography": { "fontSize": "var(--wp--preset--font-size--monumentale)" } },
+			"h2": { "typography": { "fontSize": "var(--wp--preset--font-size--titolo-1)" } },
+			"h3": { "typography": { "fontSize": "var(--wp--preset--font-size--titolo-2)" } },
+			"h4": { "typography": { "fontSize": "var(--wp--preset--font-size--titolo-3)" } },
+			"button": {
+				"color": {
+					"background": "var(--wp--preset--color--blu)",
+					"text": "var(--wp--preset--color--carta)"
+				},
+				"border": { "radius": "2px" },
+				"typography": { "fontWeight": "600", "fontSize": "var(--wp--preset--font-size--medio)" },
+				"spacing": { "padding": { "top": "0.7rem", "bottom": "0.7rem", "left": "1.4rem", "right": "1.4rem" } },
+				":hover": { "color": { "background": "var(--wp--preset--color--blu-scuro)" } }
+			},
+			"caption": {
+				"typography": { "fontSize": "var(--wp--preset--font-size--piccolo)" },
+				"color": { "text": "var(--wp--preset--color--inchiostro-tenue)" }
+			}
+		},
+		"blocks": {
+			"core/site-title": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--display)",
+					"fontWeight": "600",
+					"fontSize": "var(--wp--preset--font-size--grande)"
+				}
+			},
+			"core/quote": {
+				"typography": { "fontFamily": "var(--wp--preset--font-family--display)", "fontStyle": "italic" },
+				"border": { "left": { "color": "var(--wp--preset--color--ocra)", "width": "3px", "style": "solid" } },
+				"spacing": { "padding": { "left": "var(--wp--preset--spacing--50)" } }
+			},
+			"core/separator": { "color": { "text": "var(--wp--preset--color--bordo)" } }
+		}
+	},
+	"templateParts": [
+		{ "name": "header", "title": "Testata", "area": "header" },
+		{ "name": "footer", "title": "Piede pagina", "area": "footer" }
+	],
+	"customTemplates": [
+		{ "name": "pagina-larga", "title": "Pagina a tutta larghezza", "postTypes": [ "page" ] }
+	]
+}

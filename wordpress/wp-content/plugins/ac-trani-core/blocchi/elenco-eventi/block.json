@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ac-trani/elenco-eventi",
+  "title": "Elenco eventi",
+  "category": "widgets",
+  "icon": "calendar-alt",
+  "description": "Gli appuntamenti dell'associazione, filtrabili per settore e anno associativo.",
+  "keywords": ["eventi", "appuntamenti", "calendario", "ac"],
+  "textdomain": "ac-trani",
+  "attributes": {
+    "quando":   { "type": "string",  "default": "futuri" },
+    "numero":   { "type": "number",  "default": 4 },
+    "settore":  { "type": "string",  "default": "" },
+    "anno":     { "type": "string",  "default": "" },
+    "evidenza": { "type": "boolean", "default": false },
+    "layout":   { "type": "string",  "default": "griglia" },
+    "titolo":   { "type": "string",  "default": "" },
+    "linkArchivio": { "type": "boolean", "default": true }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "ac-trani-blocchi",
+  "render": "file:./render.php"
+}

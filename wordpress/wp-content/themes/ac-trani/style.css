@@ -1,0 +1,467 @@
+/*
+Theme Name: AC Trani
+Theme URI: https://github.com/ACTrani/azionecattolicatrani
+Author: Azione Cattolica — Arcidiocesi di Trani-Barletta-Bisceglie
+Description: Tema a blocchi del sito diocesano. Fondo color pietra di Trani, blu Adriatico, accento ocra; Fraunces per i titoli, Archivo per il testo. Colori, caratteri e spaziature si cambiano dall'Editor del sito senza toccare il codice: sono in theme.json.
+Requires at least: 6.5
+Tested up to: 6.8
+Requires PHP: 8.1
+Version: 0.1.0
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: ac-trani
+Tags: block-patterns, full-site-editing, one-column, custom-colors, custom-logo, accessibility-ready
+*/
+
+/*
+ * QUESTO FILE VESTE I BLOCCHI DEL PLUGIN.
+ * ---------------------------------------------------------------------------
+ * Il plugin `ac-trani-core` produce markup semantico con classi `ac-*` e nessun
+ * CSS: tutto l'aspetto degli eventi, dei documenti e delle notizie si decide
+ * qui. Le classi disponibili sono elencate in
+ * wp-content/plugins/ac-trani-core/CONTRATTO.md.
+ *
+ * Colori, caratteri e spaziature NON si scrivono a mano: si prendono dalle
+ * variabili generate da theme.json (--wp--preset--…), così restano modificabili
+ * dall'Editor del sito.
+ */
+
+:root {
+	--ac-transizione: 220ms cubic-bezier(0.2, 0.7, 0.3, 1);
+	--ac-colore-settore: var(--wp--preset--color--blu);
+}
+
+/* Tinte di settore: le stesse sei del prototipo Astro. */
+[data-settore='unitario'] { --ac-colore-settore: #1f3f6b; }
+[data-settore='adulti']   { --ac-colore-settore: #2c6e63; }
+[data-settore='giovani']  { --ac-colore-settore: #b5651d; }
+[data-settore='acr']      { --ac-colore-settore: #c0392b; }
+[data-settore='msac']     { --ac-colore-settore: #5b4b8a; }
+[data-settore='mlac']     { --ac-colore-settore: #6b7a3a; }
+
+/* Il filtro dei documenti nasconde le righe: senza questo, `hidden` perde
+   contro `display: grid` della riga. */
+[hidden] { display: none !important; }
+
+.ac-solo-lettori-schermo {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+/* — Intestazioni di sezione ————————————————————————————— */
+
+.ac-sezione__titolo {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: var(--wp--preset--font-size--titolo-1);
+	margin: 0 0 var(--wp--preset--spacing--50);
+}
+
+.ac-sezione__coda { margin-top: var(--wp--preset--spacing--50); }
+
+.ac-link-avanti {
+	font-weight: 600;
+	text-decoration: none;
+	border-bottom: 2px solid var(--wp--preset--color--ocra);
+	padding-bottom: 2px;
+}
+.ac-link-avanti::after { content: ' →'; }
+
+.ac-vuoto {
+	color: var(--wp--preset--color--inchiostro-tenue);
+	font-style: italic;
+	border-left: 3px solid var(--wp--preset--color--bordo);
+	padding-left: var(--wp--preset--spacing--40);
+}
+
+/* — Etichette —————————————————————————————————————————— */
+
+.ac-etichetta {
+	display: inline-block;
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	padding: 0.2em 0.6em;
+	border: 1px solid var(--wp--preset--color--bordo);
+	color: var(--wp--preset--color--inchiostro-tenue);
+	background: var(--wp--preset--color--carta);
+}
+
+.ac-etichetta--settore {
+	border-color: var(--ac-colore-settore);
+	color: var(--ac-colore-settore);
+}
+
+.ac-etichetta--comunicato {
+	background: var(--wp--preset--color--blu);
+	border-color: var(--wp--preset--color--blu);
+	color: var(--wp--preset--color--carta);
+}
+
+.ac-etichetta--annullato {
+	background: #8c1d18;
+	border-color: #8c1d18;
+	color: #fff;
+}
+
+/* — Eventi ————————————————————————————————————————————— */
+
+.ac-eventi__elenco {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: var(--wp--preset--spacing--50);
+}
+
+.ac-eventi--griglia .ac-eventi__elenco {
+	grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+}
+
+.ac-evento {
+	display: grid;
+	grid-template-columns: 4.5rem 1fr;
+	gap: var(--wp--preset--spacing--40);
+	background: var(--wp--preset--color--carta);
+	border: 1px solid var(--wp--preset--color--bordo);
+	border-top: 3px solid var(--ac-colore-settore);
+	padding: var(--wp--preset--spacing--40);
+	transition: box-shadow var(--ac-transizione), transform var(--ac-transizione);
+}
+
+.ac-evento:hover {
+	box-shadow: var(--wp--preset--shadow--carta);
+	transform: translateY(-2px);
+}
+
+.ac-evento--annullato { opacity: 0.72; }
+.ac-evento--annullato .ac-evento__titolo { text-decoration: line-through; }
+
+.ac-evento__data {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	line-height: 1;
+	color: var(--ac-colore-settore);
+	border-right: 1px solid var(--wp--preset--color--bordo-tenue);
+	padding-right: var(--wp--preset--spacing--30);
+}
+
+.ac-evento__giorno {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: 2.2rem;
+	font-weight: 600;
+}
+
+.ac-evento__mese {
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	margin-top: 0.3em;
+}
+
+.ac-evento__titolo {
+	font-size: var(--wp--preset--font-size--titolo-3);
+	margin: 0.4rem 0 0.3rem;
+}
+.ac-evento__titolo a { text-decoration: none; color: inherit; }
+.ac-evento__titolo a:hover { color: var(--ac-colore-settore); }
+
+.ac-evento__quando { font-weight: 600; margin: 0; }
+.ac-evento__luogo,
+.ac-evento__sommario {
+	margin: 0.3rem 0 0;
+	color: var(--wp--preset--color--inchiostro-tenue);
+	font-size: var(--wp--preset--font-size--piccolo);
+}
+
+/* Elenco compatto: niente schede, solo righe. */
+.ac-eventi--elenco .ac-evento {
+	background: none;
+	border: 0;
+	border-bottom: 1px solid var(--wp--preset--color--bordo-tenue);
+	padding-inline: 0;
+}
+.ac-eventi--elenco .ac-evento:hover { transform: none; box-shadow: none; }
+
+/* — Settori ———————————————————————————————————————————— */
+
+.ac-settori__elenco {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: var(--wp--preset--spacing--40);
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+}
+
+@media (min-width: 60rem) {
+	.ac-settori__elenco { grid-template-columns: repeat(var(--ac-colonne, 3), 1fr); }
+}
+
+.ac-settore__collegamento {
+	display: block;
+	height: 100%;
+	text-decoration: none;
+	color: inherit;
+	background: var(--wp--preset--color--carta);
+	border: 1px solid var(--wp--preset--color--bordo);
+	border-left: 4px solid var(--ac-colore-settore);
+	padding: var(--wp--preset--spacing--50);
+	transition: background var(--ac-transizione), border-color var(--ac-transizione);
+}
+
+.ac-settore__collegamento:hover { background: var(--wp--preset--color--pietra-scura); }
+
+.ac-settore__nome {
+	font-size: var(--wp--preset--font-size--titolo-3);
+	color: var(--ac-colore-settore);
+	margin: 0;
+}
+
+.ac-settore__esteso {
+	margin: 0.2rem 0 0;
+	font-size: var(--wp--preset--font-size--piccolo);
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	color: var(--wp--preset--color--inchiostro-tenue);
+}
+
+.ac-settore__descrizione { margin: var(--wp--preset--spacing--30) 0 0; }
+
+/* — Documenti —————————————————————————————————————————— */
+
+.ac-documenti__elenco { list-style: none; margin: 0; padding: 0; }
+
+.ac-documento {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+	gap: var(--wp--preset--spacing--40);
+	padding: var(--wp--preset--spacing--40) 0;
+	border-bottom: 1px solid var(--wp--preset--color--bordo-tenue);
+}
+
+.ac-documento__titolo {
+	font-size: var(--wp--preset--font-size--grande);
+	margin: 0;
+}
+
+.ac-documento__descrizione {
+	margin: 0.3rem 0 0;
+	color: var(--wp--preset--color--inchiostro-tenue);
+}
+
+.ac-documento__dati {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--wp--preset--spacing--20);
+	margin: var(--wp--preset--spacing--30) 0 0;
+}
+
+.ac-documento__file {
+	font-size: 0.72rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--inchiostro-tenue);
+}
+
+.ac-documento__scarica {
+	white-space: nowrap;
+	text-decoration: none;
+	font-weight: 600;
+	border: 1px solid var(--wp--preset--color--blu);
+	color: var(--wp--preset--color--blu);
+	padding: 0.5em 1.1em;
+	transition: background var(--ac-transizione), color var(--ac-transizione);
+}
+
+.ac-documento__scarica:hover {
+	background: var(--wp--preset--color--blu);
+	color: var(--wp--preset--color--carta);
+}
+
+.ac-documento__scarica::before { content: '↓ '; }
+
+/* — Filtri ————————————————————————————————————————————— */
+
+.ac-filtri {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--wp--preset--spacing--40);
+	align-items: end;
+	background: var(--wp--preset--color--pietra-scura);
+	border: 1px solid var(--wp--preset--color--bordo);
+	padding: var(--wp--preset--spacing--40);
+	margin-bottom: var(--wp--preset--spacing--50);
+}
+
+.ac-filtri__campo { display: grid; gap: 0.3rem; margin: 0; }
+
+.ac-filtri__campo label {
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--inchiostro-tenue);
+}
+
+.ac-filtri input,
+.ac-filtri select {
+	font: inherit;
+	padding: 0.45em 0.6em;
+	border: 1px solid var(--wp--preset--color--bordo);
+	background: var(--wp--preset--color--carta);
+	color: inherit;
+	border-radius: 2px;
+	min-width: 12rem;
+}
+
+.ac-filtri__esito {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--piccolo);
+	color: var(--wp--preset--color--inchiostro-tenue);
+}
+
+/* — Notizie ———————————————————————————————————————————— */
+
+.ac-notizie__elenco {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: var(--wp--preset--spacing--50);
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+}
+
+.ac-notizia {
+	border-top: 1px solid var(--wp--preset--color--bordo);
+	padding-top: var(--wp--preset--spacing--30);
+}
+
+.ac-notizia--comunicato { border-top-color: var(--wp--preset--color--blu); border-top-width: 3px; }
+
+.ac-notizia__dati {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--wp--preset--spacing--20);
+	margin: 0;
+	font-size: var(--wp--preset--font-size--piccolo);
+	color: var(--wp--preset--color--inchiostro-tenue);
+}
+
+.ac-notizia__titolo {
+	font-size: var(--wp--preset--font-size--titolo-3);
+	margin: var(--wp--preset--spacing--20) 0 0;
+}
+.ac-notizia__titolo a { text-decoration: none; color: inherit; }
+.ac-notizia__titolo a:hover { color: var(--wp--preset--color--ocra); }
+
+.ac-notizia__sommario { margin: var(--wp--preset--spacing--20) 0 0; }
+
+/* — Testata e piede ———————————————————————————————————— */
+
+.ac-testata { border-bottom: 1px solid var(--wp--preset--color--bordo); }
+
+.ac-marchio img { height: 3rem; width: auto; display: block; }
+
+.ac-piede { color: #cfd8e3; }
+.ac-piede a { color: #e4ebf3; }
+.ac-piede a:hover { color: var(--wp--preset--color--ocra-chiara); }
+.ac-piede img { height: 4.25rem; width: auto; }
+
+/* — Piccoli schermi ————————————————————————————————————— */
+
+@media (max-width: 40rem) {
+	.ac-documento { grid-template-columns: 1fr; }
+	.ac-documento__scarica { justify-self: start; }
+	.ac-filtri input,
+	.ac-filtri select { min-width: 0; width: 100%; }
+	.ac-filtri__campo { flex: 1 1 100%; }
+}
+
+/* — Scheda dell'evento ————————————————————————————————— */
+
+.ac-scheda {
+	background: var(--wp--preset--color--carta);
+	border: 1px solid var(--wp--preset--color--bordo);
+	border-left: 4px solid var(--ac-colore-settore);
+	padding: var(--wp--preset--spacing--50);
+}
+
+.ac-scheda__dati {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: var(--wp--preset--spacing--20) var(--wp--preset--spacing--50);
+	margin: 0;
+}
+
+.ac-scheda__dati dt {
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--inchiostro-tenue);
+	padding-top: 0.25em;
+}
+
+.ac-scheda__dati dd { margin: 0; }
+
+.ac-scheda__indirizzo {
+	color: var(--wp--preset--color--inchiostro-tenue);
+	font-size: var(--wp--preset--font-size--piccolo);
+}
+
+.ac-scheda__azioni {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--wp--preset--spacing--30);
+	margin: var(--wp--preset--spacing--50) 0 0;
+}
+.ac-scheda__azioni:empty { display: none; }
+
+.ac-bottone {
+	display: inline-block;
+	text-decoration: none;
+	font-weight: 600;
+	padding: 0.6em 1.3em;
+	background: var(--wp--preset--color--blu);
+	color: var(--wp--preset--color--carta);
+	border: 1px solid var(--wp--preset--color--blu);
+	transition: background var(--ac-transizione);
+}
+.ac-bottone:hover { background: var(--wp--preset--color--blu-scuro); color: var(--wp--preset--color--carta); }
+
+.ac-bottone--tenue {
+	background: transparent;
+	color: var(--wp--preset--color--blu);
+}
+.ac-bottone--tenue:hover { background: var(--wp--preset--color--blu); color: var(--wp--preset--color--carta); }
+
+.ac-avviso {
+	margin: 0 0 var(--wp--preset--spacing--40);
+	padding: var(--wp--preset--spacing--30) var(--wp--preset--spacing--40);
+	background: var(--wp--preset--color--pietra-scura);
+	border-left: 3px solid var(--wp--preset--color--bordo);
+	font-size: var(--wp--preset--font-size--piccolo);
+}
+
+.ac-avviso--annullato {
+	background: #fbeceb;
+	border-left-color: #8c1d18;
+	color: #8c1d18;
+	font-weight: 600;
+}
+
+@media (max-width: 40rem) {
+	.ac-scheda__dati { grid-template-columns: 1fr; gap: 0.15rem; }
+	.ac-scheda__dati dd { margin-bottom: var(--wp--preset--spacing--30); }
+}

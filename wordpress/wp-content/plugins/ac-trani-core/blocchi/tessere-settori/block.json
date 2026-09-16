@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ac-trani/tessere-settori",
+  "title": "Tessere dei settori",
+  "category": "widgets",
+  "icon": "screenoptions",
+  "description": "Le sei articolazioni dell'associazione, ciascuna col proprio colore.",
+  "keywords": ["settori", "acr", "msac", "mlac", "ac"],
+  "textdomain": "ac-trani",
+  "attributes": {
+    "titolo":      { "type": "string",  "default": "" },
+    "descrizioni": { "type": "boolean", "default": true },
+    "colonne":     { "type": "number",  "default": 3 }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "ac-trani-blocchi",
+  "render": "file:./render.php"
+}
