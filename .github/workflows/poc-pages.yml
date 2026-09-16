@@ -3,8 +3,8 @@
 # Prima che funzioni serve un passaggio manuale, una volta sola:
 #   Settings → Pages → Build and deployment → Source: "GitHub Actions"
 #
-# Nota: su repository privati GitHub Pages richiede un piano a pagamento.
-# Se il repository resta privato, vedi le alternative nel README del PoC.
+# Il repository è pubblico, quindi Pages è gratuito. Se tornasse privato servirebbe
+# un piano a pagamento: in quel caso vedi le alternative nel README del PoC.
 name: PoC — deploy su GitHub Pages
 
 on:

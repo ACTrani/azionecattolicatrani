@@ -35,12 +35,14 @@ che tocchi `poc-astro/`. Prima che funzioni serve **un passaggio manuale, una vo
 
 > **Settings → Pages → Build and deployment → Source: «GitHub Actions»**
 
-Poi il sito compare su `https://<organizzazione>.github.io/<nome-repo>/`.
+Poi il sito compare su https://actrani.github.io/azionecattolicatrani/ — il workflow
+ricava il percorso dal nome del repository, quindi un'eventuale rinomina non richiede
+modifiche al codice.
 
-**Se il repository è privato**, GitHub Pages richiede un piano a pagamento. Alternative
-gratuite, entrambe da collegare allo stesso repository:
-- **Cloudflare Pages** — comando di build `npm run build`, cartella `poc-astro/dist`
-- **Netlify** — stessa configurazione
+Il repository è pubblico: su GitHub Pages questo basta, non serve alcun piano a pagamento.
+Se in futuro tornasse privato, Pages richiederebbe un piano a pagamento; le alternative
+gratuite, entrambe da collegare allo stesso repository, sono **Cloudflare Pages** e
+**Netlify** (comando di build `npm run build`, cartella `poc-astro/dist`).
 
 ## Come è fatto
 
