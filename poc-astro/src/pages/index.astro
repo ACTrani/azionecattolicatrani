@@ -1,0 +1,261 @@
+---
+import Base from '../layouts/Base.astro';
+import CartaEvento from '../components/CartaEvento.astro';
+import CartaNotizia from '../components/CartaNotizia.astro';
+import { eventiProssimi, tutteLeNotizie, tuttiIDocumenti } from '../lib/contenuti';
+import { settori } from '../data/settori';
+import { sito } from '../data/sito';
+import { url } from '../lib/url';
+import { luogoLeggibile } from '../lib/luogo';
+import { giorno, meseBreve, dataConGiorno } from '../lib/date';
+
+const prossimi = await eventiProssimi(5);
+const [inPrimoPiano, ...altri] = prossimi;
+const notizie = await tutteLeNotizie(3);
+const documenti = (await tuttiIDocumenti()).slice(0, 4);
+---
+
+<Base titolo="Home">
+  <!-- ————————————————— Apertura ————————————————— -->
+  <section class="apertura">
+    <div class="contenitore apertura__griglia">
+      <div class="apertura__testo">
+        <p class="apertura__anno">Anno associativo {sito.annoAssociativo}</p>
+        <h1 class="apertura__titolo">
+          <span class="apertura__tema">{sito.temaAnno}</span>
+        </h1>
+        <p class="apertura__claim">{sito.claim}</p>
+        <div class="apertura__azioni">
+          <a class="bottone" href={url('/eventi')}>Prossimi appuntamenti</a>
+          <a class="bottone bottone--vuoto" href={url('/associazione')}>Chi siamo</a>
+        </div>
+      </div>
+
+      {inPrimoPiano && (
+        <aside class="prossimo" data-settore={inPrimoPiano.data.settore} aria-label="Il prossimo appuntamento">
+          <p class="prossimo__etichetta">Il prossimo appuntamento</p>
+          <p class="prossimo__data">
+            <span class="prossimo__giorno">{giorno(inPrimoPiano.data.dataInizio)}</span>
+            <span class="prossimo__mese">{meseBreve(inPrimoPiano.data.dataInizio)}</span>
+          </p>
+          <h2 class="prossimo__titolo">
+            <a href={url(`/eventi/${inPrimoPiano.id}`)}>{inPrimoPiano.data.titolo}</a>
+          </h2>
+          <p class="prossimo__quando">{dataConGiorno(inPrimoPiano.data.dataInizio)}{inPrimoPiano.data.orario ? `, ${inPrimoPiano.data.orario}` : ''}</p>
+          <p class="prossimo__dove">{luogoLeggibile(inPrimoPiano.data.luogo)}</p>
+        </aside>
+      )}
+    </div>
+  </section>
+
+  <!-- ————————————————— Eventi ————————————————— -->
+  <section class="sezione contenitore rivela">
+    <h2 class="occhiello">Calendario diocesano</h2>
+    <div class="elenco-eventi">
+      {altri.map((e) => <CartaEvento evento={e} />)}
+    </div>
+    <p class="piu"><a class="bottone bottone--vuoto" href={url('/eventi')}>Tutti gli eventi</a></p>
+  </section>
+
+  <!-- ————————————————— Settori ————————————————— -->
+  <section class="settori-fascia">
+    <div class="contenitore rivela">
+      <h2 class="occhiello occhiello--chiaro">Una associazione, sei strade</h2>
+      <ul class="settori">
+        {settori.map((s) => (
+          <li class="settore" data-settore={s.slug}>
+            <a href={`${url('/eventi')}?settore=${s.slug}`}>
+              <span class="settore__nome">{s.nome}</span>
+              <span class="settore__eta">{s.eta}</span>
+              <span class="settore__descrizione">{s.descrizione}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ————————————————— Notizie ————————————————— -->
+  <section class="sezione contenitore rivela">
+    <h2 class="occhiello">Notizie e comunicati</h2>
+    <div class="griglia-notizie">
+      {notizie.map((n) => <CartaNotizia notizia={n} />)}
+    </div>
+    <p class="piu"><a class="bottone bottone--vuoto" href={url('/notizie')}>Tutte le notizie</a></p>
+  </section>
+
+  <!-- ————————————————— Documenti ————————————————— -->
+  <section class="sezione contenitore rivela">
+    <h2 class="occhiello">Documenti e modulistica</h2>
+    <div class="griglia-documenti">
+      {documenti.map((d) => (
+        <a class="scheda-doc" href={url('/documenti')} data-settore={d.data.settore}>
+          <span class="scheda-doc__formato">{d.data.formato}</span>
+          <span class="scheda-doc__titolo">{d.data.titolo}</span>
+          <span class="scheda-doc__anno">{d.data.annoAssociativo}</span>
+        </a>
+      ))}
+    </div>
+    <p class="piu"><a class="bottone bottone--vuoto" href={url('/documenti')}>Archivio completo</a></p>
+  </section>
+</Base>
+
+<style>
+  /* — Apertura — */
+  .apertura {
+    padding-block: var(--spazio-2xl) var(--spazio-xl);
+    background:
+      radial-gradient(120% 80% at 8% 0%, var(--col-carta) 0%, transparent 60%),
+      linear-gradient(180deg, var(--col-pietra) 0%, var(--col-pietra-scura) 100%);
+    border-bottom: var(--bordo-sottile);
+  }
+  .apertura__griglia {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: var(--spazio-2xl);
+    align-items: end;
+  }
+  .apertura__anno {
+    font-size: var(--step--1);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--col-ocra);
+    margin-bottom: var(--spazio-m);
+    padding-bottom: var(--spazio-s);
+    border-bottom: 1px solid var(--col-bordo);
+  }
+  .apertura__titolo { font-size: var(--step-6); margin-bottom: var(--spazio-m); }
+  .apertura__tema {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    background: linear-gradient(105deg, var(--col-blu) 20%, var(--col-ocra) 95%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .apertura__claim {
+    font-size: var(--step-1);
+    max-width: 30rem;
+    color: var(--col-inchiostro-tenue);
+    line-height: 1.5;
+  }
+  .apertura__azioni { display: flex; flex-wrap: wrap; gap: var(--spazio-s); margin-top: var(--spazio-l); }
+
+  .prossimo {
+    background: var(--col-inchiostro);
+    color: var(--col-pietra);
+    padding: var(--spazio-m);
+    border-radius: var(--raggio);
+    border-left: 6px solid var(--col-settore);
+    position: relative;
+  }
+  .prossimo__etichetta {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--col-ocra-chiara);
+    margin-bottom: var(--spazio-s);
+  }
+  .prossimo__data { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: var(--spazio-2xs); }
+  .prossimo__giorno {
+    font-family: var(--testo-display);
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+  }
+  .prossimo__mese { text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem; font-weight: 700; }
+  .prossimo__titolo { font-size: var(--step-1); margin: var(--spazio-s) 0 var(--spazio-2xs); }
+  .prossimo__titolo a { color: #fff; text-decoration: none; }
+  .prossimo__titolo a::after { content: ''; position: absolute; inset: 0; }
+  .prossimo__titolo a:hover { color: var(--col-ocra-chiara); }
+  .prossimo__quando { margin: 0; font-weight: 600; font-size: var(--step--1); }
+  .prossimo__dove { margin: 0.15rem 0 0; font-size: var(--step--1); opacity: 0.7; }
+
+  @media (max-width: 58rem) {
+    .apertura__griglia { grid-template-columns: 1fr; gap: var(--spazio-xl); }
+  }
+
+  /* — Elenchi — */
+  .elenco-eventi { display: grid; }
+  .piu { margin-top: var(--spazio-l); }
+
+  .griglia-notizie {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: var(--spazio-m);
+  }
+
+  /* — Settori — */
+  .settori-fascia {
+    background: var(--col-blu-scuro);
+    color: var(--col-pietra);
+    padding-block: var(--spazio-2xl);
+  }
+  .occhiello--chiaro { color: #8fa3bb; }
+  .occhiello--chiaro::after { background: rgba(255, 255, 255, 0.18); }
+  /* Tre colonne: i sei settori riempiono sempre due righe intere, senza buchi */
+  .settori {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  @media (max-width: 54rem) { .settori { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 32rem) { .settori { grid-template-columns: 1fr; } }
+  .settore { background: var(--col-blu-scuro); }
+  .settore a {
+    display: grid;
+    gap: 0.35rem;
+    padding: var(--spazio-m);
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    border-top: 3px solid transparent;
+    transition: background var(--transizione), border-color var(--transizione);
+  }
+  .settore a:hover { background: rgba(255, 255, 255, 0.05); border-top-color: var(--col-settore); }
+  .settore__nome { font-family: var(--testo-display); font-size: var(--step-2); color: #fff; }
+  .settore__eta {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--col-ocra-chiara);
+  }
+  .settore__descrizione { font-size: var(--step--1); opacity: 0.72; line-height: 1.55; margin-top: var(--spazio-2xs); }
+
+  /* — Documenti — */
+  .griglia-documenti {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--spazio-s);
+  }
+  .scheda-doc {
+    display: grid;
+    align-content: start;
+    gap: var(--spazio-2xs);
+    padding: var(--spazio-m);
+    background: var(--col-carta);
+    border: var(--bordo-sottile);
+    border-left: 4px solid var(--col-settore);
+    border-radius: var(--raggio);
+    text-decoration: none;
+    color: inherit;
+    transition: transform var(--transizione), box-shadow var(--transizione);
+  }
+  .scheda-doc:hover { transform: translateY(-3px); box-shadow: var(--ombra-carta); }
+  .scheda-doc__formato {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--col-settore);
+  }
+  .scheda-doc__titolo { font-family: var(--testo-display); font-size: var(--step-0); line-height: 1.25; }
+  .scheda-doc__anno { font-size: 0.75rem; color: var(--col-inchiostro-tenue); }
+</style>

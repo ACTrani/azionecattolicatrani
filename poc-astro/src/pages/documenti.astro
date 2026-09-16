@@ -1,0 +1,165 @@
+---
+import Base from '../layouts/Base.astro';
+import RigaDocumento from '../components/RigaDocumento.astro';
+import { tuttiIDocumenti, anniAssociativi } from '../lib/contenuti';
+import { settori } from '../data/settori';
+
+const documenti = await tuttiIDocumenti();
+const anni = anniAssociativi(documenti);
+const tipi = [
+  { slug: 'programmazione', nome: 'Programmazioni' },
+  { slug: 'sussidio', nome: 'Sussidi' },
+  { slug: 'modulo', nome: 'Moduli' },
+  { slug: 'verbale', nome: 'Verbali' },
+  { slug: 'statuto', nome: 'Statuto e norme' },
+];
+---
+
+<Base
+  titolo="Documenti e modulistica"
+  descrizione="Programmazioni, sussidi, moduli di iscrizione e documenti dell'associazione diocesana, pronti da scaricare."
+>
+  <header class="testa-pagina">
+    <div class="contenitore">
+      <p class="occhiello">Archivio</p>
+      <h1>Documenti e modulistica</h1>
+      <p class="testa-pagina__intro">
+        Programmazioni, sussidi per gli educatori, moduli di iscrizione e documenti
+        associativi. Cerca per parola o restringi con i filtri.
+      </p>
+    </div>
+  </header>
+
+  <div class="contenitore">
+    <form class="strumenti" role="search" onsubmit="return false">
+      <div class="campo">
+        <label for="ricerca">Cerca nei documenti</label>
+        <input type="search" id="ricerca" placeholder="Es. adesione, liberatoria, programmazione…" autocomplete="off" />
+      </div>
+
+      <div class="campo">
+        <label for="f-settore">Settore</label>
+        <select id="f-settore">
+          <option value="tutti">Tutti i settori</option>
+          {settori.map((s) => <option value={s.slug}>{s.nomeEsteso}</option>)}
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="f-tipo">Tipo</label>
+        <select id="f-tipo">
+          <option value="tutti">Tutti i tipi</option>
+          {tipi.map((t) => <option value={t.slug}>{t.nome}</option>)}
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="f-anno">Anno associativo</label>
+        <select id="f-anno">
+          <option value="tutti">Tutti gli anni</option>
+          {anni.map((a) => <option value={a}>{a}</option>)}
+        </select>
+      </div>
+    </form>
+
+    <p class="conteggio" aria-live="polite" id="conteggio">{documenti.length} documenti</p>
+
+    <div id="elenco-documenti">
+      {documenti.map((d) => <RigaDocumento documento={d} />)}
+    </div>
+
+    <p id="nessun-documento" class="vuoto" hidden>
+      Nessun documento corrisponde ai criteri scelti. Prova ad allargare la ricerca.
+    </p>
+  </div>
+</Base>
+
+<script>
+  const ricerca = document.getElementById('ricerca') as HTMLInputElement;
+  const fSettore = document.getElementById('f-settore') as HTMLSelectElement;
+  const fTipo = document.getElementById('f-tipo') as HTMLSelectElement;
+  const fAnno = document.getElementById('f-anno') as HTMLSelectElement;
+  const righe = Array.from(document.querySelectorAll<HTMLElement>('.riga-doc'));
+  const contatore = document.getElementById('conteggio')!;
+  const vuoto = document.getElementById('nessun-documento')!;
+
+  function filtra() {
+    const testo = ricerca.value.trim().toLowerCase();
+    let visibili = 0;
+
+    for (const riga of righe) {
+      const ok =
+        (fSettore.value === 'tutti' || riga.dataset.filtroSettore === fSettore.value) &&
+        (fTipo.value === 'tutti' || riga.dataset.filtroTipo === fTipo.value) &&
+        (fAnno.value === 'tutti' || riga.dataset.filtroAnno === fAnno.value) &&
+        (testo === '' || (riga.dataset.filtroTesto ?? '').includes(testo));
+
+      riga.hidden = !ok;
+      if (ok) visibili++;
+    }
+
+    contatore.textContent = visibili === 1 ? '1 documento' : `${visibili} documenti`;
+    vuoto.hidden = visibili > 0;
+  }
+
+  [ricerca, fSettore, fTipo, fAnno].forEach((c) => {
+    c.addEventListener('input', filtra);
+    c.addEventListener('change', filtra);
+  });
+</script>
+
+<style>
+  .testa-pagina {
+    padding-block: var(--spazio-xl) var(--spazio-l);
+    border-bottom: var(--bordo-sottile);
+    background: linear-gradient(180deg, var(--col-carta), transparent);
+    margin-bottom: var(--spazio-xl);
+  }
+  .testa-pagina h1 { font-size: var(--step-5); }
+  .testa-pagina__intro { max-width: var(--larghezza-testo); color: var(--col-inchiostro-tenue); font-size: var(--step-1); }
+
+  .strumenti {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: var(--spazio-s);
+    padding: var(--spazio-m);
+    background: var(--col-carta);
+    border: var(--bordo-sottile);
+    border-radius: var(--raggio);
+  }
+  .campo { display: grid; gap: 0.3rem; }
+  .campo label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--col-inchiostro-tenue);
+  }
+  input, select {
+    font-family: var(--testo-corpo);
+    font-size: var(--step-0);
+    padding: 0.6em 0.75em;
+    border: 1px solid var(--col-bordo);
+    border-radius: var(--raggio);
+    background: var(--col-pietra);
+    color: var(--col-inchiostro);
+  }
+  input:focus, select:focus { border-color: var(--col-blu); }
+
+  .conteggio {
+    margin: var(--spazio-l) 0 0;
+    font-size: var(--step--1);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--col-inchiostro-tenue);
+  }
+  .vuoto { color: var(--col-inchiostro-tenue); font-style: italic; padding-block: var(--spazio-l); }
+
+  @media (max-width: 52rem) {
+    .strumenti { grid-template-columns: 1fr 1fr; }
+    .campo:first-child { grid-column: 1 / -1; }
+  }
+  @media (max-width: 32rem) {
+    .strumenti { grid-template-columns: 1fr; }
+  }
+</style>

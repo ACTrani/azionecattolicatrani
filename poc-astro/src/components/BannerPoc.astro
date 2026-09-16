@@ -1,0 +1,31 @@
+---
+/** Striscia di avviso: chi apre il link deve capire subito cosa sta guardando. */
+---
+<div class="banner">
+  <div class="contenitore banner__riga">
+    <strong>Prototipo</strong>
+    <span>Gli eventi vengono dalla programmazione diocesana 2026/2027. Notizie, documenti e nomi sono ancora di esempio.</span>
+  </div>
+</div>
+
+<style>
+  .banner {
+    background: var(--col-inchiostro);
+    color: var(--col-pietra);
+    font-size: var(--step--1);
+  }
+  .banner__riga {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--spazio-2xs) var(--spazio-s);
+    padding-block: 0.6rem;
+  }
+  .banner strong {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    color: var(--col-ocra-chiara);
+  }
+  .banner span { opacity: 0.85; }
+</style>

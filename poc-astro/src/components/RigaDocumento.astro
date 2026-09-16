@@ -1,0 +1,87 @@
+---
+import type { Documento } from '../lib/contenuti';
+import { settorePerSlug } from '../data/settori';
+import { dataEstesa } from '../lib/date';
+
+interface Props { documento: Documento }
+const { documento } = Astro.props;
+const d = documento.data;
+const settore = settorePerSlug(d.settore)!;
+const tipiEstesi: Record<string, string> = {
+  programmazione: 'Programmazione',
+  sussidio: 'Sussidio',
+  modulo: 'Modulo',
+  verbale: 'Verbale',
+  statuto: 'Statuto e norme',
+  comunicato: 'Comunicato',
+};
+---
+
+<article
+  class="riga-doc"
+  data-settore={d.settore}
+  data-filtro-settore={d.settore}
+  data-filtro-tipo={d.tipo}
+  data-filtro-anno={d.annoAssociativo}
+  data-filtro-testo={`${d.titolo} ${d.descrizione}`.toLowerCase()}
+>
+  <div class="riga-doc__formato" aria-hidden="true">{d.formato}</div>
+
+  <div class="riga-doc__corpo">
+    <div class="riga-doc__alto">
+      <span class="etichetta">{settore.nome}</span>
+      <span class="riga-doc__tipo">{tipiEstesi[d.tipo]}</span>
+      <span class="riga-doc__anno">{d.annoAssociativo}</span>
+    </div>
+    <h3 class="riga-doc__titolo">{d.titolo}</h3>
+    <p class="riga-doc__descrizione">{d.descrizione}</p>
+    <p class="riga-doc__meta">Pubblicato il {dataEstesa(d.data)}{d.dimensione ? ` · ${d.dimensione}` : ''}</p>
+  </div>
+
+  <a class="bottone bottone--vuoto riga-doc__scarica" href={d.file} download>
+    Scarica
+    <span class="visivamente-nascosto">{d.titolo}</span>
+  </a>
+</article>
+
+<style>
+  .riga-doc {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--spazio-m);
+    padding: var(--spazio-m) 0;
+    border-bottom: 1px solid var(--col-bordo);
+  }
+  .riga-doc__formato {
+    display: grid;
+    place-items: center;
+    width: 3.4rem; height: 4.2rem;
+    border: 1px solid var(--col-settore);
+    border-top-right-radius: 0.8rem;
+    color: var(--col-settore);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    background: linear-gradient(135deg, transparent 0 55%, color-mix(in srgb, var(--col-settore) 8%, transparent) 55%);
+  }
+  .riga-doc__alto {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spazio-2xs) var(--spazio-s);
+    margin-bottom: var(--spazio-3xs);
+    font-size: var(--step--1);
+  }
+  .riga-doc__tipo { font-weight: 600; }
+  .riga-doc__anno { color: var(--col-inchiostro-tenue); }
+  .riga-doc__titolo { font-size: var(--step-1); margin-bottom: 0.2rem; }
+  .riga-doc__descrizione { color: var(--col-inchiostro-tenue); font-size: var(--step--1); margin-bottom: 0.3rem; max-width: 46rem; }
+  .riga-doc__meta { margin: 0; font-size: 0.75rem; color: var(--col-inchiostro-tenue); }
+  .riga-doc__scarica { white-space: nowrap; }
+
+  @media (max-width: 48rem) {
+    .riga-doc { grid-template-columns: auto 1fr; }
+    .riga-doc__scarica { grid-column: 2; justify-self: start; }
+  }
+</style>

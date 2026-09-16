@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import { sito } from '../data/sito';
+---
+
+<Base titolo="Contatti" descrizione="Come raggiungere la segreteria diocesana dell'Azione Cattolica.">
+  <header class="testa-pagina">
+    <div class="contenitore">
+      <p class="occhiello">Scrivici</p>
+      <h1>Contatti</h1>
+    </div>
+  </header>
+
+  <div class="contenitore sezione">
+    <div class="griglia">
+      <section>
+        <h2>Segreteria diocesana</h2>
+        <address>
+          <p class="riga-forte">{sito.contatti.sede}<br />{sito.contatti.comune}</p>
+          <p>
+            <a href={`tel:${sito.contatti.telefonoHref}`}>{sito.contatti.telefono}</a><br />
+            <a href={`mailto:${sito.contatti.email}`}>{sito.contatti.email}</a>
+          </p>
+        </address>
+        <p class="orari">{sito.contatti.orari}</p>
+        <p class="nota">
+          ⚠️ Recapiti ripresi dalla scheda diocesana sul portale nazionale: da confermare.
+          Nel sito definitivo qui andrà un modulo di contatto, previsto come sviluppo
+          successivo al primo lancio.
+        </p>
+      </section>
+
+      <section>
+        <h2>Seguici</h2>
+        <ul class="social">
+          {sito.social.map((s) => (
+            <li><a href={s.url} rel="noopener noreferrer" target="_blank">{s.nome}</a></li>
+          ))}
+        </ul>
+        <p class="nota">
+          ⚠️ I profili collegati sono quelli nazionali: vanno sostituiti con i canali diocesani.
+        </p>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .testa-pagina {
+    padding-block: var(--spazio-xl) var(--spazio-l);
+    border-bottom: var(--bordo-sottile);
+    background: linear-gradient(180deg, var(--col-carta), transparent);
+  }
+  .testa-pagina h1 { font-size: var(--step-5); }
+  .griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: var(--spazio-2xl); }
+  h2 { font-size: var(--step-2); }
+  address { font-style: normal; line-height: 1.9; }
+  .riga-forte { font-size: var(--step-1); font-weight: 600; }
+  .orari { color: var(--col-inchiostro-tenue); }
+  .social { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--spazio-2xs); font-size: var(--step-1); }
+  .nota {
+    margin-top: var(--spazio-l);
+    background: #fff6e2;
+    border: 1px dashed var(--col-ocra);
+    border-radius: var(--raggio);
+    padding: var(--spazio-s) var(--spazio-m);
+    font-size: var(--step--1);
+  }
+</style>

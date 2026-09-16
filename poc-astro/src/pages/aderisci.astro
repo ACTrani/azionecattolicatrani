@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import { sito } from '../data/sito';
+import { url } from '../lib/url';
+---
+
+<Base
+  titolo="Aderisci"
+  descrizione="Cosa significa aderire all'Azione Cattolica e come si fa nell'anno associativo in corso."
+>
+  <section class="apertura">
+    <div class="contenitore">
+      <p class="occhiello occhiello--chiaro">Anno associativo {sito.annoAssociativo}</p>
+      <h1>Aderire è una scelta,<br />non una tessera</h1>
+      <p class="apertura__testo">
+        Aderire all'Azione Cattolica significa dire che la propria fede si gioca dentro
+        una comunità concreta: la parrocchia, la diocesi, la città in cui si vive.
+      </p>
+    </div>
+  </section>
+
+  <div class="contenitore sezione">
+    <div class="passi">
+      <article class="passo">
+        <span class="passo__numero">01</span>
+        <h2>Parla con la tua parrocchia</h2>
+        <p>
+          L'adesione passa dall'associazione parrocchiale. Il presidente parrocchiale o
+          l'educatore del gruppo ti spiegano il cammino e ti consegnano la scheda.
+        </p>
+      </article>
+      <article class="passo">
+        <span class="passo__numero">02</span>
+        <h2>Compila la scheda</h2>
+        <p>
+          Il modulo di adesione si scarica anche da questo sito, nella sezione documenti,
+          insieme all'informativa privacy e alle quote aggiornate.
+        </p>
+      </article>
+      <article class="passo">
+        <span class="passo__numero">03</span>
+        <h2>Consegna in segreteria</h2>
+        <p>
+          La parrocchia raccoglie le adesioni e le consegna alla segreteria diocesana
+          entro i termini indicati nella campagna adesioni.
+        </p>
+      </article>
+    </div>
+
+    <div class="azioni">
+      <a class="bottone" href={url('/documenti')}>Scarica il modulo di adesione</a>
+      <a class="bottone bottone--vuoto" href={url('/contatti')}>Chiedi alla segreteria</a>
+    </div>
+
+    <p class="nota">
+      ⚠️ Testi di esempio: contenuti, quote e scadenze reali vanno forniti dalla Presidenza diocesana.
+    </p>
+  </div>
+</Base>
+
+<style>
+  .apertura {
+    background: var(--col-blu-scuro);
+    color: var(--col-pietra);
+    padding-block: var(--spazio-2xl);
+  }
+  .apertura h1 { font-size: var(--step-5); color: #fff; }
+  .apertura__testo { font-size: var(--step-1); max-width: 34rem; opacity: 0.8; }
+  .occhiello--chiaro { color: var(--col-ocra-chiara); }
+  .occhiello--chiaro::after { background: rgba(255, 255, 255, 0.2); }
+
+  .passi { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--spazio-l); }
+  .passo { border-top: 2px solid var(--col-inchiostro); padding-top: var(--spazio-s); }
+  .passo__numero {
+    display: block;
+    font-family: var(--testo-display);
+    font-size: var(--step-4);
+    font-weight: 700;
+    color: var(--col-ocra);
+    line-height: 1;
+    margin-bottom: var(--spazio-2xs);
+  }
+  .passo h2 { font-size: var(--step-1); }
+  .passo p { color: var(--col-inchiostro-tenue); font-size: var(--step--1); }
+
+  .azioni { display: flex; flex-wrap: wrap; gap: var(--spazio-s); margin-top: var(--spazio-2xl); }
+  .nota {
+    margin-top: var(--spazio-l);
+    background: #fff6e2;
+    border: 1px dashed var(--col-ocra);
+    border-radius: var(--raggio);
+    padding: var(--spazio-s) var(--spazio-m);
+    font-size: var(--step--1);
+    max-width: 44rem;
+  }
+</style>

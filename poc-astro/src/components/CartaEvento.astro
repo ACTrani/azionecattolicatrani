@@ -1,0 +1,127 @@
+---
+import type { Evento } from '../lib/contenuti';
+import { settorePerSlug } from '../data/settori';
+import { giorno, meseBreve, anno, intervallo, iso } from '../lib/date';
+import { url } from '../lib/url';
+import { luogoLeggibile } from '../lib/luogo';
+
+interface Props { evento: Evento; grande?: boolean }
+const { evento, grande = false } = Astro.props;
+const d = evento.data;
+const settore = settorePerSlug(d.settore)!;
+---
+
+<article class={`carta-evento ${grande ? 'carta-evento--grande' : ''}`} data-settore={d.settore}>
+  <div class="carta-evento__data" aria-hidden="true">
+    <span class="carta-evento__giorno">{giorno(d.dataInizio)}</span>
+    <span class="carta-evento__mese">{meseBreve(d.dataInizio)}</span>
+    <span class="carta-evento__anno">{anno(d.dataInizio)}</span>
+  </div>
+
+  <div class="carta-evento__corpo">
+    <span class="etichetta">{settore.nome}</span>
+    <h3 class="carta-evento__titolo">
+      <a href={url(`/eventi/${evento.id}`)}>{d.titolo}</a>
+    </h3>
+    <p class="carta-evento__sommario">{d.sommario}</p>
+
+    <dl class="carta-evento__meta">
+      <dt class="visivamente-nascosto">Data</dt>
+      <dd><time datetime={iso(d.dataInizio)}>{intervallo(d.dataInizio, d.dataFine)}</time>{d.orario ? `, ${d.orario}` : ''}</dd>
+      <dt class="visivamente-nascosto">Luogo</dt>
+      <dd>{luogoLeggibile(d.luogo)}</dd>
+    </dl>
+
+    {d.annullato && <p class="carta-evento__annullato">Appuntamento annullato</p>}
+  </div>
+</article>
+
+<style>
+  .carta-evento {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--spazio-m);
+    padding: var(--spazio-m) 0;
+    border-top: 2px solid var(--col-inchiostro);
+    background: transparent;
+    transition: background var(--transizione);
+  }
+  .carta-evento:hover { background: linear-gradient(to bottom, rgba(255,253,248,.9), transparent 70%); }
+
+  /* Il blocco data è l'elemento grafico forte del sito */
+  .carta-evento__data {
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    min-width: 4.75rem;
+    padding: 0.5rem 0.6rem 0.65rem;
+    background: var(--col-settore);
+    color: #fff;
+    border-radius: var(--raggio);
+    line-height: 1;
+  }
+  .carta-evento__giorno {
+    font-family: var(--testo-display);
+    font-size: 2.1rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+  }
+  .carta-evento__mese {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    margin-top: 0.3rem;
+  }
+  .carta-evento__anno { font-size: 0.65rem; opacity: 0.7; margin-top: 0.25rem; letter-spacing: 0.1em; }
+
+  .carta-evento__titolo {
+    font-size: var(--step-1);
+    margin: var(--spazio-3xs) 0 var(--spazio-2xs);
+  }
+  .carta-evento__titolo a {
+    color: inherit;
+    text-decoration: none;
+    background-image: linear-gradient(var(--col-settore), var(--col-settore));
+    background-size: 0% 2px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size var(--transizione);
+  }
+  .carta-evento__titolo a:hover { background-size: 100% 2px; }
+  /* Rende cliccabile tutta la card senza annidare link */
+  .carta-evento__titolo a::after { content: ''; position: absolute; inset: 0; }
+  .carta-evento { position: relative; }
+
+  .carta-evento__sommario { color: var(--col-inchiostro-tenue); margin-bottom: var(--spazio-s); }
+  .carta-evento__meta { margin: 0; display: grid; gap: 0.2rem; font-size: var(--step--1); }
+  .carta-evento__meta dd { margin: 0; color: var(--col-inchiostro-tenue); }
+  .carta-evento__meta dd:first-of-type { font-weight: 600; color: var(--col-inchiostro); }
+  .carta-evento__annullato {
+    margin-top: var(--spazio-2xs);
+    color: #b3261e;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+  }
+
+  .carta-evento--grande { border-top-width: 3px; }
+  .carta-evento--grande .carta-evento__titolo { font-size: var(--step-3); }
+  .carta-evento--grande .carta-evento__data { min-width: 6.5rem; padding: 0.85rem 0.9rem 1rem; }
+  .carta-evento--grande .carta-evento__giorno { font-size: 3.2rem; }
+  .carta-evento--grande .carta-evento__sommario { font-size: var(--step-1); max-width: 34rem; }
+
+  @media (max-width: 34rem) {
+    .carta-evento { grid-template-columns: 1fr; gap: var(--spazio-s); }
+    .carta-evento__data {
+      justify-self: start;
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      padding: 0.4rem 0.7rem;
+    }
+    .carta-evento__giorno, .carta-evento--grande .carta-evento__giorno { font-size: 1.5rem; }
+    .carta-evento__mese, .carta-evento__anno { margin-top: 0; }
+  }
+</style>

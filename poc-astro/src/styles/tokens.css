@@ -1,0 +1,79 @@
+/*
+ * TOKEN DI DESIGN
+ * ---------------------------------------------------------------------------
+ * Questo è il file che i grafici toccano per primo: colori, tipografia e
+ * spaziature del sito vivono tutti qui.
+ *
+ * Ogni token corrisponde a una voce di `theme.json` nel futuro block theme
+ * WordPress, così il passaggio dal PoC al tema non è una riscrittura:
+ *   --col-*    →  settings.color.palette
+ *   --font-*   →  settings.typography.fontFamilies
+ *   --step-*   →  settings.typography.fontSizes (fluidi)
+ *   --spazio-* →  settings.spacing.spacingSizes
+ */
+
+:root {
+  /* — Colori ————————————————————————————————————————————— */
+  /* Pietra di Trani: il fondo non è mai bianco puro */
+  --col-pietra: #f7f2e9;
+  --col-pietra-scura: #ece4d6;
+  --col-carta: #fffdf8;
+
+  /* Inchiostro e blu Adriatico */
+  --col-inchiostro: #14202f;
+  --col-inchiostro-tenue: #4a5a6d;
+  --col-blu: #1f3f6b;
+  --col-blu-scuro: #12283f;
+
+  /* Accento: ocra, il caldo della pietra al tramonto */
+  --col-ocra: #c0761b;
+  --col-ocra-chiara: #e8a33f;
+
+  --col-bordo: #d9cfbd;
+  --col-bordo-tenue: #e6ded0;
+
+  /* Tinta di settore: sovrascritta da [data-settore] */
+  --col-settore: var(--col-blu);
+
+  /* — Tipografia ————————————————————————————————————————— */
+  /* --font-display (Fraunces) e --font-body (Archivo) arrivano da astro.config */
+  --testo-display: var(--font-display), Georgia, serif;
+  --testo-corpo: var(--font-body), system-ui, sans-serif;
+
+  /* Scala fluida: da 320px a 1280px */
+  --step--1: clamp(0.83rem, 0.79rem + 0.18vw, 0.94rem);
+  --step-0: clamp(1rem, 0.95rem + 0.24vw, 1.13rem);
+  --step-1: clamp(1.2rem, 1.11rem + 0.44vw, 1.45rem);
+  --step-2: clamp(1.44rem, 1.28rem + 0.78vw, 1.86rem);
+  --step-3: clamp(1.73rem, 1.47rem + 1.27vw, 2.39rem);
+  --step-4: clamp(2.07rem, 1.68rem + 1.97vw, 3.06rem);
+  --step-5: clamp(2.49rem, 1.9rem + 2.94vw, 3.93rem);
+  --step-6: clamp(2.99rem, 2.13rem + 4.29vw, 5.05rem);
+
+  /* — Spazio ————————————————————————————————————————————— */
+  --spazio-3xs: 0.25rem;
+  --spazio-2xs: 0.5rem;
+  --spazio-xs: 0.75rem;
+  --spazio-s: 1rem;
+  --spazio-m: 1.5rem;
+  --spazio-l: 2.25rem;
+  --spazio-xl: 3.5rem;
+  --spazio-2xl: 5rem;
+  --spazio-3xl: 7.5rem;
+
+  /* — Struttura ——————————————————————————————————————————— */
+  --larghezza-max: 76rem;
+  --larghezza-testo: 38rem;
+  --raggio: 2px; /* squadrato: niente angoli morbidi da template generico */
+  --bordo-sottile: 1px solid var(--col-bordo);
+  --ombra-carta: 0 1px 0 var(--col-bordo), 0 12px 28px -18px rgba(20, 32, 47, 0.5);
+  --transizione: 220ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* Tinte per settore — nel tema WordPress diventano classi di preset */
+[data-settore='unitario'] { --col-settore: #1f3f6b; }
+[data-settore='adulti']   { --col-settore: #2c6e63; }
+[data-settore='giovani']  { --col-settore: #b5651d; }
+[data-settore='acr']      { --col-settore: #c0392b; }
+[data-settore='msac']     { --col-settore: #5b4b8a; }
+[data-settore='mlac']     { --col-settore: #6b7a3a; }

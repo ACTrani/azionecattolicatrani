@@ -1,0 +1,134 @@
+---
+import { url } from '../lib/url';
+
+const voci = [
+  { testo: "L'associazione", href: url('/associazione') },
+  { testo: 'Eventi', href: url('/eventi') },
+  { testo: 'Notizie', href: url('/notizie') },
+  { testo: 'Documenti', href: url('/documenti') },
+  { testo: 'Contatti', href: url('/contatti') },
+];
+
+const { percorso = '' } = Astro.props;
+const attiva = (href: string) => percorso.startsWith(href) && href !== url('/');
+---
+
+<header class="testata">
+  <div class="contenitore testata__riga">
+    <a class="marchio" href={url('/')}>
+      <span class="marchio__sigla" aria-hidden="true">AC</span>
+      <span class="marchio__testo">
+        <span class="marchio__nome">Azione Cattolica</span>
+        <span class="marchio__diocesi">Trani · Barletta · Bisceglie</span>
+      </span>
+    </a>
+
+    <input type="checkbox" id="apri-menu" class="interruttore" />
+    <label for="apri-menu" class="pulsante-menu">
+      <span aria-hidden="true"></span>
+      <span class="visivamente-nascosto">Apri il menu</span>
+    </label>
+
+    <nav class="navigazione" aria-label="Menu principale">
+      <ul>
+        {voci.map((v) => (
+          <li>
+            <a href={v.href} aria-current={attiva(v.href) ? 'page' : undefined}>{v.testo}</a>
+          </li>
+        ))}
+      </ul>
+      <a class="bottone bottone--chiaro" href={url('/aderisci')}>Aderisci</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .testata {
+    background: var(--col-pietra);
+    border-bottom: var(--bordo-sottile);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(6px);
+  }
+  .testata__riga {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spazio-m);
+    min-height: 5rem;
+  }
+
+  .marchio { display: flex; align-items: center; gap: var(--spazio-xs); text-decoration: none; color: inherit; }
+  .marchio__sigla {
+    font-family: var(--testo-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--col-pietra);
+    background: var(--col-blu);
+    width: 2.6rem; height: 2.6rem;
+    display: grid; place-items: center;
+    border-radius: var(--raggio);
+  }
+  .marchio__testo { display: flex; flex-direction: column; line-height: 1.15; }
+  .marchio__nome { font-family: var(--testo-display); font-size: 1.1rem; font-weight: 600; }
+  .marchio__diocesi {
+    font-size: 0.68rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--col-inchiostro-tenue);
+  }
+
+  .navigazione { display: flex; align-items: center; gap: var(--spazio-m); }
+  .navigazione ul { display: flex; gap: var(--spazio-m); list-style: none; margin: 0; padding: 0; }
+  .navigazione a {
+    text-decoration: none;
+    color: var(--col-inchiostro);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding-block: 0.35rem;
+    border-bottom: 2px solid transparent;
+    transition: border-color var(--transizione), color var(--transizione);
+  }
+  .navigazione ul a:hover { border-color: var(--col-ocra); color: var(--col-ocra); }
+  .navigazione a[aria-current='page'] { border-color: var(--col-blu); }
+  .navigazione .bottone { border-bottom-width: 1px; }
+
+  .interruttore, .pulsante-menu { display: none; }
+
+  @media (max-width: 62rem) {
+    .pulsante-menu {
+      display: block;
+      width: 2.75rem; height: 2.75rem;
+      border: var(--bordo-sottile);
+      border-radius: var(--raggio);
+      cursor: pointer;
+      position: relative;
+      background: transparent;
+    }
+    .pulsante-menu span[aria-hidden] {
+      position: absolute; inset: 50% 22% auto 22%;
+      height: 2px; background: var(--col-inchiostro);
+      box-shadow: 0 -7px 0 var(--col-inchiostro), 0 7px 0 var(--col-inchiostro);
+    }
+    .navigazione {
+      display: none;
+      position: absolute;
+      inset: 100% 0 auto 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--spazio-s);
+      background: var(--col-carta);
+      border-bottom: var(--bordo-sottile);
+      padding: var(--spazio-m) 1.25rem var(--spazio-l);
+      box-shadow: var(--ombra-carta);
+    }
+    .navigazione ul { flex-direction: column; gap: 0; }
+    .navigazione ul li { border-bottom: 1px solid var(--col-bordo-tenue); }
+    .navigazione ul a { display: block; padding: var(--spazio-s) 0; font-size: var(--step-0); border-bottom: none; }
+    .navigazione .bottone { justify-content: center; }
+    .interruttore:checked ~ .navigazione { display: flex; }
+  }
+</style>

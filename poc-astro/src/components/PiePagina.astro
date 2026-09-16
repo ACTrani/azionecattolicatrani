@@ -1,0 +1,109 @@
+---
+import { url } from '../lib/url';
+import { sito } from '../data/sito';
+import { settori } from '../data/settori';
+const annoCorrente = new Date().getFullYear();
+---
+
+<footer class="piede">
+  <div class="contenitore piede__griglia">
+    <div class="piede__identita">
+      <p class="piede__sigla">Azione Cattolica Italiana</p>
+      <p class="piede__diocesi">{sito.diocesi}</p>
+      <p class="piede__claim">{sito.claim}</p>
+    </div>
+
+    <div>
+      <h2 class="piede__titolo">Sede</h2>
+      <address>
+        {sito.contatti.sede}<br />
+        {sito.contatti.comune}<br />
+        <a href={`tel:${sito.contatti.telefonoHref}`}>{sito.contatti.telefono}</a><br />
+        <a href={`mailto:${sito.contatti.email}`}>{sito.contatti.email}</a>
+      </address>
+      <p class="piede__orari">{sito.contatti.orari}</p>
+    </div>
+
+    <div>
+      <h2 class="piede__titolo">Settori</h2>
+      <ul class="piede__elenco">
+        {settori.map((s) => (
+          <li><a href={`${url('/eventi')}?settore=${s.slug}`}>{s.nomeEsteso}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="piede__titolo">Il sito</h2>
+      <ul class="piede__elenco">
+        <li><a href={url('/eventi')}>Eventi</a></li>
+        <li><a href={url('/notizie')}>Notizie e comunicati</a></li>
+        <li><a href={url('/documenti')}>Documenti e modulistica</a></li>
+        <li><a href={url('/aderisci')}>Aderisci</a></li>
+        <li><a href={url('/contatti')}>Contatti</a></li>
+      </ul>
+      <h2 class="piede__titolo piede__titolo--distanziato">Social</h2>
+      <ul class="piede__elenco">
+        {sito.social.map((s) => (
+          <li><a href={s.url} rel="noopener noreferrer" target="_blank">{s.nome}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="contenitore piede__legale">
+    <p>© {annoCorrente} Azione Cattolica Italiana — {sito.diocesi}</p>
+    <p class="piede__nota">Prototipo a scopo di valutazione: non è il sito ufficiale dell'associazione.</p>
+  </div>
+</footer>
+
+<style>
+  .piede {
+    background: var(--col-blu-scuro);
+    color: #cfd8e3;
+    margin-top: var(--spazio-3xl);
+    padding-block: var(--spazio-xl) var(--spazio-m);
+    font-size: var(--step--1);
+  }
+  .piede__griglia {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    gap: var(--spazio-xl) var(--spazio-l);
+  }
+  .piede__identita { grid-column: span 1; }
+  .piede__sigla {
+    font-family: var(--testo-display);
+    font-size: var(--step-1);
+    color: #fff;
+    margin-bottom: 0.15rem;
+  }
+  .piede__diocesi { color: var(--col-ocra-chiara); font-weight: 600; margin-bottom: var(--spazio-s); }
+  .piede__claim { max-width: 22rem; opacity: 0.75; font-style: italic; }
+  .piede__titolo {
+    font-family: var(--testo-corpo);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #8fa3bb;
+    margin-bottom: var(--spazio-s);
+  }
+  .piede__titolo--distanziato { margin-top: var(--spazio-m); }
+  .piede__elenco { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+  .piede a { color: #e4ebf3; text-decoration: none; }
+  .piede a:hover { color: var(--col-ocra-chiara); text-decoration: underline; }
+  address { font-style: normal; line-height: 1.8; }
+  .piede__orari { margin-top: var(--spazio-s); opacity: 0.7; }
+  .piede__legale {
+    margin-top: var(--spazio-xl);
+    padding-top: var(--spazio-m);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--spazio-2xs);
+    opacity: 0.6;
+    font-size: 0.78rem;
+  }
+  .piede__legale p { margin: 0; }
+</style>

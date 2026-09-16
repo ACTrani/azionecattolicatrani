@@ -1,0 +1,178 @@
+@import './tokens.css';
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--col-pietra);
+  color: var(--col-inchiostro);
+  font-family: var(--testo-corpo);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Grana della carta: dà materia al fondo senza usare immagini */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+body > * { position: relative; z-index: 1; }
+
+h1, h2, h3, h4 {
+  font-family: var(--testo-display);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin: 0 0 var(--spazio-s);
+  text-wrap: balance;
+}
+h1 { font-size: var(--step-5); }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-1); }
+
+p { margin: 0 0 var(--spazio-s); text-wrap: pretty; }
+
+a { color: var(--col-blu); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { color: var(--col-ocra); }
+
+:focus-visible {
+  outline: 3px solid var(--col-ocra);
+  outline-offset: 3px;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+/* — Struttura ————————————————————————————————————————————— */
+.contenitore {
+  width: min(100% - 2.5rem, var(--larghezza-max));
+  margin-inline: auto;
+}
+.sezione { padding-block: var(--spazio-2xl); }
+main { flex: 1; }
+
+/* — Occhiello: il piccolo titolo di sezione, marchio editoriale del sito — */
+.occhiello {
+  font-family: var(--testo-corpo);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--col-inchiostro-tenue);
+  display: flex;
+  align-items: center;
+  gap: var(--spazio-s);
+  margin-bottom: var(--spazio-m);
+}
+.occhiello::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--col-bordo);
+}
+
+/* — Etichetta di settore ——————————————————————————————————— */
+.etichetta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--col-settore);
+  text-decoration: none;
+}
+.etichetta::before {
+  content: '';
+  width: 0.55em;
+  height: 0.55em;
+  background: var(--col-settore);
+  border-radius: 50%;
+}
+
+/* — Bottoni ———————————————————————————————————————————————— */
+.bottone {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spazio-2xs);
+  padding: 0.75em 1.4em;
+  font-family: var(--testo-corpo);
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--col-inchiostro);
+  border-radius: var(--raggio);
+  background: var(--col-inchiostro);
+  color: var(--col-pietra);
+  cursor: pointer;
+  transition: background var(--transizione), color var(--transizione), transform var(--transizione);
+}
+.bottone:hover { background: var(--col-ocra); border-color: var(--col-ocra); color: #fff; transform: translateY(-2px); }
+.bottone--vuoto { background: transparent; color: var(--col-inchiostro); }
+.bottone--vuoto:hover { background: var(--col-inchiostro); color: var(--col-pietra); border-color: var(--col-inchiostro); }
+.bottone--chiaro { background: var(--col-ocra); border-color: var(--col-ocra); color: #fff; }
+
+/* — Rivelazione allo scroll ————————————————————————————————— */
+@media (prefers-reduced-motion: no-preference) {
+  .rivela {
+    animation: rivela linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+  @keyframes rivela {
+    from { opacity: 0; transform: translateY(1.75rem); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+.salta-al-contenuto {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--col-inchiostro);
+  color: var(--col-pietra);
+  padding: var(--spazio-s);
+  z-index: 100;
+}
+.salta-al-contenuto:focus { left: 0; }
+
+.visivamente-nascosto {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/*
+ * [hidden] deve battere qualunque `display` dichiarato dai componenti:
+ * senza questa riga un elemento con `display: grid` resta visibile anche
+ * quando i filtri lo nascondono.
+ */
+[hidden] { display: none !important; }

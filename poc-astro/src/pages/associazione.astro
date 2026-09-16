@@ -1,0 +1,138 @@
+---
+import Base from '../layouts/Base.astro';
+import { settori } from '../data/settori';
+import { sito } from '../data/sito';
+import { url } from '../lib/url';
+---
+
+<Base
+  titolo="L'associazione"
+  descrizione="Chi siamo, come siamo organizzati e quali sono i settori dell'Azione Cattolica nell'Arcidiocesi di Trani – Barletta – Bisceglie."
+>
+  <header class="testa-pagina">
+    <div class="contenitore">
+      <p class="occhiello">Chi siamo</p>
+      <h1>L'associazione</h1>
+    </div>
+  </header>
+
+  <div class="contenitore">
+    <section class="intro sezione">
+      <p class="intro__guida">
+        L'Azione Cattolica è un'associazione di laici che scelgono di servire la Chiesa
+        locale in modo stabile e organizzato, camminando insieme al vescovo e alla
+        comunità diocesana.
+      </p>
+      <p>
+        Nell'Arcidiocesi di Trani – Barletta – Bisceglie l'associazione è presente nelle
+        parrocchie delle tre città con gruppi di ragazzi, giovani e adulti. Ogni
+        associazione parrocchiale è autonoma nella vita quotidiana e si riconosce in un
+        cammino diocesano comune, scandito dalla programmazione annuale e dagli
+        appuntamenti unitari.
+      </p>
+      <p>
+        L'anno associativo si apre in autunno con l'assemblea diocesana e si chiude in
+        estate con i campi scuola. Nel mezzo: formazione, servizio, spiritualità e
+        impegno nella città.
+      </p>
+    </section>
+
+    <section class="sezione">
+      <h2 class="occhiello">I settori e le articolazioni</h2>
+      <div class="griglia-settori">
+        {settori.map((s) => (
+          <article class="scheda-settore" data-settore={s.slug}>
+            <p class="scheda-settore__eta">{s.eta}</p>
+            <h3>{s.nomeEsteso}</h3>
+            <p class="scheda-settore__testo">{s.descrizione}</p>
+            <a class="scheda-settore__link" href={`${url('/eventi')}?settore=${s.slug}`}>
+              Appuntamenti del settore →
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="sezione">
+      <h2 class="occhiello">Presidenza diocesana</h2>
+      <p class="nota-segnaposto">
+        ⚠️ <strong>Contenuto da completare.</strong> I nomi dei componenti della
+        Presidenza vanno forniti dall'associazione: qui sono indicati solo i ruoli.
+      </p>
+      <ul class="presidenza">
+        {sito.presidenza.map((p) => (
+          <li>
+            <span class="presidenza__ruolo">{p.ruolo}</span>
+            <span class="presidenza__nome">{p.nome}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .testa-pagina {
+    padding-block: var(--spazio-xl) var(--spazio-l);
+    border-bottom: var(--bordo-sottile);
+    background: linear-gradient(180deg, var(--col-carta), transparent);
+  }
+  .testa-pagina h1 { font-size: var(--step-5); }
+
+  .intro { max-width: 44rem; }
+  .intro__guida {
+    font-family: var(--testo-display);
+    font-size: var(--step-2);
+    line-height: 1.35;
+    color: var(--col-blu);
+    border-left: 4px solid var(--col-ocra);
+    padding-left: var(--spazio-m);
+    margin-bottom: var(--spazio-l);
+  }
+
+  .griglia-settori {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: var(--spazio-m);
+  }
+  .scheda-settore {
+    padding: var(--spazio-m);
+    background: var(--col-carta);
+    border: var(--bordo-sottile);
+    border-top: 4px solid var(--col-settore);
+    border-radius: var(--raggio);
+    display: flex;
+    flex-direction: column;
+  }
+  .scheda-settore__eta {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--col-settore);
+    margin-bottom: var(--spazio-2xs);
+  }
+  .scheda-settore h3 { font-size: var(--step-1); }
+  .scheda-settore__testo { color: var(--col-inchiostro-tenue); font-size: var(--step--1); flex: 1; }
+  .scheda-settore__link { font-size: var(--step--1); font-weight: 600; text-decoration: none; }
+
+  .nota-segnaposto {
+    background: #fff6e2;
+    border: 1px dashed var(--col-ocra);
+    border-radius: var(--raggio);
+    padding: var(--spazio-s) var(--spazio-m);
+    font-size: var(--step--1);
+    max-width: 44rem;
+  }
+  .presidenza { list-style: none; margin: var(--spazio-l) 0 0; padding: 0; max-width: 44rem; }
+  .presidenza li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--spazio-s);
+    padding: var(--spazio-s) 0;
+    border-bottom: 1px solid var(--col-bordo-tenue);
+  }
+  .presidenza__ruolo { font-weight: 600; }
+  .presidenza__nome { color: var(--col-inchiostro-tenue); font-style: italic; }
+</style>

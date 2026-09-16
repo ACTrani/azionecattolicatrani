@@ -1,0 +1,70 @@
+# Pubblica il prototipo Astro su GitHub Pages.
+#
+# Prima che funzioni serve un passaggio manuale, una volta sola:
+#   Settings → Pages → Build and deployment → Source: "GitHub Actions"
+#
+# Nota: su repository privati GitHub Pages richiede un piano a pagamento.
+# Se il repository resta privato, vedi le alternative nel README del PoC.
+name: PoC — deploy su GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'poc-astro/**'
+      - '.github/workflows/poc-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Una pubblicazione alla volta; non annulla quella in corso
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: poc-astro
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: poc-astro/package-lock.json
+
+      - run: npm ci
+
+      # Va prima della build: è questo passo a dire in quale sottocartella
+      # vivrà il sito, e la build ha bisogno di saperlo.
+      - uses: actions/configure-pages@v5
+        id: pages
+
+      - name: Build
+        # Su Pages il sito sta in /<nome-repo>/: senza BASE_PATH tutti i link
+        # e i CSS puntano alla radice e la pagina esce senza stili.
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          SITE_URL: ${{ steps.pages.outputs.origin }}
+        run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: poc-astro/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,47 @@
+---
+import Font from 'astro/components/Font.astro';
+import Intestazione from '../components/Intestazione.astro';
+import PiePagina from '../components/PiePagina.astro';
+import BannerPoc from '../components/BannerPoc.astro';
+import { sito } from '../data/sito';
+import '../styles/global.css';
+
+interface Props {
+  titolo: string;
+  descrizione?: string;
+}
+
+const { titolo, descrizione = sito.claim } = Astro.props;
+const titoloCompleto = `${titolo} — Azione Cattolica ${sito.diocesi.replace('Arcidiocesi di ', '')}`;
+const percorso = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titoloCompleto}</title>
+    <meta name="description" content={descrizione} />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:title" content={titoloCompleto} />
+    <meta property="og:description" content={descrizione} />
+    <meta property="og:site_name" content="Azione Cattolica — Trani, Barletta, Bisceglie" />
+
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-body" preload />
+  </head>
+
+  <body>
+    <a class="salta-al-contenuto" href="#contenuto">Salta al contenuto</a>
+    <BannerPoc />
+    <Intestazione percorso={percorso} />
+    <main id="contenuto">
+      <slot />
+    </main>
+    <PiePagina />
+  </body>
+</html>

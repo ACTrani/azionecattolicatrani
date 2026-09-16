@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import CartaNotizia from '../../components/CartaNotizia.astro';
+import { tutteLeNotizie } from '../../lib/contenuti';
+
+const notizie = await tutteLeNotizie();
+const comunicati = notizie.filter((n) => n.data.comunicato);
+const altre = notizie.filter((n) => !n.data.comunicato);
+---
+
+<Base
+  titolo="Notizie e comunicati"
+  descrizione="Notizie dalla vita associativa e comunicati ufficiali della Presidenza diocesana."
+>
+  <header class="testa-pagina">
+    <div class="contenitore">
+      <p class="occhiello">Dalla diocesi</p>
+      <h1>Notizie e comunicati</h1>
+      <p class="testa-pagina__intro">
+        I comunicati ufficiali della Presidenza e le notizie dalla vita dell'associazione.
+      </p>
+    </div>
+  </header>
+
+  <div class="contenitore">
+    {comunicati.length > 0 && (
+      <section class="sezione">
+        <h2 class="occhiello">Comunicati ufficiali</h2>
+        <div class="griglia">{comunicati.map((n) => <CartaNotizia notizia={n} />)}</div>
+      </section>
+    )}
+
+    <section class="sezione">
+      <h2 class="occhiello">Dalla vita associativa</h2>
+      <div class="griglia">{altre.map((n) => <CartaNotizia notizia={n} />)}</div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .testa-pagina {
+    padding-block: var(--spazio-xl) var(--spazio-l);
+    border-bottom: var(--bordo-sottile);
+    background: linear-gradient(180deg, var(--col-carta), transparent);
+  }
+  .testa-pagina h1 { font-size: var(--step-5); }
+  .testa-pagina__intro { max-width: var(--larghezza-testo); color: var(--col-inchiostro-tenue); font-size: var(--step-1); }
+  .griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: var(--spazio-m); }
+</style>

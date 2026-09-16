@@ -1,0 +1,171 @@
+---
+import Base from '../../layouts/Base.astro';
+import CartaEvento from '../../components/CartaEvento.astro';
+import { eventiProssimi, eventiPassati } from '../../lib/contenuti';
+import { settori } from '../../data/settori';
+import { url } from '../../lib/url';
+
+const prossimi = await eventiProssimi();
+const passati = await eventiPassati();
+---
+
+<Base
+  titolo="Eventi"
+  descrizione="Il calendario degli appuntamenti diocesani dell'Azione Cattolica: assemblee, ritiri, campi, formazione."
+>
+  <header class="testa-pagina">
+    <div class="contenitore">
+      <p class="occhiello">Calendario diocesano</p>
+      <h1>Eventi</h1>
+      <p class="testa-pagina__intro">
+        Tutti gli appuntamenti dell'associazione diocesana. Usa i filtri per vedere
+        solo quelli del tuo settore.
+      </p>
+    </div>
+  </header>
+
+  <div class="contenitore">
+    <!-- Filtri: funzionano lato browser, quindi il sito resta interamente statico -->
+    <nav class="filtri" aria-label="Filtra gli eventi per settore">
+      <button class="filtro filtro--attivo" data-settore="tutti" aria-pressed="true">Tutti</button>
+      {settori.map((s) => (
+        <button class="filtro" data-settore={s.slug} aria-pressed="false" style={`--col-settore:${s.tinta}`}>
+          {s.nome}
+        </button>
+      ))}
+    </nav>
+
+    <section class="sezione-eventi">
+      <h2 class="occhiello">Prossimi appuntamenti</h2>
+      <div id="elenco-prossimi" class="elenco">
+        {prossimi.map((e) => (
+          <div class="voce" data-filtro-settore={e.data.settore}>
+            <CartaEvento evento={e} />
+          </div>
+        ))}
+      </div>
+      <p id="nessun-prossimo" class="vuoto" hidden>Nessun appuntamento in programma per questo settore.</p>
+    </section>
+
+    {passati.length > 0 && (
+      <section class="sezione-eventi">
+        <h2 class="occhiello">Appuntamenti passati</h2>
+        <div id="elenco-passati" class="elenco elenco--tenue">
+          {passati.map((e) => (
+            <div class="voce" data-filtro-settore={e.data.settore}>
+              <CartaEvento evento={e} />
+            </div>
+          ))}
+        </div>
+        <p id="nessun-passato" class="vuoto" hidden>Nessun appuntamento passato per questo settore.</p>
+      </section>
+    )}
+
+    <aside class="calendario-invito">
+      <h2>Porta il calendario con te</h2>
+      <p>
+        Puoi sottoscrivere il calendario diocesano dal tuo telefono: gli appuntamenti
+        compariranno in Google Calendar o nel calendario di iPhone e si aggiorneranno
+        da soli.
+      </p>
+      <a class="bottone" href={url('/calendario.ics')}>Scarica il calendario (.ics)</a>
+    </aside>
+  </div>
+</Base>
+
+<script>
+  const bottoni = document.querySelectorAll<HTMLButtonElement>('.filtro');
+  const voci = document.querySelectorAll<HTMLElement>('.voce');
+
+  function applica(settore: string) {
+    voci.forEach((v) => {
+      const mostra = settore === 'tutti' || v.dataset.filtroSettore === settore;
+      v.hidden = !mostra;
+    });
+
+    bottoni.forEach((b) => {
+      const attivo = b.dataset.settore === settore;
+      b.classList.toggle('filtro--attivo', attivo);
+      b.setAttribute('aria-pressed', String(attivo));
+    });
+
+    // Messaggio di "nessun risultato" per ciascuna delle due liste
+    for (const [idElenco, idVuoto] of [
+      ['elenco-prossimi', 'nessun-prossimo'],
+      ['elenco-passati', 'nessun-passato'],
+    ]) {
+      const elenco = document.getElementById(idElenco);
+      const vuoto = document.getElementById(idVuoto);
+      if (!elenco || !vuoto) continue;
+      const visibili = elenco.querySelectorAll<HTMLElement>('.voce:not([hidden])').length;
+      vuoto.hidden = visibili > 0;
+    }
+
+    // L'URL riflette il filtro: il link è condivisibile
+    const u = new URL(window.location.href);
+    if (settore === 'tutti') u.searchParams.delete('settore');
+    else u.searchParams.set('settore', settore);
+    history.replaceState(null, '', u);
+  }
+
+  bottoni.forEach((b) => b.addEventListener('click', () => applica(b.dataset.settore!)));
+
+  const iniziale = new URL(window.location.href).searchParams.get('settore');
+  if (iniziale) applica(iniziale);
+</script>
+
+<style>
+  .testa-pagina {
+    padding-block: var(--spazio-xl) var(--spazio-l);
+    border-bottom: var(--bordo-sottile);
+    background: linear-gradient(180deg, var(--col-carta), transparent);
+    margin-bottom: var(--spazio-xl);
+  }
+  .testa-pagina h1 { font-size: var(--step-5); }
+  .testa-pagina__intro { max-width: var(--larghezza-testo); color: var(--col-inchiostro-tenue); font-size: var(--step-1); }
+
+  .filtri {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spazio-2xs);
+    padding-bottom: var(--spazio-l);
+    border-bottom: 1px solid var(--col-bordo-tenue);
+  }
+  .filtro {
+    font-family: var(--testo-corpo);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 0.5em 1em;
+    border: 1px solid var(--col-bordo);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--col-inchiostro-tenue);
+    cursor: pointer;
+    transition: all var(--transizione);
+  }
+  .filtro:hover { border-color: var(--col-settore); color: var(--col-settore); }
+  .filtro--attivo {
+    background: var(--col-settore);
+    border-color: var(--col-settore);
+    color: #fff;
+  }
+  .filtro[data-settore='tutti'] { --col-settore: var(--col-inchiostro); }
+
+  .sezione-eventi { padding-block: var(--spazio-xl); }
+  .elenco--tenue { opacity: 0.62; }
+  .elenco--tenue:hover { opacity: 1; }
+  .vuoto { color: var(--col-inchiostro-tenue); font-style: italic; padding-block: var(--spazio-m); }
+
+  .calendario-invito {
+    margin-block: var(--spazio-xl);
+    padding: var(--spazio-l);
+    background: var(--col-carta);
+    border: var(--bordo-sottile);
+    border-left: 5px solid var(--col-ocra);
+    border-radius: var(--raggio);
+    max-width: 44rem;
+  }
+  .calendario-invito h2 { font-size: var(--step-2); }
+  .calendario-invito p { color: var(--col-inchiostro-tenue); max-width: 34rem; }
+</style>

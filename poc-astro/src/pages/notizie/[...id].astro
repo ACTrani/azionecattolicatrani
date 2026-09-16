@@ -1,0 +1,65 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { tutteLeNotizie } from '../../lib/contenuti';
+import { settorePerSlug } from '../../data/settori';
+import { dataEstesa, iso } from '../../lib/date';
+import { url } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const notizie = await tutteLeNotizie();
+  return notizie.map((notizia) => ({ params: { id: notizia.id }, props: { notizia } }));
+}
+
+const { notizia } = Astro.props;
+const d = notizia.data;
+const settore = settorePerSlug(d.settore)!;
+const { Content } = await render(notizia);
+---
+
+<Base titolo={d.titolo} descrizione={d.sommario}>
+  <article data-settore={d.settore} class="articolo">
+    <header class="testa-articolo contenitore">
+      <p class="briciole"><a href={url('/notizie')}>Notizie</a> <span aria-hidden="true">›</span> {settore.nomeEsteso}</p>
+      <div class="testa-articolo__alto">
+        <span class="etichetta">{settore.nome}</span>
+        {d.comunicato && <span class="bollo">Comunicato ufficiale</span>}
+      </div>
+      <h1>{d.titolo}</h1>
+      <p class="sommario">{d.sommario}</p>
+      <p class="firma">
+        <time datetime={iso(d.data)}>{dataEstesa(d.data)}</time>{d.autore && <> · {d.autore}</>}
+      </p>
+    </header>
+
+    <div class="contenitore">
+      <div class="testo"><Content /></div>
+      <p class="ritorno"><a class="bottone bottone--vuoto" href={url('/notizie')}>Tutte le notizie</a></p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .testa-articolo {
+    padding-block: var(--spazio-xl) var(--spazio-l);
+    max-width: 48rem;
+    border-bottom: 1px solid var(--col-bordo);
+    margin-bottom: var(--spazio-xl);
+  }
+  .testa-articolo h1 { font-size: var(--step-4); margin-block: var(--spazio-2xs) var(--spazio-s); }
+  .testa-articolo__alto { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spazio-s); }
+  .briciole { font-size: var(--step--1); color: var(--col-inchiostro-tenue); margin-bottom: var(--spazio-m); }
+  .briciole a { color: inherit; }
+  .bollo {
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.25em 0.6em; border: 1px solid var(--col-ocra); color: var(--col-ocra); border-radius: var(--raggio);
+  }
+  .sommario { font-size: var(--step-1); color: var(--col-inchiostro-tenue); line-height: 1.5; }
+  .firma { font-size: var(--step--1); color: var(--col-inchiostro-tenue); margin: 0; }
+  .testo { max-width: var(--larghezza-testo); font-size: var(--step-0); }
+  .testo :global(h3) { margin-top: var(--spazio-l); font-size: var(--step-2); }
+  .testo :global(ul) { padding-left: 1.1rem; }
+  .testo :global(li) { margin-bottom: 0.4rem; }
+  .testo :global(em) { color: var(--col-inchiostro-tenue); }
+  .ritorno { margin-top: var(--spazio-xl); }
+</style>

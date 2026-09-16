@@ -1,0 +1,152 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { tuttiGliEventi } from '../../lib/contenuti';
+import { settorePerSlug } from '../../data/settori';
+import { intervallo, dataConGiorno, iso } from '../../lib/date';
+import { url } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const eventi = await tuttiGliEventi();
+  return eventi.map((evento) => ({ params: { id: evento.id }, props: { evento } }));
+}
+
+const { evento } = Astro.props;
+const d = evento.data;
+const settore = settorePerSlug(d.settore)!;
+const { Content } = await render(evento);
+---
+
+<Base titolo={d.titolo} descrizione={d.sommario}>
+  <article data-settore={d.settore}>
+    <header class="testa-evento">
+      <div class="contenitore">
+        <p class="briciole">
+          <a href={url('/eventi')}>Eventi</a> <span aria-hidden="true">›</span> {settore.nomeEsteso}
+        </p>
+        <span class="etichetta">{settore.nome}</span>
+        <h1>{d.titolo}</h1>
+        <p class="testa-evento__sommario">{d.sommario}</p>
+        {d.annullato && <p class="avviso-annullato">Questo appuntamento è stato annullato.</p>}
+      </div>
+    </header>
+
+    <div class="contenitore corpo-evento">
+      <div class="corpo-evento__testo">
+        <Content />
+      </div>
+
+      <aside class="scheda">
+        <h2 class="scheda__titolo">In breve</h2>
+        <dl class="scheda__dati">
+          <dt>Quando</dt>
+          <dd>
+            <time datetime={iso(d.dataInizio)}>
+              {d.dataFine ? intervallo(d.dataInizio, d.dataFine) : dataConGiorno(d.dataInizio)}
+            </time>
+            {d.orario && <><br />{d.orario}</>}
+          </dd>
+
+          <dt>Dove</dt>
+          <dd>
+            {d.luogo.nome}
+            {d.luogo.indirizzo && <><br />{d.luogo.indirizzo}</>}
+            <br />{d.luogo.comune}
+          </dd>
+
+          <dt>Settore</dt>
+          <dd>{settore.nomeEsteso}</dd>
+
+          <dt>Anno associativo</dt>
+          <dd>{d.annoAssociativo}</dd>
+        </dl>
+
+        <div class="scheda__azioni">
+          <a class="bottone" href={url(`/eventi/${evento.id}.ics`)}>Aggiungi al calendario</a>
+          {d.linkIscrizione && (
+            <a class="bottone bottone--vuoto" href={d.linkIscrizione} rel="noopener noreferrer" target="_blank">
+              Iscriviti
+            </a>
+          )}
+        </div>
+      </aside>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .testa-evento {
+    padding-block: var(--spazio-xl) var(--spazio-l);
+    background: linear-gradient(180deg, var(--col-carta), transparent);
+    border-bottom: 3px solid var(--col-settore);
+  }
+  .testa-evento h1 { font-size: var(--step-5); max-width: 22ch; margin-top: var(--spazio-2xs); }
+  .testa-evento__sommario {
+    font-size: var(--step-1);
+    color: var(--col-inchiostro-tenue);
+    max-width: var(--larghezza-testo);
+  }
+  .briciole { font-size: var(--step--1); color: var(--col-inchiostro-tenue); margin-bottom: var(--spazio-m); }
+  .briciole a { color: inherit; }
+  .avviso-annullato {
+    display: inline-block;
+    background: #b3261e;
+    color: #fff;
+    font-weight: 700;
+    padding: 0.5em 1em;
+    border-radius: var(--raggio);
+  }
+
+  .corpo-evento {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    gap: var(--spazio-2xl);
+    align-items: start;
+    padding-block: var(--spazio-xl);
+  }
+  .corpo-evento__testo { max-width: var(--larghezza-testo); font-size: var(--step-0); }
+  .corpo-evento__testo :global(h3) { margin-top: var(--spazio-l); font-size: var(--step-2); }
+  .corpo-evento__testo :global(blockquote) {
+    margin: var(--spazio-l) 0;
+    padding: var(--spazio-s) var(--spazio-m);
+    border-left: 4px solid var(--col-settore);
+    background: var(--col-carta);
+    font-style: italic;
+  }
+  .corpo-evento__testo :global(ul) { padding-left: 1.1rem; }
+  .corpo-evento__testo :global(li) { margin-bottom: 0.4rem; }
+
+  .scheda {
+    position: sticky;
+    top: 7rem;
+    padding: var(--spazio-m);
+    background: var(--col-carta);
+    border: var(--bordo-sottile);
+    border-top: 4px solid var(--col-settore);
+    border-radius: var(--raggio);
+  }
+  .scheda__titolo {
+    font-family: var(--testo-corpo);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--col-inchiostro-tenue);
+    margin-bottom: var(--spazio-m);
+  }
+  .scheda__dati { margin: 0; display: grid; gap: 0.25rem; }
+  .scheda__dati dt {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--col-inchiostro-tenue);
+    margin-top: var(--spazio-s);
+  }
+  .scheda__dati dd { margin: 0; font-weight: 500; }
+  .scheda__azioni { display: grid; gap: var(--spazio-2xs); margin-top: var(--spazio-l); }
+  .scheda__azioni .bottone { justify-content: center; }
+
+  @media (max-width: 58rem) {
+    .corpo-evento { grid-template-columns: 1fr; gap: var(--spazio-xl); }
+    .scheda { position: static; }
+  }
+</style>
