@@ -18,8 +18,12 @@ Non serve alcuna competenza tecnica.
 ### A1. Identità
 - [ ] Denominazione esatta da usare nel sito (es. «Azione Cattolica Italiana —
       Arcidiocesi di Trani – Barletta – Bisceglie»)
-- [ ] **Logo** in buona qualità, meglio se vettoriale (`.ai`, `.eps`, `.svg`, `.pdf`)
+- [x] **Logo** — ricevuti due PNG (a colori e in bianco), già nel prototipo:
+      in testata, nel piede pagina e come icona del browser
+- [ ] Serve ancora l'**originale vettoriale** (`.ai`, `.eps`, `.svg`, `.pdf`): il file a
+      colori è di 696 px, abbastanza per il web ma non per la stampa né per usi grandi
 - [ ] Esiste una **declinazione diocesana** del logo o si usa quello nazionale?
+      Nessuno dei due file ricevuti porta la dicitura della diocesi
 - [ ] Il Centro nazionale ha dato indicazioni sull'uso di marchio, colori e font?
 
 ### A2. Recapiti — *da confermare, oggi presi dal portale nazionale*

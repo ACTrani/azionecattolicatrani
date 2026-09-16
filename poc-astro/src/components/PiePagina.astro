@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { url } from '../lib/url';
+import logo from '../assets/logo-ac-trani-bianco.png';
 import { sito } from '../data/sito';
 import { settori } from '../data/settori';
 const annoCorrente = new Date().getFullYear();
@@ -8,7 +10,7 @@ const annoCorrente = new Date().getFullYear();
 <footer class="piede">
   <div class="contenitore piede__griglia">
     <div class="piede__identita">
-      <p class="piede__sigla">Azione Cattolica Italiana</p>
+      <Image class="piede__segno" src={logo} alt="Azione Cattolica Italiana" width={160} loading="lazy" />
       <p class="piede__diocesi">{sito.diocesi}</p>
       <p class="piede__claim">{sito.claim}</p>
     </div>
@@ -71,12 +73,7 @@ const annoCorrente = new Date().getFullYear();
     gap: var(--spazio-xl) var(--spazio-l);
   }
   .piede__identita { grid-column: span 1; }
-  .piede__sigla {
-    font-family: var(--testo-display);
-    font-size: var(--step-1);
-    color: #fff;
-    margin-bottom: 0.15rem;
-  }
+  .piede__segno { height: 4.25rem; width: auto; margin-bottom: var(--spazio-s); }
   .piede__diocesi { color: var(--col-ocra-chiara); font-weight: 600; margin-bottom: var(--spazio-s); }
   .piede__claim { max-width: 22rem; opacity: 0.75; font-style: italic; }
   .piede__titolo {

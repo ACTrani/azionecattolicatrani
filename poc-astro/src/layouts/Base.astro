@@ -4,6 +4,7 @@ import Intestazione from '../components/Intestazione.astro';
 import PiePagina from '../components/PiePagina.astro';
 import BannerPoc from '../components/BannerPoc.astro';
 import { sito } from '../data/sito';
+import { url } from '../lib/url';
 import '../styles/global.css';
 
 interface Props {
@@ -21,6 +22,8 @@ const percorso = Astro.url.pathname;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href={url("/favicon.ico")} sizes="16x16 32x32 48x48" />
+    <link rel="apple-touch-icon" href={url("/apple-touch-icon.png")} />
     <title>{titoloCompleto}</title>
     <meta name="description" content={descrizione} />
     <meta name="robots" content="noindex, nofollow" />

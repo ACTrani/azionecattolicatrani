@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { url } from '../lib/url';
+import logo from '../assets/logo-ac-trani.png';
 
 const voci = [
   { testo: "L'associazione", href: url('/associazione') },
@@ -16,7 +18,7 @@ const attiva = (href: string) => percorso.startsWith(href) && href !== url('/');
 <header class="testata">
   <div class="contenitore testata__riga">
     <a class="marchio" href={url('/')}>
-      <span class="marchio__sigla" aria-hidden="true">AC</span>
+      <Image class="marchio__segno" src={logo} alt="" width={116} loading="eager" />
       <span class="marchio__testo">
         <span class="marchio__nome">Azione Cattolica</span>
         <span class="marchio__diocesi">Trani · Barletta · Bisceglie</span>
@@ -60,17 +62,7 @@ const attiva = (href: string) => percorso.startsWith(href) && href !== url('/');
   }
 
   .marchio { display: flex; align-items: center; gap: var(--spazio-xs); text-decoration: none; color: inherit; }
-  .marchio__sigla {
-    font-family: var(--testo-display);
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    color: var(--col-pietra);
-    background: var(--col-blu);
-    width: 2.6rem; height: 2.6rem;
-    display: grid; place-items: center;
-    border-radius: var(--raggio);
-  }
+  .marchio__segno { height: 3rem; width: auto; display: block; }
   .marchio__testo { display: flex; flex-direction: column; line-height: 1.15; }
   .marchio__nome { font-family: var(--testo-display); font-size: 1.1rem; font-weight: 600; }
   .marchio__diocesi {
