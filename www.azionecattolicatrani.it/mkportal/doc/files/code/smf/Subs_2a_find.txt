@@ -1,0 +1,9 @@
+if ($do_footer)
+	{
+		// Just show the footer, then.
+		loadSubTemplate(isset($context['sub_template']) ? $context['sub_template'] : 'main');
+		template_footer();
+
+		// (since this is just debugging... it's okay that it's after </html>.)
+		db_debug_junk();
+	}

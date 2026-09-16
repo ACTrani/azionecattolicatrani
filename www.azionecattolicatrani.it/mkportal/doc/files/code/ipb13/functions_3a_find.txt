@@ -1,0 +1,4 @@
+else
+{
+$output_array['MEMBER_BAR'] = $pm_js . $skin_universal->Member_bar($msg_data, $admin_link, $mod_link, $valid_link);
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <title>MKPortal Upgrade</title>
+  <meta name="author" content="Don K. Colburn - Visible Soul Web Design (http://www.visiblesoul.net)" />
+  <meta name="generator" content="VIM 6.3" />
+  <meta name="copyright" content="Template Copyright (c) 2005 visiblesoul.net. All other content Copyright (c) 2005-2006 mkportal.it" />
+  <link rel="stylesheet" type="text/css" href="../../../files/mkstyle.css" />
+</head>
+<body>
+
+<div id="wrapper">
+  
+  <div id="header"></div>
+
+    <div id="main">
+
+<!-- Begin Navigation -->
+      <div id="navblock">
+
+
+	<p class="navtitle">Board:</p>
+	<ul class="nav">
+	  <li><img src="../../../files/smf.gif" alt="" /> <a href="smf.htm">SMF</a></li>
+	  <li><img src="../../../files/ipb.gif" alt="" /> <a href="ipb13.htm">IPB 1.3</a></li>
+	  <li><img src="../../../files/ipb2.gif" alt="" /> <a href="ipb2.htm">IPB 2</a></li>
+	  <li><img src="../../../files/vb.gif" alt="" /> <a href="vb.htm">vBulletin</a></li>
+	  <li><img src="../../../files/phpbb.gif" alt="" /> <a href="phpbb.htm">phpBB</a></li>
+	  <li><img src="../../../files/mybb.gif" alt="" /> <a href="mybb.htm">myBB</a></li>
+	</ul>
+
+	<p class="navtitle">Doc:</p>
+	<ul class="nav">
+		<li><img src="../../../files/atb_home.gif" alt="" /> <a href="../../../../../../readme.htm">Doc Home</a></li>
+	  <li><img src="../../../files/mkp.gif" alt="" /> <a href="index.htm#license">License</a></li>
+	</ul>
+
+      </div>
+<!-- End Navigation -->
+
+<!-- Begin Content -->
+      <div id="content">
+
+<!-- ######### BEGIN TEXT ########################### -->
+<h1>Come Aggiornare MKPortal per vBulletin</h1>
+<p class="pbold">Attenzione:</p>
+
+<ul>
+	<li><span style="color: #9D060F; font-weight: bold;">Attenzione:</span> Per installare Mkportal M 1.1.1 è richiesto vBulletin 3.6+. Mkportal 1.1.1 non è compatibile con vB 3.0.x</li>
+	<li>Questo è solo un upgrade!! E' necessario aver installato già MKportal M1.x</li>
+	<li>Con queste istruzioni non è possibile aggiornare da versioni precedenti alla M1.0, M1.1 Rc1, o M1.1.</li>
+</ul>
+
+<div class="divborder">&nbsp;</div>
+
+<p><br />
+Per aggiornare la tua versione di MKPortal dalla M1.x alla M1.1.1 occorre:</p>
+<ol>
+
+	<li style="padding-bottom: 15px;"><span style="color: #9D060F; font-weight: bold;">Attenzione: Prima di uploadare i file di Mkportal M1.1.1 dovete cancellare la vecchia directory mkportal/include</span></li>
+
+	<li style="padding-bottom: 15px;">Trasferire i file contenuti in questo pacchetto nel tuo spazio web sovrascrivendo tutti i file <font color="#9D060F">eccezion fatta per mkportal/conf_mk.php e /lang/*/lang_blocktitle.php</font>.<br />
+	(è necessario anche sovrascrivere l'index.php di MKportal).</li>
+
+<li>Dai i permessi in scrittura (chmod 777) ai seguenti file, cartelle ed ai file ivi contenuti:
+	<br /><br />
+
+mkportal/conf_mk.php<br />
+mkportal/cache<br />
+mkportal/blog<br />
+mkportal/blog/images<br />
+mkportal/templates/*<br />
+mkportal/lang/*<br />
+mkportal/modules/downloads/file<br />
+mkportal/modules/gallery/album<br />
+mkportal/modules/gallery/album/tmp<br />
+mkportal/modules/reviews/images<br />
+mkportal/modules/reviews/images/tmp<br />
+mkportal/blog/images/tmp<br /><br /></li>
+
+	<li style="padding-bottom: 15px;">Avviare lo script d'upgrade digitando l'url:<br /><b>http://www.example.com/mkportal/upgrades/upgrade.php</b></b></li>
+
+	<li>Cancellare il file mk_install.php e la directory mkportal/upgrades dal server.</li>
+</ol>
+	
+<p class="pbold">Upgrade completato.</p>
+	
+<div class="divborder">&nbsp;</div>
+<p>Per visualizzare la board all'interno di Mkportal dovete procurarvi un file originale includes/functions.php e modificarlo in questo modo:</p>
+
+	<p>cerca il codice:</p>
+	
+	<iframe src="../../../files/code/vb/functions_1a_find.txt" frameborder="0" marginheight="0" marginwidth="0" height="80">Your browser does not support frames or is currently configured not to display frames. However, you may visit <a href="../../../files/code/vb/functions_1a_find.txt">the related document.</a></iframe>
+	
+	
+	<p>aggiungi sotto:</p>
+
+	<iframe src="../../../files/code/vb/functions_1b_addbelow.txt" frameborder="0" marginheight="0" marginwidth="0" height="80">Your browser does not support frames or is currently configured not to display frames. However, you may visit <a href="../../../files/code/vb/functions_1b_addbelow.txt">the related document.</a></iframe>
+
+<!-- ######### END TEXT ########################### -->
+
+
+      </div>
+<!-- End content -->
+    
+<!-- Begin footer -->
+      <div id="footer">      
+    
+	<div id="footleft">template by <a href="http://www.visiblesoul.net/">visiblesoul</a></div>
+	<div id="footcenter"><img src="../../../files/xhtml.gif" alt="" /> <img src="../../../files/css.gif" alt="" /></div>
+
+	<div id="footright">All content &copy;2005-2006 <a href="http://www.mkportal.it/">mkportal.it</a></div>           
+      </div>
+<!-- End footer -->    
+   
+    </div>  
+  
+  <div id="footimg"></div> 
+    
+</div> 
+
+</body>
+</html>

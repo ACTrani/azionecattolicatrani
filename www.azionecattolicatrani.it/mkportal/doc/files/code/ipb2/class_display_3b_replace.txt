@@ -1,0 +1,30 @@
+//Modificato da Mkportal
+		if(!$FORUM_VIEW)
+		{
+			$ibforums->skin['_wrapper'] = str_replace( "<% BOARD HEADER %>"   , $this_header             , $ibforums->skin['_wrapper']);
+		}
+        else
+        {
+		$mksubs = <<<EOF
+		<!--ipb.javascript.start-->
+<script type="text/javascript">
+<!--
+ var ipb_var_st       = "{$ibforums->input['st']}";
+ var ipb_lang_tpl_q1  = "{$ibforums->lang['tpl_q1']}";
+ var ipb_var_s        = "{$ibforums->session_id}";
+ var ipb_var_phpext   = "{$ibforums->vars['php_ext']}";
+ var ipb_var_base_url = "{$ibforums->base_url}";
+ var ipb_input_f      = "{$ibforums->input['f']}";
+ var ipb_input_t      = "{$ibforums->input['t']}";
+ var ipb_input_p      = "{$ibforums->input['p']}";
+ var ipb_var_cookieid = "{$ibforums->vars['cookie_id']}";
+ var ipb_var_cookie_domain = "{$ibforums->vars['cookie_domain']}";
+ var ipb_var_cookie_path   = "{$ibforums->vars['cookie_path']}";
+ //-->
+</script>
+<script type="text/javascript" src='jscripts/ipb_global.js'></script>
+<!--ipb.javascript.end-->
+EOF;
+		$ibforums->skin['_wrapper'] = str_replace( "<% BOARD HEADER %>"   , $mksubs             , $ibforums->skin['_wrapper']);
+		}
+//fine modificato

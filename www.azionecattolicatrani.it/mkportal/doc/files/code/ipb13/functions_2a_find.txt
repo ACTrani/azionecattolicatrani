@@ -1,0 +1,1 @@
+$this_header = $skin_universal->BoardHeader();

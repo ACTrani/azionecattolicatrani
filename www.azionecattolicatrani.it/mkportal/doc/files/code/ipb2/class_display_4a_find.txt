@@ -1,0 +1,4 @@
+if ( $ibforums->vars['ipb_img_url'] )
+		{
+			$ibforums->skin['_wrapper'] = preg_replace( "#img\s+?src=[\"']style_(images|avatars|emoticons)(.+?)[\"'](.+?)?".">#is", "img src=\"".$ibforums->vars['ipb_img_url']."style_\\1\\2\"\\3>", $ibforums->skin['_wrapper'] );
+		}

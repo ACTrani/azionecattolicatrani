@@ -1,0 +1,6 @@
+//added from MKportal
+	if($FORUM_VIEW == 1 && !$checkaction) {
+		require_once $MK_PATH."mkportal/include/boardmod/smf_out.php";
+		mkportal_board_out();
+	}
+//end added

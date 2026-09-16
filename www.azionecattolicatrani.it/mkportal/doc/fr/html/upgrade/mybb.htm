@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <title>MKPortal Upgrade</title>
+  <meta name="author" content="Don K. Colburn - Visible Soul Web Design (http://www.visiblesoul.net)" />
+  <meta name="generator" content="VIM 6.3" />
+  <meta name="copyright" content="Template Copyright (c) 2005 visiblesoul.net. All other content Copyright (c) 2005-2006 mkportal.it" />
+  <link rel="stylesheet" type="text/css" href="../../../files/mkstyle.css" />
+</head>
+<body>
+
+<div id="wrapper">
+  
+  <div id="header"></div>
+
+    <div id="main">
+
+<!-- Begin Navigation -->
+      <div id="navblock">
+
+
+	<p class="navtitle">Board:</p>
+	<ul class="nav">
+	  <li><img src="../../../files/smf.gif" alt="" /> <a href="smf.htm">SMF</a></li>
+	  <li><img src="../../../files/ipb.gif" alt="" /> <a href="ipb13.htm">IPB 1.3</a></li>
+	  <li><img src="../../../files/ipb2.gif" alt="" /> <a href="ipb2.htm">IPB 2</a></li>
+	  <li><img src="../../../files/vb.gif" alt="" /> <a href="vb.htm">vBulletin</a></li>
+	  <li><img src="../../../files/phpbb.gif" alt="" /> <a href="phpbb.htm">phpBB</a></li>
+	  <li><img src="../../../files/mybb.gif" alt="" /> <a href="mybb.htm">myBB</a></li>
+	</ul>
+
+	<p class="navtitle">Doc:</p>
+	<ul class="nav">
+		<li><img src="../../../files/atb_home.gif" alt="" /> <a href="../../../../../../readme.htm">Accueil Doc</a></li>
+	  <li><img src="../../../files/mkp.gif" alt="" /> <a href="index.htm#license">Licence</a></li>
+	</ul>
+
+      </div>
+<!-- End Navigation -->
+
+<!-- Begin Content -->
+      <div id="content">
+
+<!-- ######### BEGIN TEXT ########################### -->
+<h1>Comment mettre &agrave; jour MKPortal pour MyBB.</h1>
+
+<h2>M1.1 -> M1.1.1</h2>
+
+<p><br />
+Pour mettre à jour MKPortal M1.1 à M1.1.1 vous devez:</p>
+<ol>
+
+	<li style="padding-bottom: 15px;">Envoyez les fichiers de ce pack dans votre site en reécrivant sur tout les fichiers <font color="#9D060F">EXCEPTE mkportal/conf_mk.php et /lang/*/lang_blocktitle.php</font>.<br />
+	 (vous devez reécrire également le fichier index.php de MKportal).</li>
+
+<li>Donnez les permissions d'écriture (chmod 0777) a ces fichiers et leurs contenues:<br /><br />
+
+mkportal/conf_mk.php<br />
+mkportal/cache<br />
+mkportal/blog<br />
+mkportal/blog/images<br />
+mkportal/templates/*<br />
+mkportal/lang/*<br />
+mkportal/modules/downloads/file<br />
+mkportal/modules/gallery/album<br />
+mkportal/modules/gallery/album/tmp<br />
+mkportal/modules/reviews/images<br />
+mkportal/modules/reviews/images/tmp<br />
+mkportal/blog/images/tmp<br /><br /></li>
+
+	<li style="padding-bottom: 15px;">Vous pouvez commencer Mise à jour en tapant cet adresse:<br /><b>http://www.example.com/mkportal/upgrades/upgrade.php</b></b></li>
+
+	<li style="padding-bottom: 15px;">Supprimer le fichier mk_install.php et le dir mkportal/upgrades du serveur</li>
+
+</ol>
+	
+<p class="pbold">Mise à jour complete.</p>
+<div class="divborder">&nbsp;</div>
+
+<h2>&lt; M1.1 -> M1.1.1</h2>
+<p>M1.1 Final est la premi&egrave;re version &agrave; supporter MyBB. Il n'y a pas de mise &agrave; jour depuis une version pr&eacute;c&eacute;dente de MKPortal. Si vous d&eacute;sirez mettre &agrave; jour une installation existante de MKPortal et utiliser MyBB, suivez les instructions suivantes. C'est imp&eacute;ratif d'effectuer les &eacute;tapes dans l'ordre.</p>
+<ol>
+
+	<li style="padding-bottom: 15px;">Mettre &agrave; jour MKPortal vers la version M1.1.1 en suivant les instructions de votre actuel script forum.</li>
+
+	<li style="padding-bottom: 15px;">Testez si la mise &agrave; jour de votre installation fonctionne enti&egrave;rement bien.</li>
+
+	<li style="padding-bottom: 15px;">Convertissez votre script forum vers MyBB ou installez un nouveau forum MyBB. Soyez s&ucirc;r de garder la structure appropri&eacute;e &agrave; MKPortal. Allez sur <a href="http://www.mybboard.com/">le site officiel de MyBB</a> pour trouver le convertisseur et avoir le support n&eacute;cessaire &agrave; votre forum.</li>
+
+	<li style="padding-bottom: 15px;">Testez votre nouvelle convertion et installation de MyBB pour &ecirc;tre s&ucirc;r que tout fonctionne bien.</li>
+
+	<li style="padding-bottom: 15px;">Apr&egrave;s &ecirc;tre s&ucirc;r et certain que votre installation de MyBB fonctionne bien, vous pouvez convertir votre installation de MKPortal M1.1.1 simplement en &eacute;ditant /mkportal/conf_mk.php et en modifiant deux lignes: (1) Mettre $MK_BOARD &agrave; "MYBB" (2) Mettre $FORUM_PATH au nom de votre r&eacute;pertoire MyBB (ex. "forums").</li>	
+</ol>
+	
+<p class="pbold">Mise &agrave; jour compl&egrave;te.</p>
+<div class="divborder">&nbsp;</div>
+
+<p>
+Si vous voulez voir votre forum MyBB dans MKportal vous devez:</p>
+<ul>
+	<li>Allez dans le Panel Admin Mkportal -> dans vos pr&eacute;f&eacute;rences cocher l'option "Visualisation du Forum : &agrave; l'Interieur de MKPortal"</li>
+</ul>
+<p>et modifiez le fichier /inc/functions.php de votre forum MyBB comme ceci:</p>
+
+
+
+<p class="pbold">ouvrez /inc/functions.php</p>
+
+
+	<p>recherchez le code:</p>
+	
+	<iframe src="../../../files/code/mybb/functions_1a_find.txt" frameborder="0" marginheight="0" marginwidth="0" height="40">Your browser does not support frames or is currently configured not to display frames. However, you may visit <a href="../../../files/code/mybb/functions_1a_find.txt">the related document.</a></iframe>
+	
+	
+	<p>ajoutez apr&egrave;s:</p>
+
+	<iframe src="../../../files/code/mybb/functions_1b_addbelow.txt" frameborder="0" marginheight="0" marginwidth="0" height="100">Your browser does not support frames or is currently configured not to display frames. However, you may visit <a href="../../../files/code/ipb2/functions_1b_addbelow.txt">the related document.</a></iframe>
+	
+	
+<!-- ######### END TEXT ########################### -->
+
+
+      </div>
+<!-- End content -->
+    
+<!-- Begin footer -->
+      <div id="footer">      
+    
+	<div id="footleft">template by <a href="http://www.visiblesoul.net/">visiblesoul</a></div>
+	<div id="footcenter"><img src="../../../files/xhtml.gif" alt="" /> <img src="../../../files/css.gif" alt="" /></div>
+
+	<div id="footright">All content &copy;2005-2006 <a href="http://www.mkportal.it/">mkportal.it</a></div>           
+      </div>
+<!-- End footer -->    
+   
+    </div>  
+  
+  <div id="footimg"></div> 
+    
+</div> 
+
+</body>
+</html>

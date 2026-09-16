@@ -1,0 +1,7 @@
+//added from MKportal
+if($FORUM_VIEW == 1) {
+	require_once $MK_PATH."mkportal/include/boardmod/ipb_out.php";
+	mkportal_board_out($ibforums->skin['_wrapper']);
+	exit;
+}
+//end added

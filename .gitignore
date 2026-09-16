@@ -1,0 +1,30 @@
+# ---------------------------------------------------------------------------
+# SEGRETI — non rimuovere queste righe.
+# Questi file contengono credenziali reali (hosting Aruba, database, FTP).
+# ---------------------------------------------------------------------------
+dominio sito diocesi/
+FileZillaPortable/
+www.azionecattolicatrani.it/acforum/Settings_bak.php
+www.azionecattolicatrani.it/acforum/Settings.php.orig
+
+# ---------------------------------------------------------------------------
+# File troppo grandi per GitHub (limite 100MB per file, warning oltre 50MB).
+# Conservati fuori da git — vedi ARCHIVIO-ESCLUSI.md.
+# ---------------------------------------------------------------------------
+www.azionecattolicatrani.it/ACR/Mese della Pace/PACE - video diocesano.wmv
+www.azionecattolicatrani.it/ACR/Mese della Pace/CARICALAPACE-PROMO2010.rar
+www.azionecattolicatrani.it/ACR/EDR/EDR - Radio Centro - Bisceglie.mp3
+www.azionecattolicatrani.it/ACR/Iniziativa annuale e Mese del Ciao/cedipiu video.wmv
+
+# ---------------------------------------------------------------------------
+# Ambiente locale / editor
+# ---------------------------------------------------------------------------
+.DS_Store
+._*
+.idea/
+.vscode/
+.claude/settings.local.json
+
+# Cache runtime di MkPortal (rigenerata a ogni avvio)
+www.azionecattolicatrani.it/mkportal/cache/*
+!www.azionecattolicatrani.it/mkportal/cache/index.html

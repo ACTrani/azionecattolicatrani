@@ -1,0 +1,7 @@
+# Questo repository è un archivio di codice legacy: i file vanno conservati
+# byte per byte, esattamente come stavano sul server.
+#
+# Senza questa riga git normalizzerebbe i fine-riga (CRLF -> LF) di PHP, CSS e JS
+# scritti negli anni 2000, alterando file che vogliamo poter confrontare con
+# l'originale.
+* -text

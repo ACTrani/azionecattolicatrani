@@ -1,0 +1,35 @@
+// Mkportal added
+if($FORUM_VIEW) {
+		$this_header  = "
+		<script language='JavaScript' type=\"text/javascript\">
+<!--
+function buddy_pop() { window.open('index.{$ibforums->vars['php_ext']}?act=buddy&s={$ibforums->session_id}','BrowserBuddy','width=250,height=500,resizable=yes,scrollbars=yes'); }
+function chat_pop(cw,ch)  { window.open('index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=chat&pop=1','Chat','width='+cw+',height='+ch+',resizable=yes,scrollbars=yes'); }
+function multi_page_jump( url_bit, total_posts, per_page )
+{
+pages = 1; cur_st = parseInt(\"{$ibforums->input['st']}\"); cur_page  = 1;
+if ( total_posts % per_page == 0 ) { pages = total_posts / per_page; }
+ else { pages = Math.ceil( total_posts / per_page ); }
+msg = \"{$ibforums->lang['tpl_q1']}\" + \" \" + pages;
+if ( cur_st > 0 ) { cur_page = cur_st / per_page; cur_page = cur_page -1; }
+show_page = 1;
+if ( cur_page < pages )  { show_page = cur_page + 1; }
+if ( cur_page >= pages ) { show_page = cur_page - 1; }
+ else { show_page = cur_page + 1; }
+userPage = prompt( msg, show_page );
+if ( userPage > 0  ) {
+	if ( userPage < 1 )     {    userPage = 1;  }
+	if ( userPage > pages ) { userPage = pages; }
+	if ( userPage == 1 )    {     start = 0;    }
+	else { start = (userPage - 1) * per_page; }
+	window.location = url_bit + \"&st=\" + start;
+}
+}
+//-->
+</script>
+<% MEMBER BAR %>
+";
+} else  {
+		$this_header  = $skin_universal->BoardHeader();
+	}
+// end added
