@@ -12,6 +12,30 @@ da zero** del sito.
 
 ---
 
+## Il nuovo sito
+
+La riscrittura è in corso, in questo stesso repository. Il piano è in
+**[`piano-di-lavoro-nuovo-sito.md`](piano-di-lavoro-nuovo-sito.md)**; i contenuti
+che servono e che ancora mancano sono elencati in
+**[`CONTENUTI-DA-RACCOGLIERE.md`](CONTENUTI-DA-RACCOGLIERE.md)**.
+
+Sono state costruite **due tracce**, con gli stessi contenuti, perché il team
+scelga guardando due cose vere invece che due descrizioni:
+
+| | Traccia A — WordPress | Traccia B — WordPress headless + Astro |
+|---|---|---|
+| Dove | [`wordpress/`](wordpress/README.md) | [`poc-astro/`](poc-astro/) |
+| Avvio | `cd wordpress && ./bin/avvia.sh` → http://localhost:8081 | `cd poc-astro && npm run dev` → http://localhost:4321 |
+| In rete | — | https://actrani.github.io/azionecattolicatrani/ |
+| Per i grafici | Editor del sito di WordPress, esportazione in file con *Crea tema a blocchi* | File CSS e componenti Astro |
+| Nota | è la traccia destinata alla produzione | serve a valutare, non a lanciare |
+
+I 29 eventi presenti in entrambe le tracce sono **reali**: vengono da
+`materiali/programmazione-diocesana-2026-2027.xlsx`. Notizie, documenti e testi
+istituzionali sono invece **inventati**, e vanno sostituiti.
+
+---
+
 ## Cosa c'è dentro
 
 | Percorso | Cosa è |
@@ -20,10 +44,13 @@ da zero** del sito.
 | `docker/`, `docker-compose.yml` | Ambiente locale per eseguire il sito legacy (PHP 5.6 + MariaDB) |
 | `CLAUDE.md` | Documentazione tecnica dettagliata dell'architettura legacy |
 | `ARCHIVIO-ESCLUSI.md` | Elenco dei file **non** presenti in git (troppo grandi o riservati) |
+| `wordpress/` | Il nuovo sito, traccia A: ambiente locale, tema a blocchi, plugin |
+| `poc-astro/` | Il nuovo sito, traccia B: prototipo Astro |
+| `materiali/` | Materiali forniti dall'associazione (loghi, programmazione) |
 
-## Avvio in locale
+## Avvio del sito storico in locale
 
-Richiede un daemon Docker (su questa macchina: `colima start`).
+Richiede un daemon Docker in funzione (su questa macchina: Docker Desktop).
 
 ```bash
 docker compose up -d --build     # sito su http://localhost:8080 — forum su /acforum/

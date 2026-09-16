@@ -62,8 +62,8 @@ docker compose up -d --build       # web: http://localhost:8080  (forum: /acforu
 docker compose down                # stop
 docker compose down -v && docker compose up -d   # wipe DB and re-seed from scratch
 ```
-Requires a Docker daemon. This machine uses Colima (`colima start`) rather than
-Docker Desktop; `docker compose` works once the daemon is up.
+Requires a running Docker daemon. This machine has Docker Desktop (open the app);
+Colima is not installed here.
 
 - **web**: `docker/Dockerfile` — `php:5.6-apache` + the legacy `mysql`/`mysqli`
   extensions. `display_errors` is Off (the app forces `E_ALL ^ E_NOTICE` at runtime,

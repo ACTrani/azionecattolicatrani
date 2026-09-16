@@ -102,7 +102,7 @@ Tutto registrato nel plugin `ac-trani-core`, con `show_in_rest` attivo (necessar
 
 **Pagine** per i contenuti istituzionali (chi siamo, presidenza, settori, adesione, contatti, privacy).
 
-**Campi custom:** *Secure Custom Fields* (il fork ufficiale di ACF su wordpress.org, gratuito), con le definizioni salvate come JSON dentro il plugin (`acf-json/`) — così il modello dati resta versionato su Git e non vive solo nel database.
+**Campi custom:** registrati **in codice** nel plugin con `register_post_meta`, non con un plugin di campi. Il piano prevedeva *Secure Custom Fields* (il fork ufficiale di ACF); realizzando l'ambiente locale si è visto che qui servono solo campi semplici — date, testi, due caselle — e registrarli a mano ha tre vantaggi che pesano su un progetto senza manutentore a tempo pieno: il modello dati sta su Git invece che nel database, non c'è un plugin in più da aggiornare per i prossimi dieci anni, e i campi escono già nella REST API, cioè sono leggibili da un frontend Astro. Se un domani servisse un'interfaccia più ricca (ripetitori, gallerie), SCF si può aggiungere sopra senza cambiare i nomi dei meta.
 
 **Blocchi dinamici forniti ai grafici** (si inseriscono dall'editor come qualsiasi altro blocco, con opzioni nella barra laterale):
 - *Elenco eventi* — filtri per settore/numero/layout, modalità "solo futuri"
@@ -263,8 +263,54 @@ Due conseguenze importanti:
 
 ---
 
-## 11. Prossime tre azioni
+## 11. Prossime azioni
 
 1. **Verificare il piano Aruba** (staging, SFTP, PHP, spazio) — è ciò che sblocca tutto il resto
-2. **Creare il repository** con lo scheletro di tema e plugin e la pipeline di deploy
+2. **Far provare le due tracce al team** e chiudere la scelta, con i criteri fissati prima di guardare (§12)
 3. **Consegnare alla Presidenza l'elenco dei contenuti richiesti**, con scadenza, perché arrivino mentre costruiamo
+
+~~Creare il repository con lo scheletro di tema e plugin~~ — fatto: `wordpress/wp-content/`. Resta da collegare la pipeline di deploy, che dipende dal punto 1.
+
+---
+
+## 12. Stato di avanzamento
+
+*(aggiornato al 16 settembre 2026)*
+
+Entrambe le tracce esistono e girano. Non sono mockup: leggono gli stessi 29
+appuntamenti reali della programmazione diocesana 2026/2027.
+
+| | Traccia A — WordPress | Traccia B — headless + Astro |
+|---|---|---|
+| Dove | `wordpress/` | `poc-astro/` |
+| Avvio | `cd wordpress && ./bin/avvia.sh` → `localhost:8081` | `npm run dev` → `localhost:4321` |
+| In rete | — | https://actrani.github.io/azionecattolicatrani/ |
+
+**Traccia A, cosa c'è già**
+
+- Ambiente Docker: WordPress 6.8 + PHP 8.3 + MariaDB 11.4 + WP-CLI, su porte che
+  non litigano con quelle del vecchio sito.
+- Plugin `ac-trani-core`: CPT `evento` e `documento`, tassonomie `settore`,
+  `anno-associativo`, `tipo-documento`, categoria *Comunicati ufficiali*, campi
+  registrati in codice, export `.ics` singolo e `/calendario.ics` sottoscrivibile.
+- Cinque blocchi dinamici per l'editor: elenco eventi, scheda evento, tessere
+  settori, elenco documenti con ricerca, notizie e comunicati.
+- Tema a blocchi `ac-trani`: `theme.json` con palette, tipografia e spaziature
+  (gli stessi token del prototipo Astro), quattordici template, testata e piede,
+  tre pattern. Caratteri Fraunces e Archivo ospitati nel tema, non presi da
+  Google a ogni visita.
+- *Crea tema a blocchi* già installato: è lo strumento con cui i grafici portano
+  in file il lavoro fatto nell'Editor del sito.
+
+**Cosa non c'è, e va fatto sull'hosting vero**
+
+Cookie banner, analytics, SEO, cache, backup, certificato, redirect
+dell'archivio storico: tutto ciò che dipende da Aruba resta in fase 0–4.
+
+**Cosa serve decidere adesso**
+
+Il confronto fra le due tracce va fatto **guardandole**, e i criteri vanno
+fissati prima: autonomia reale dei grafici, velocità percepita, complessità di
+manutenzione, quante persone sapranno metterci mano fra due anni. La traccia A
+resta quella destinata alla produzione finché non c'è una ragione dichiarata per
+cambiare idea.
