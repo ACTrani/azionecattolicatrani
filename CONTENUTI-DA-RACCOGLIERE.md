@@ -54,7 +54,8 @@ un recapito personale (una mail dedicata per ruolo è preferibile a quella priva
 - [ ] Una frase breve da mettere in apertura di homepage (nel prototipo c'è un
       segnaposto: *«Laici che scelgono di stare, insieme, dentro la vita della Chiesa
       e della città»*)
-- [ ] **Anno associativo** in corso e **tema/slogan** dell'anno
+- [x] **Anno associativo** e **icona biblica** dell'anno — ricevuti: 2026/2027,
+      *«Vino nuovo in otri nuovi»* (cfr. Mt 9,17)
 - [ ] Una descrizione di 3-4 righe **per ciascuno dei sei settori** (unitario, adulti,
       giovani, ACR, MSAC, MLAC) — nel prototipo sono scritte da me e vanno riviste
 

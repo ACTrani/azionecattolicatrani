@@ -10,7 +10,8 @@ export const sito = {
   diocesi: 'Arcidiocesi di Trani – Barletta – Bisceglie',
   claim: 'Laici che scelgono di stare, insieme, dentro la vita della Chiesa e della città.',
   annoAssociativo: '2026/2027',
-  temaAnno: 'Seminare fiducia',
+  /** Icona biblica dell'anno associativo 2026/2027 (cfr. Mt 9,17) */
+  temaAnno: 'Vino nuovo in otri nuovi',
   contatti: {
     sede: 'Palazzo Arcivescovile, Via Beltrani 9',
     comune: '76125 Trani (BT)',
