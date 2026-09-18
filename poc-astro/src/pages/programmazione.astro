@@ -1,0 +1,213 @@
+---
+import Base from '../layouts/Base.astro';
+import { sito } from '../data/sito';
+import { settorePerSlug } from '../data/settori';
+import { icona, lettera, paroleAnno, laboratorio, cammini, appuntamentiNazionali } from '../data/programmazione';
+import { url } from '../lib/url';
+---
+
+<Base
+  titolo={`Programmazione ${sito.annoAssociativo}`}
+  descrizione={`Il cammino dell'anno associativo ${sito.annoAssociativo}: l'icona biblica «${icona.titolo}», il Laboratorio diocesano della formazione e le proposte dei settori.`}
+>
+  <section class="apertura">
+    <div class="contenitore">
+      <p class="occhiello occhiello--chiaro">Programmazione diocesana {sito.annoAssociativo}</p>
+      <h1>{icona.titolo}</h1>
+      <p class="apertura__riferimento">{icona.riferimento}</p>
+      <blockquote class="apertura__citazione">
+        <p>{icona.citazione}</p>
+        <cite>{icona.citazioneRiferimento}</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <div class="contenitore">
+    <section class="sezione colonna">
+      <h2 class="occhiello">L'icona biblica</h2>
+      {icona.testo.map((p) => <p>{p}</p>)}
+    </section>
+
+    <section class="sezione colonna lettera">
+      <h2 class="occhiello">Dalla lettera della Presidente</h2>
+      {lettera.paragrafi.map((p) => <p>{p}</p>)}
+      <p class="lettera__firma">
+        {lettera.firma}<br />
+        <span>{lettera.ruolo}</span>
+      </p>
+    </section>
+
+    <section class="sezione">
+      <h2 class="occhiello">Le parole dell'anno</h2>
+      <div class="parole">
+        {paroleAnno.map((p) => (
+          <article class="parola">
+            <h3>{p.nome}</h3>
+            <p>{p.testo}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="sezione">
+      <h2 class="occhiello">Il Laboratorio diocesano della formazione</h2>
+      <p class="colonna">
+        Il percorso formativo di tutta l'associazione si sviluppa in tre passaggi collegati
+        fra loro. Referente del Laboratorio: {laboratorio.referente}.
+      </p>
+      <ol class="passaggi">
+        {laboratorio.passaggi.map((p, i) => (
+          <li class="passaggio">
+            <span class="passaggio__numero">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{p.titolo}</h3>
+            <p class="passaggio__domanda">«{p.domanda}»</p>
+            <p>{p.testo}</p>
+            <p class="passaggio__quando">
+              {p.evento ? <a href={url(`/eventi/${p.evento}`)}>{p.quando}</a> : p.quando}
+            </p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="sezione">
+      <h2 class="occhiello">I cammini dei settori</h2>
+      <div class="cammini">
+        {cammini.map((c) => {
+          const settore = settorePerSlug(c.settore)!;
+          return (
+            <article class="cammino" data-settore={c.settore}>
+              <p class="cammino__settore">{settore.nomeEsteso}</p>
+              <h3>{c.titolo}</h3>
+              <p class="cammino__sottotitolo">{c.sottotitolo}</p>
+              {c.paragrafi.map((p) => <p>{p}</p>)}
+              {c.punti && (
+                <ul>
+                  {c.punti.map((p) => <li>{p}</li>)}
+                </ul>
+              )}
+              <a class="cammino__link" href={`${url('/eventi')}?settore=${c.settore}`}>
+                Gli appuntamenti del settore →
+              </a>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="sezione colonna">
+      <h2 class="occhiello">Appuntamenti e proposte nazionali</h2>
+      <ul class="nazionali">
+        {appuntamentiNazionali.map((a) => <li>{a}</li>)}
+      </ul>
+    </section>
+
+    <div class="azioni">
+      <a class="bottone" href={url('/eventi')}>Tutti gli appuntamenti dell'anno</a>
+      <a class="bottone bottone--vuoto" href={url('/calendario.ics')}>Aggiungi il calendario</a>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .apertura {
+    background: var(--col-blu-scuro);
+    color: var(--col-pietra);
+    padding-block: var(--spazio-2xl);
+  }
+  .apertura h1 { font-size: var(--step-6); font-style: italic; font-weight: 400; color: #fff; margin-bottom: 0; }
+  .apertura__riferimento {
+    font-size: var(--step-1);
+    color: var(--col-ocra-chiara);
+    letter-spacing: 0.08em;
+    margin-top: var(--spazio-2xs);
+  }
+  .apertura__citazione {
+    margin: var(--spazio-l) 0 0;
+    max-width: 40rem;
+    font-family: var(--testo-display);
+    font-size: var(--step-1);
+    line-height: 1.4;
+    opacity: 0.85;
+  }
+  .apertura__citazione cite { font-size: var(--step--1); font-style: normal; opacity: 0.8; }
+  .occhiello--chiaro { color: var(--col-ocra-chiara); }
+  .occhiello--chiaro::after { background: rgba(255, 255, 255, 0.2); }
+
+  .colonna { max-width: 44rem; }
+
+  .lettera p:first-of-type {
+    font-family: var(--testo-display);
+    font-size: var(--step-1);
+    line-height: 1.4;
+    color: var(--col-blu);
+  }
+  .lettera__firma { font-weight: 600; margin-top: var(--spazio-m); }
+  .lettera__firma span { font-weight: 400; color: var(--col-inchiostro-tenue); }
+
+  .parole {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: var(--spazio-l);
+  }
+  .parola { border-top: 2px solid var(--col-inchiostro); padding-top: var(--spazio-s); }
+  .parola h3 { font-size: var(--step-1); }
+  .parola p { color: var(--col-inchiostro-tenue); font-size: var(--step--1); }
+
+  .passaggi {
+    list-style: none;
+    padding: 0;
+    margin: var(--spazio-l) 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--spazio-l);
+  }
+  .passaggio { border-top: 2px solid var(--col-inchiostro); padding-top: var(--spazio-s); }
+  .passaggio__numero {
+    display: block;
+    font-family: var(--testo-display);
+    font-size: var(--step-4);
+    font-weight: 700;
+    color: var(--col-ocra);
+    line-height: 1;
+    margin-bottom: var(--spazio-2xs);
+  }
+  .passaggio h3 { font-size: var(--step-1); }
+  .passaggio__domanda { font-family: var(--testo-display); font-style: italic; color: var(--col-blu); }
+  .passaggio p { font-size: var(--step--1); }
+  .passaggio__quando { font-weight: 600; }
+
+  .cammini {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+    gap: var(--spazio-m);
+  }
+  .cammino {
+    padding: var(--spazio-m);
+    background: var(--col-carta);
+    border: var(--bordo-sottile);
+    border-top: 4px solid var(--col-settore);
+    border-radius: var(--raggio);
+    display: flex;
+    flex-direction: column;
+    font-size: var(--step--1);
+  }
+  .cammino__settore {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--col-settore);
+    margin-bottom: var(--spazio-2xs);
+  }
+  .cammino h3 { font-size: var(--step-2); margin-bottom: 0; }
+  .cammino__sottotitolo { color: var(--col-inchiostro-tenue); font-style: italic; }
+  .cammino ul { padding-left: 1.1rem; }
+  .cammino li { margin-bottom: var(--spazio-3xs); }
+  .cammino__link { margin-top: auto; padding-top: var(--spazio-s); font-weight: 600; text-decoration: none; }
+
+  .nazionali { padding-left: 1.2rem; }
+  .nazionali li { margin-bottom: var(--spazio-2xs); }
+
+  .azioni { display: flex; flex-wrap: wrap; gap: var(--spazio-s); margin-block: var(--spazio-xl) var(--spazio-2xl); }
+</style>
