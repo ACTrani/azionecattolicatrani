@@ -23,6 +23,13 @@ const eventi = defineCollection({
     sommario: z.string(),
     dataInizio: z.coerce.date(),
     dataFine: z.coerce.date().optional(),
+    /**
+     * Quando la programmazione non fissa ancora il giorno («Aprile 2027»,
+     * «6 o 13 novembre 2026»): si mostra al posto della data. dataInizio e
+     * dataFine delimitano la finestra possibile e servono solo a ordinare e a
+     * capire quando l'evento è passato. Questi eventi non vanno nel .ics.
+     */
+    dataIndicativa: z.string().optional(),
     orario: z.string().optional(),
     luogo: z.object({
       nome: z.string(),

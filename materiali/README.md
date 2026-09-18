@@ -5,11 +5,30 @@ parte del sito pubblicato**: sono le fonti da cui i contenuti vengono estratti.
 
 | File | Cosa contiene | Dove è finito |
 |---|---|---|
-| `programmazione-diocesana-2026-2027.xlsx` | Il calendario diocesano 2026/2027: 29 appuntamenti da settembre 2026 ad agosto 2027, con data, città, parrocchia e stato di conferma | Trasformato negli eventi del prototipo, in `poc-astro/src/content/eventi/` |
+| `programmazione-annuale-2026-2027.pdf` | La **programmazione annuale 2026/2027** della Presidenza diocesana (24 pagine, 12 settembre 2026): lettera della Presidente, Laboratorio diocesano della formazione, Centro studi, cammini e calendari di Adulti, Giovani e MSAC, ACR e MLAC, promozione associativa, Presidenza e Consiglio | **È la fonte attuale.** Eventi in `poc-astro/src/content/eventi/` e `wordpress/contenuti-demo/contenuti.json`; testi in `poc-astro/src/data/programmazione.ts`, `sito.ts`, `settori.ts` e nei pattern del tema WordPress |
+| `programmazione-diocesana-2026-2027.xlsx` | Il primo calendario diocesano 2026/2027: 29 appuntamenti, con data, città, parrocchia e stato di conferma | **Superato dal PDF**: resta come riferimento di cosa era arrivato prima |
 | `logo ac trani.png` | Il marchio a colori, 696×696 px, su fondo bianco pieno | Scontornato e ottimizzato in `poc-astro/src/assets/logo-ac-trani.png` |
 | `logo ac trani bianco.png` | Il marchio in bianco su fondo trasparente, 244×179 px | Ottimizzato in `poc-astro/src/assets/logo-ac-trani-bianco.png` |
 
-## Note sulla programmazione 2026/2027
+## Note sulla programmazione annuale (PDF)
+
+Il PDF ha sostituito il foglio Excel e ne chiude quasi tutti i buchi: i nomi mancanti,
+il LDF Giovani (aprile, Bisceglie), il mese del *Sentiero Frassati* (è il «Momento di
+preghiera in onore di San Pier Giorgio Frassati», 5 luglio), i settori (ogni tabella
+di settore segna con `*` e `**` gli appuntamenti unitari e della Pastorale giovanile,
+e in celeste quelli MSAC). I giorni della settimana indicati tornano con le date.
+
+Come è stato trasformato:
+- un appuntamento presente in più tabelle è **un solo evento**, assegnato al settore
+  *unitario* se la programmazione lo segna come tale;
+- gli appuntamenti senza giorno preciso («nel mese di aprile», «6 o 13 novembre»)
+  hanno una **data indicativa**: il sito mostra quel testo e non li mette nel `.ics`;
+- i telefoni e le mail personali del documento **non sono pubblicati**;
+- la lettera della Presidente è riportata per **estratti letterali**, non parafrasata.
+
+I dubbi rimasti sono in [`../CONTENUTI-DA-RACCOGLIERE.md`](../CONTENUTI-DA-RACCOGLIERE.md).
+
+## Note sul primo foglio Excel (superato)
 
 Verificata riga per riga (giorno della settimana contro data: tornano tutte). Rilievi
 aperti, con il dettaglio in [`../CONTENUTI-DA-RACCOGLIERE.md`](../CONTENUTI-DA-RACCOGLIERE.md):

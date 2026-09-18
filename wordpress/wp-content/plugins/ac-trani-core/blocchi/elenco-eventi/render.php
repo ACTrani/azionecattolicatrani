@@ -37,7 +37,8 @@ if ( ! $eventi ) {
 		$data       = (string) get_post_meta( $id, 'ac_data_inizio', true );
 		$orario     = (string) get_post_meta( $id, 'ac_orario', true );
 		$luogo      = ac_trani_luogo_leggibile( $id );
-		$giorno     = $data ? wp_date( 'j', strtotime( $data ) ) : '';
+		// Un trattino finché la programmazione non fissa il giorno.
+		$giorno     = get_post_meta( $id, 'ac_data_indicativa', true ) ? '–' : ( $data ? wp_date( 'j', strtotime( $data ) ) : '' );
 		$mese       = $data ? wp_date( 'M', strtotime( $data ) ) : '';
 		?>
 		<li class="ac-evento<?php echo $annullato ? ' ac-evento--annullato' : ''; ?>" data-settore="<?php echo esc_attr( ac_trani_settore_slug( $id ) ); ?>">

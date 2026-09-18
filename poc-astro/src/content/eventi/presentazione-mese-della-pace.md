@@ -1,15 +1,15 @@
 ---
 titolo: "Presentazione del Mese della Pace"
-sommario: "Presentazione online del percorso del Mese della Pace per educatori e responsabili."
+sommario: "Presentazione online del percorso del Mese della Pace per gli educatori."
 dataInizio: 2027-01-08
 luogo:
   nome: "Incontro online"
-  comune: "Da definire"
+  comune: ""
 settore: acr
 annoAssociativo: "2026/2027"
 inEvidenza: false
 ---
 
-Appuntamento previsto dalla programmazione diocesana 2026/2027.
+Appuntamento della programmazione 2026/2027 dell’**Azione Cattolica dei Ragazzi**.
 
-> Sede, orario e dettagli sono in via di definizione.
+> Orario e dettagli saranno comunicati più avanti.

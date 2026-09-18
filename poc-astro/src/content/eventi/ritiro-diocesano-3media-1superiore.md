@@ -1,15 +1,17 @@
 ---
-titolo: "Ritiro diocesano 3ª media – 1ª superiore"
-sommario: "Ritiro per i ragazzi nel passaggio dall’ACR al settore giovani."
+titolo: "Ritiro di Quaresima — III media e I superiore"
+sommario: "Ritiro di Quaresima per i ragazzi del passaggio dall’ACR al Settore Giovani."
 dataInizio: 2027-03-07
 luogo:
   nome: "Sede da definire"
-  comune: "Da definire"
+  comune: "Trani"
 settore: acr
 annoAssociativo: "2026/2027"
 inEvidenza: false
 ---
 
-Appuntamento previsto dalla programmazione diocesana 2026/2027.
+Appuntamento della programmazione 2026/2027 dell’**Azione Cattolica dei Ragazzi**.
 
-> Sede, orario e dettagli sono in via di definizione.
+Lo organizzano insieme l’**ACR** e il **Settore Giovani**.
+
+> Orario e dettagli saranno comunicati più avanti.

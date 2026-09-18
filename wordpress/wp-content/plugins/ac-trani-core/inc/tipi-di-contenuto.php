@@ -16,37 +16,37 @@ function ac_trani_settori(): array {
 			'nome'        => 'Unitario',
 			'esteso'      => 'Vita associativa unitaria',
 			'colore'      => '#1f3f6b',
-			'descrizione' => 'Gli appuntamenti che riuniscono l’intera associazione diocesana: assemblee, campi unitari, esercizi spirituali, formazione dei responsabili.',
+			'descrizione' => 'Gli appuntamenti che riuniscono tutta l’associazione diocesana: le assemblee, …fierA di esserCI, il Laboratorio diocesano della formazione, le celebrazioni dell’anno.',
 		),
 		'adulti' => array(
 			'nome'        => 'Adulti',
 			'esteso'      => 'Settore Adulti',
 			'colore'      => '#2c6e63',
-			'descrizione' => 'Adulti e famiglie che vivono la corresponsabilità nella parrocchia e l’impegno nella città: formazione permanente, coppie, terza età.',
+			'descrizione' => 'Adulti e famiglie che vogliono essere credenti e credibili, «di parola», in parrocchia, in famiglia e nella città: gruppi, serate di spiritualità, Fede & Cultura, Giornata della famiglia.',
 		),
 		'giovani' => array(
 			'nome'        => 'Giovani',
 			'esteso'      => 'Settore Giovani',
 			'colore'      => '#b5651d',
-			'descrizione' => 'Giovanissimi e giovani in cammino: ritiri, scuola di formazione, servizio, campi estivi e discernimento vocazionale.',
+			'descrizione' => 'Giovanissimi (15–18 anni) e giovani (19–30) in cammino nei gruppi parrocchiali e negli appuntamenti diocesani: ritiri, laboratorio della formazione, preghiera e servizio.',
 		),
 		'acr' => array(
 			'nome'        => 'ACR',
 			'esteso'      => 'Azione Cattolica dei Ragazzi',
 			'colore'      => '#c0392b',
-			'descrizione' => 'I ragazzi come protagonisti, non destinatari: Mese del Ciao, Mese della Pace, Festa degli Incontri, campi scuola.',
+			'descrizione' => 'I ragazzi dai Piccolissimi ai 14 anni, protagonisti del proprio cammino di fede, con un’attenzione speciale agli educatori e all’Equipe diocesana dei ragazzi (EDR).',
 		),
 		'msac' => array(
 			'nome'        => 'MSAC',
 			'esteso'      => 'Movimento Studenti di Azione Cattolica',
 			'colore'      => '#5b4b8a',
-			'descrizione' => 'Studenti che si prendono cura della scuola: rappresentanza, cittadinanza attiva, formazione politica.',
+			'descrizione' => 'La proposta missionaria per i giovanissimi che vivono tra i banchi di scuola: rappresentanza, cittadinanza attiva, legalità. In diocesi da dieci anni.',
 		),
 		'mlac' => array(
 			'nome'        => 'MLAC',
 			'esteso'      => 'Movimento Lavoratori di Azione Cattolica',
 			'colore'      => '#6b7a3a',
-			'descrizione' => 'Il lavoro come luogo di vocazione e di giustizia: Progetto Policoro, dottrina sociale, precarietà e dignità.',
+			'descrizione' => 'Il lavoro letto alla luce del Vangelo e della Dottrina sociale: dignità, sicurezza, sostenibilità e partecipazione, insieme alla Pastorale sociale e del lavoro diocesana.',
 		),
 	);
 }

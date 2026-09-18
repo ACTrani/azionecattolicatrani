@@ -21,6 +21,7 @@ function ac_trani_campi_evento(): array {
 	return array(
 		'ac_data_inizio'     => array( 'tipo' => 'date',    'etichetta' => 'Data di inizio',      'aiuto' => 'Obbligatoria: è il campo su cui il sito ordina gli eventi.' ),
 		'ac_data_fine'       => array( 'tipo' => 'date',    'etichetta' => 'Data di fine',        'aiuto' => 'Solo per gli appuntamenti di più giorni.' ),
+		'ac_data_indicativa' => array( 'tipo' => 'text',    'etichetta' => 'Data indicativa',     'aiuto' => 'Solo se il giorno non è ancora fissato, es. «Aprile 2027» o «6 o 13 novembre 2026»: si mostra al posto della data. Inizio e fine vanno messi al primo e all’ultimo giorno possibili.' ),
 		'ac_orario'          => array( 'tipo' => 'text',    'etichetta' => 'Orario',              'aiuto' => 'Testo libero, es. «ore 18:30» oppure «18:30 – 20:30».' ),
 		'ac_luogo_nome'      => array( 'tipo' => 'text',    'etichetta' => 'Luogo' ),
 		'ac_luogo_indirizzo' => array( 'tipo' => 'text',    'etichetta' => 'Indirizzo' ),

@@ -74,7 +74,7 @@ toccare il CSS.
 
 | | CPT | Tassonomie | Campi |
 |---|---|---|---|
-| Eventi | `evento` | settore, anno-associativo | `ac_data_inizio` `ac_data_fine` `ac_orario` `ac_luogo_nome` `ac_luogo_indirizzo` `ac_luogo_comune` `ac_mappa_url` `ac_link_iscrizione` `ac_annullato` `ac_in_evidenza` |
+| Eventi | `evento` | settore, anno-associativo | `ac_data_inizio` `ac_data_fine` `ac_data_indicativa` `ac_orario` `ac_luogo_nome` `ac_luogo_indirizzo` `ac_luogo_comune` `ac_mappa_url` `ac_link_iscrizione` `ac_annullato` `ac_in_evidenza` |
 | Documenti | `documento` | settore, anno-associativo, tipo-documento | `ac_data` `ac_file_id` `ac_file_url` `ac_formato` `ac_dimensione` `ac_download` |
 | Notizie | `post` | settore, categoria *Comunicati ufficiali* | — |
 

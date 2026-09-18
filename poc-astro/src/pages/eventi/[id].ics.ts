@@ -3,7 +3,7 @@ import { tuttiGliEventi } from '../../lib/contenuti';
 import { calendario } from '../../lib/ics';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const eventi = await tuttiGliEventi();
+  const eventi = (await tuttiGliEventi()).filter((e) => !e.data.dataIndicativa);
   return eventi.map((evento) => ({ params: { id: evento.id }, props: { evento } }));
 };
 

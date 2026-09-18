@@ -1,15 +1,15 @@
 ---
 titolo: "Fede & Cultura — Gita in barca, zona Pantano-Ripalta"
-sommario: "Appuntamento di Fede & Cultura con gita in barca."
+sommario: "Serata di Fede & Cultura con una gita in barca nella zona umida Pantano-Ripalta."
 dataInizio: 2027-06-26
 luogo:
   nome: "Sede da definire"
   comune: "Bisceglie"
-settore: unitario
+settore: adulti
 annoAssociativo: "2026/2027"
 inEvidenza: false
 ---
 
-Appuntamento previsto dalla programmazione diocesana 2026/2027.
+Appuntamento della programmazione 2026/2027 del **Settore Adulti**.
 
-> Sede, orario e dettagli sono in via di definizione.
+> Orario e dettagli saranno comunicati più avanti.

@@ -68,7 +68,7 @@ echo '<p class="ac-scheda__azioni">';
 if ( $iscrizione && ! $annullato && ! $passato ) {
 	printf( '<a class="ac-bottone" href="%s" rel="noopener noreferrer" target="_blank">Iscriviti</a>', esc_url( $iscrizione ) );
 }
-if ( ! empty( $attributes['calendario'] ) && ! $passato ) {
+if ( ! empty( $attributes['calendario'] ) && ! $passato && ! get_post_meta( $id, 'ac_data_indicativa', true ) ) {
 	printf(
 		'<a class="ac-bottone ac-bottone--tenue" href="%s">Aggiungi al calendario</a>',
 		esc_url( add_query_arg( 'ac_ics', '1', (string) get_permalink( $id ) ) )

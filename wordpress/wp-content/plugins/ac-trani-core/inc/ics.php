@@ -73,7 +73,8 @@ function ac_trani_componi_ics( array $eventi ): string {
 	foreach ( $eventi as $evento ) {
 		$id     = $evento->ID;
 		$inizio = (string) get_post_meta( $id, 'ac_data_inizio', true );
-		if ( ! $inizio ) {
+		// Senza un giorno fissato l'evento finirebbe in agenda in una data sbagliata.
+		if ( ! $inizio || get_post_meta( $id, 'ac_data_indicativa', true ) ) {
 			continue;
 		}
 		$fine = (string) get_post_meta( $id, 'ac_data_fine', true );
@@ -123,13 +124,26 @@ function ac_trani_ics_testo( string $testo ): string {
 	return html_entity_decode( $testo, ENT_QUOTES, 'UTF-8' );
 }
 
-/** Ripiegatura: dalla seconda riga in poi, uno spazio iniziale. */
+/**
+ * Ripiegatura: dalla seconda riga in poi, uno spazio iniziale. Il limite è in
+ * byte, ma si taglia fra un carattere e l'altro: spezzare a metà una lettera
+ * accentata o un apostrofo tipografico renderebbe il file UTF-8 non valido.
+ */
 function ac_trani_ics_piega( string $riga ): string {
 	if ( strlen( $riga ) <= 75 ) {
 		return $riga;
 	}
-	$pezzi = str_split( $riga, 73 );
-	return array_shift( $pezzi ) . "\r\n " . implode( "\r\n ", $pezzi );
+	$pezzi = array();
+	$pezzo = '';
+	foreach ( mb_str_split( $riga, 1, 'UTF-8' ) as $carattere ) {
+		if ( strlen( $pezzo . $carattere ) > 73 ) {
+			$pezzi[] = $pezzo;
+			$pezzo   = '';
+		}
+		$pezzo .= $carattere;
+	}
+	$pezzi[] = $pezzo;
+	return implode( "\r\n ", $pezzi );
 }
 
 /** Il link al calendario, pronto da mettere in un pulsante del tema. */

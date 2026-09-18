@@ -1,7 +1,7 @@
 ---
 import type { Evento } from '../lib/contenuti';
 import { settorePerSlug } from '../data/settori';
-import { giorno, meseBreve, anno, intervallo, iso } from '../lib/date';
+import { giornoOTrattino, meseBreve, anno, quando, iso } from '../lib/date';
 import { url } from '../lib/url';
 import { luogoLeggibile } from '../lib/luogo';
 
@@ -13,7 +13,7 @@ const settore = settorePerSlug(d.settore)!;
 
 <article class={`carta-evento ${grande ? 'carta-evento--grande' : ''}`} data-settore={d.settore}>
   <div class="carta-evento__data" aria-hidden="true">
-    <span class="carta-evento__giorno">{giorno(d.dataInizio)}</span>
+    <span class="carta-evento__giorno">{giornoOTrattino(d)}</span>
     <span class="carta-evento__mese">{meseBreve(d.dataInizio)}</span>
     <span class="carta-evento__anno">{anno(d.dataInizio)}</span>
   </div>
@@ -27,7 +27,7 @@ const settore = settorePerSlug(d.settore)!;
 
     <dl class="carta-evento__meta">
       <dt class="visivamente-nascosto">Data</dt>
-      <dd><time datetime={iso(d.dataInizio)}>{intervallo(d.dataInizio, d.dataFine)}</time>{d.orario ? `, ${d.orario}` : ''}</dd>
+      <dd><time datetime={iso(d.dataInizio)}>{quando(d)}</time>{d.orario ? `, ${d.orario}` : ''}</dd>
       <dt class="visivamente-nascosto">Luogo</dt>
       <dd>{luogoLeggibile(d.luogo)}</dd>
     </dl>

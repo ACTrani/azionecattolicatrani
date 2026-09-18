@@ -117,8 +117,17 @@ curl 'http://localhost:8081/wp-json/wp/v2/eventi?per_page=3' | jq '.[].meta'
 
 ## Cosa è vero e cosa no
 
-- **Veri**: i 29 eventi, presi da `materiali/programmazione-diocesana-2026-2027.xlsx`.
-- **Inventati**: notizie, documenti, testi delle pagine istituzionali, recapiti.
+- **Veri**: i 48 eventi, presi dalla programmazione annuale 2026/2027
+  (`materiali/programmazione-annuale-2026-2027.pdf`), e dallo stesso documento
+  Presidenza e Consiglio (pattern *Presidenza diocesana*), descrizioni dei
+  settori, pagina *Programmazione 2026/2027* (pattern omonimo), Centro studi,
+  parte dei testi di *Aderisci*, la notizia sulla programmazione e la scheda del
+  documento *Programmazione diocesana 2026/2027*.
+- Gli appuntamenti di cui la programmazione non fissa ancora il giorno («Aprile
+  2027», «6 o 13 novembre») hanno il campo **Data indicativa**: si mostra al posto
+  della data e l'evento resta fuori dal `.ics`.
+- **Inventati**: le altre notizie e gli altri documenti, il resto dei testi
+  istituzionali, recapiti.
   Servono a far vedere il sito pieno — vanno tutti sostituiti. L'elenco di ciò
   che manca è in [`CONTENUTI-DA-RACCOGLIERE.md`](../CONTENUTI-DA-RACCOGLIERE.md).
 - I documenti **non hanno il file allegato**: nel prototipo Astro il percorso era

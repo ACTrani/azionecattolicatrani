@@ -28,6 +28,9 @@
 		<div class="wp-block-button"><a class="wp-block-button__link has-inchiostro-color has-ocra-background-color has-text-color has-background wp-element-button" href="/eventi/">Prossimi appuntamenti</a></div>
 		<!-- /wp:button -->
 		<!-- wp:button {"className":"is-style-outline"} -->
+		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/programmazione/">Il cammino dell'anno</a></div>
+		<!-- /wp:button -->
+		<!-- wp:button {"className":"is-style-outline"} -->
 		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/aderisci/">Aderisci</a></div>
 		<!-- /wp:button -->
 	</div>

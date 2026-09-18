@@ -30,9 +30,12 @@ scelga guardando due cose vere invece che due descrizioni:
 | Per i grafici | Editor del sito di WordPress, esportazione in file con *Crea tema a blocchi* | File CSS e componenti Astro |
 | Nota | è la traccia destinata alla produzione | serve a valutare, non a lanciare |
 
-I 29 eventi presenti in entrambe le tracce sono **reali**: vengono da
-`materiali/programmazione-diocesana-2026-2027.xlsx`. Notizie, documenti e testi
-istituzionali sono invece **inventati**, e vanno sostituiti.
+I 48 eventi presenti in entrambe le tracce sono **reali**: vengono dalla
+programmazione annuale 2026/2027 della Presidenza diocesana (`materiali/programmazione-annuale-2026-2027.pdf`), che ha
+sostituito il primo foglio Excel. Dallo stesso documento vengono anche Presidenza e
+Consiglio, descrizioni dei settori, la pagina *Programmazione 2026/2027* e il Centro
+studi. Notizie, documenti e il resto dei testi istituzionali sono in gran parte
+ancora **inventati**, e vanno sostituiti.
 
 ---
 

@@ -3,7 +3,7 @@ import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { tuttiGliEventi } from '../../lib/contenuti';
 import { settorePerSlug } from '../../data/settori';
-import { intervallo, dataConGiorno, iso } from '../../lib/date';
+import { quando, dataConGiorno, iso } from '../../lib/date';
 import { url } from '../../lib/url';
 
 export async function getStaticPaths() {
@@ -42,7 +42,7 @@ const { Content } = await render(evento);
           <dt>Quando</dt>
           <dd>
             <time datetime={iso(d.dataInizio)}>
-              {d.dataFine ? intervallo(d.dataInizio, d.dataFine) : dataConGiorno(d.dataInizio)}
+              {d.dataFine || d.dataIndicativa ? quando(d) : dataConGiorno(d.dataInizio)}
             </time>
             {d.orario && <><br />{d.orario}</>}
           </dd>
@@ -62,7 +62,9 @@ const { Content } = await render(evento);
         </dl>
 
         <div class="scheda__azioni">
-          <a class="bottone" href={url(`/eventi/${evento.id}.ics`)}>Aggiungi al calendario</a>
+          {!d.dataIndicativa && (
+            <a class="bottone" href={url(`/eventi/${evento.id}.ics`)}>Aggiungi al calendario</a>
+          )}
           {d.linkIscrizione && (
             <a class="bottone bottone--vuoto" href={d.linkIscrizione} rel="noopener noreferrer" target="_blank">
               Iscriviti

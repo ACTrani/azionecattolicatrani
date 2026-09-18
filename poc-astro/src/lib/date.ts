@@ -20,6 +20,14 @@ export function intervallo(inizio: Date, fine?: Date): string {
   return `${dataEstesa(inizio)} – ${dataEstesa(fine)}`;
 }
 
+/** La data da mostrare: quella indicativa, se il giorno non è ancora fissato. */
+export const quando = (d: { dataInizio: Date; dataFine?: Date; dataIndicativa?: string }) =>
+  d.dataIndicativa ?? intervallo(d.dataInizio, d.dataFine);
+
+/** Il giorno nel blocco data: un trattino finché il giorno non è fissato. */
+export const giornoOTrattino = (d: { dataInizio: Date; dataIndicativa?: string }) =>
+  d.dataIndicativa ? '–' : giorno(d.dataInizio);
+
 /** Per l'attributo datetime dei tag <time> */
 export const iso = (d: Date) => d.toISOString().slice(0, 10);
 

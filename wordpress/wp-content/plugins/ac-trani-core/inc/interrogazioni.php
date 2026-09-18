@@ -171,6 +171,12 @@ function ac_trani_settore_slug( int $post_id ): string {
  * consente: il mese e l'anno si ripetono solo se cambiano davvero.
  */
 function ac_trani_intervallo_leggibile( int $post_id ): string {
+	// Se il giorno non è ancora fissato si mostra il testo della programmazione.
+	$indicativa = trim( (string) get_post_meta( $post_id, 'ac_data_indicativa', true ) );
+	if ( $indicativa ) {
+		return $indicativa;
+	}
+
 	$inizio = (string) get_post_meta( $post_id, 'ac_data_inizio', true );
 	$fine   = (string) get_post_meta( $post_id, 'ac_data_fine', true );
 
@@ -199,8 +205,10 @@ function ac_trani_intervallo_leggibile( int $post_id ): string {
 
 /** «Centro Pastorale, Trani» senza doppioni né virgole pendenti. */
 function ac_trani_luogo_leggibile( int $post_id ): string {
-	$nome   = trim( (string) get_post_meta( $post_id, 'ac_luogo_nome', true ) );
-	$comune = trim( (string) get_post_meta( $post_id, 'ac_luogo_comune', true ) );
+	// «Sede da definire» e «Da definire» sono segnaposto: non si mostrano.
+	$noto   = fn( string $testo ): string => preg_match( '/^(sede )?da definire$/i', $testo ) ? '' : $testo;
+	$nome   = $noto( trim( (string) get_post_meta( $post_id, 'ac_luogo_nome', true ) ) );
+	$comune = $noto( trim( (string) get_post_meta( $post_id, 'ac_luogo_comune', true ) ) );
 
 	if ( $nome && $comune && stripos( $nome, $comune ) === false ) {
 		return $nome . ', ' . $comune;

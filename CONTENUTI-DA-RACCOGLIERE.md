@@ -1,8 +1,9 @@
 # Contenuti da raccogliere per il nuovo sito
 
 Documento da girare a chi conosce la realtà diocesana (e alla Presidenza) per
-raccogliere i contenuti reali. Il prototipo oggi gira con contenuti **inventati**:
-sono verosimili, ma nessuno di essi è vero.
+raccogliere i contenuti reali. Calendario, Presidenza e programmazione dell'anno sono
+ormai **veri** (dalla programmazione annuale 2026/2027); il resto — notizie, documenti,
+testi di presentazione — è ancora in buona parte **inventato**: verosimile, ma non vero.
 
 Non serve che arrivi tutto insieme. È ordinato per priorità: il **gruppo A** è ciò
 senza cui il sito non può essere pubblicato, il **gruppo B** lo rende utile, il
@@ -35,23 +36,19 @@ Non serve alcuna competenza tecnica.
 - [ ] Giorni e orari di apertura della segreteria
 - [ ] Canali social **diocesani** (nel prototipo ci sono per ora quelli nazionali)
 
-### A3. Presidenza diocesana
-Per ciascuno: **ruolo, nome e cognome**. Serve decidere anche se pubblicare o no
-un recapito personale (una mail dedicata per ruolo è preferibile a quella privata).
+### A3. Presidenza diocesana — ✅ ricevuta con la programmazione annuale
 
-| Ruolo | Nome |
-|---|---|
-| Presidente diocesano | |
-| Vicepresidente Settore Adulti | |
-| Vicepresidente Settore Giovani | |
-| Responsabile ACR | |
-| Segretario MSAC | |
-| Responsabile MLAC | |
-| Assistente unitario | |
-| Assistenti di settore | |
-| Segretario / Amministratore | |
+Presidenza, Consiglio, coordinatori cittadini e altri servizi sono nel sito (pagina
+*L'associazione* in Astro, pattern *Presidenza diocesana* in WordPress), con il
+**triennio 2024–2027**. Restano tre punti:
 
-- [ ] Va indicato anche il **triennio** in corso?
+- [ ] **Recapiti personali**: il PDF riporta il cellulare della Presidente e della
+      Segretaria e la mail personale dell'incaricata della promozione. Nel sito
+      **non sono pubblicati**: si pubblicano così com'erano o si preferisce una mail
+      per ruolo?
+- [ ] Nell'elenco **Domenico Doronzo** risulta «Consigliera adulti»: è corretto?
+- [ ] Nell'elenco del Consiglio **non c'è nessun riferimento per il MLAC**: c'è un
+      responsabile o un segretario da indicare?
 
 ### A4. Testo di presentazione
 - [ ] Mezza pagina: **chi è l'AC diocesana**, dove è presente, cosa propone
@@ -59,70 +56,56 @@ un recapito personale (una mail dedicata per ruolo è preferibile a quella priva
       segnaposto: *«Laici che scelgono di stare, insieme, dentro la vita della Chiesa
       e della città»*)
 - [x] **Anno associativo** e **icona biblica** dell'anno — ricevuti: 2026/2027,
-      *«Vino nuovo in otri nuovi»* (cfr. Mt 9,17)
-- [ ] Una descrizione di 3-4 righe **per ciascuno dei sei settori** (unitario, adulti,
-      giovani, ACR, MSAC, MLAC) — nel prototipo sono scritte da me e vanno riviste
+      *«Vino nuovo in otri nuovi»* (**Mc 2,18-22**, non Mt 9,17 come indicato prima)
+- [x] **Programmazione dell'anno** — nella nuova pagina *Programmazione 2026/2027*:
+      icona biblica, estratti della lettera della Presidente, parole dell'anno,
+      Laboratorio diocesano della formazione, cammini dei settori
+- [ ] Una descrizione **per ciascuno dei sei settori** — ora è ricavata dalla
+      programmazione, ma va comunque **riletta** da chi segue ciascun settore
+- [ ] Nel percorso Adulti il PDF indica il modulo «**Aduttività**»: nel sito è
+      «Adattività». Confermare il nome esatto
 
 ---
 
 ## Gruppo B — rende il sito davvero utile
 
-### B1. Eventi — ✅ ricevuti, ma con alcuni buchi
+### B1. Eventi — ✅ ricevuti con la programmazione annuale
 
-La **programmazione diocesana 2026/2027** (`materiali/programmazione-diocesana-2026-2027.xlsx`) è ora
-dentro il prototipo: 29 appuntamenti, da settembre 2026 ad agosto 2027. Ho verificato
-tutte le date contro il giorno della settimana indicato nel foglio: **sono tutte corrette**.
+La **programmazione annuale 2026/2027** (`materiali/programmazione-annuale-2026-2027.pdf`)
+ha sostituito il foglio Excel: ora gli appuntamenti nel sito sono **48**, da settembre
+2026 ad agosto 2027. Tutte le date sono state verificate contro il giorno della
+settimana indicato. Il PDF chiude i buchi del foglio (nomi mancanti, LDF Giovani,
+Sentiero Frassati, assegnazione ai settori).
 
-Restano però alcune cose da chiarire.
+Gli appuntamenti senza giorno preciso («nel mese di aprile», «6 o 13 novembre»,
+«primi di giugno») sono nel sito con una **data indicativa**: appena il giorno è
+fissato basta correggere le date e svuotare quel campo.
 
-**Righe incomplete nel foglio**
+**Da chiarire**
 
-| Riga | Cosa manca |
+| Appuntamento | Dubbio |
 |---|---|
-| 16/18 ottobre 2026, Seveso | manca il **nome** dell'appuntamento |
-| 19 marzo 2027, Trani — San Giuseppe | manca il **nome** dell'appuntamento |
-| LDF Settore Giovani (aprile 2027) | manca la **data** |
-| 29 aprile 2027 | manca il **nome** (è forse la data del LDF Giovani?) |
-
-Questi quattro non sono nel prototipo, perché non saprei come intitolarli o dove metterli.
-
-**Refusi da correggere nel foglio**
-- «SIRITUALITà» → spiritualità (30 novembre)
-- «GIORNATA DELLA PAMIGLIA» → famiglia (8 maggio)
-- Il blocco di luglio si intitola **«GIUGNO 2027»** per la seconda volta. Il *Sentiero
-  Frassati* è indicato «5 LUNEDI'»: il 5 luglio 2027 è lunedì, il 5 giugno è sabato.
-  Nel prototipo l'ho messo a **luglio** — confermare.
-
-**Assegnazione ai settori — da confermare**
-
-Il foglio distingue i settori con i **colori**, ma la colorazione non è coerente: per
-esempio «Assemblea MSAC» non ha il colore MSAC e «LDF Settore Giovani» ha quello
-diocesano. Ho quindi assegnato i settori **dal nome dell'evento**, mettendo *unitario*
-dove il nome non dice nulla. Da rivedere in particolare:
-
-| Appuntamento | Settore ipotizzato |
-|---|---|
-| Back to School | MSAC |
-| Incontro EDR / 1° incontro EDR | ACR |
-| Incontro diocesano educatori | ACR |
-| Fiera di esserci | ACR |
-| Ritiro diocesano 3ª media – 1ª superiore | ACR |
-| Campo scuola diocesano 3ª media – 1ª sup. | ACR |
-| Presentazione Mese della Pace | ACR |
-| Giornata della famiglia | Adulti |
-| Maturandi, Sentiero Frassati | Giovani |
+| 15 dicembre 2026 — «PDF Giovani» | Cosa indica la sigla? Nel sito è riportata così |
+| Esperienza di carità in uscita (Pastorale giovanile) | Una delle due date possibili, **27 febbraio**, coincide con l'Assemblea diocesana elettiva |
+| Festa di San Giuseppe (MLAC) | Il PDF dice **14 marzo**, il foglio Excel diceva 19 marzo: vale il PDF? |
+| Incontro responsabili ed educatori Giovani | Il PDF dice **29 settembre**, il foglio 28: vale il PDF? |
+| Fede & Cultura — gita in barca Pantano-Ripalta | È indicata a **Bisceglie**: è il luogo di ritrovo? |
+| Ritiro di Quaresima III media / I superiore | Lo organizzano ACR e Giovani insieme: nel sito è sotto l'**ACR** |
+| Scuola del Bene Comune, maturandi | Evidenziati in celeste, quindi messi sotto il **MSAC** |
 
 **Cosa manca ancora per ogni evento**
-- [ ] **Orari**: il foglio non li riporta, quindi nel sito compare solo la data
-- [ ] Sede per gli appuntamenti segnati «?» nel foglio
-- [ ] Una **descrizione di due righe** per ciascuno: quelle attuali le ho scritte io
-      partendo dal solo titolo, e vanno riviste
+- [ ] **Orari**: la programmazione non li riporta, quindi nel sito compare solo la data
+- [ ] **Sede** per gli appuntamenti che indicano solo la città (o nemmeno quella)
+- [ ] Una **descrizione di due righe** per ciascuno: quelle attuali sono ricavate dal
+      titolo e dal testo della programmazione, vanno rilette
 - [ ] Locandine, dove esistono
 - [ ] Per quali eventi serve **iscriversi**, e con quale modulo o link
 
 ### B2. Documenti e modulistica
 Quali file devono essere **scaricabili dalla home page**. Tipicamente:
-- [ ] Programmazione unitaria e programmazioni di settore dell'anno in corso
+- [x] Programmazione dell'anno — **ricevuta**, è un unico PDF con tutti i settori. Nel
+      sito c'è la scheda del documento **senza file**: si può pubblicare così com'è?
+      Contiene i cellulari della Presidente e della Segretaria (vedi A3)
 - [ ] Scheda di adesione e quote aggiornate
 - [ ] Modulo di iscrizione ai campi + liberatoria per foto/video dei minori
 - [ ] Sussidi in uso per educatori ACR e per gli adulti
@@ -142,7 +125,8 @@ Per ciascuno: **il file** + titolo, una riga di descrizione, settore, anno assoc
 - [ ] Elenco delle **associazioni parrocchiali** (parrocchia, città, referente)
 - [ ] Storia dell'AC in diocesi
 - [ ] Testimoni e figure significative del territorio
-- [ ] Istituto/Centro studi «Pier Giorgio Frassati»: è ancora attivo? Che spazio merita?
+- [x] Centro studi «Pier Giorgio Frassati» — **attivo**: proposte, contatti e canali
+      social sono nella pagina *L'associazione* (e nel pattern *Centro studi* in WordPress)
 - [ ] Collegamento con Progetto Policoro e altre realtà diocesane
 
 ---

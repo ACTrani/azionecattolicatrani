@@ -2,6 +2,10 @@
 import Base from '../layouts/Base.astro';
 import { sito } from '../data/sito';
 import { url } from '../lib/url';
+
+const promozione = sito.consiglio
+  .flatMap((g) => g.persone)
+  .find((p) => p.ruolo === 'Promozione associativa')!;
 ---
 
 <Base
@@ -15,6 +19,12 @@ import { url } from '../lib/url';
       <p class="apertura__testo">
         Aderire all'Azione Cattolica significa dire che la propria fede si gioca dentro
         una comunità concreta: la parrocchia, la diocesi, la città in cui si vive.
+      </p>
+      <p class="apertura__testo">
+        Ispirata dalla chiamata a essere «vino nuovo in otri nuovi», l'associazione offre a
+        ciascuno la possibilità di uscire da schemi rigidi e consuetudini stanche,
+        custodendo una fede viva, duttile e generativa. Scegliere l'AC significa scegliere
+        di camminare insieme per far fiorire spazi di pace, ascolto e continua novità.
       </p>
     </div>
   </section>
@@ -52,8 +62,30 @@ import { url } from '../lib/url';
       <a class="bottone bottone--vuoto" href={url('/contatti')}>Chiedi alla segreteria</a>
     </div>
 
+    <section class="riquadri">
+      <article class="riquadro">
+        <h2>Promozione associativa</h2>
+        <p>
+          L'Area promozione associativa diocesana mette a disposizione materiali e strumenti
+          per la promozione nelle parrocchie. Si può chiedere la presenza dell'incaricata,
+          {promozione.nome}, per approfondimenti o eventi nella propria comunità: basta
+          scrivere alla <a href={url('/contatti')}>segreteria diocesana</a>.
+        </p>
+      </article>
+      <article class="riquadro">
+        <h2>Sostieni l'associazione</h2>
+        <p>
+          «{sito.raccoltaFondi.titolo}»: si può sostenere l'Azione Cattolica
+          dell'Arcidiocesi di Trani – Barletta – Bisceglie anche con la raccolta fondi online.
+        </p>
+        <p>
+          <a href={sito.raccoltaFondi.url} rel="noopener noreferrer" target="_blank">Vai alla raccolta fondi ↗</a>
+        </p>
+      </article>
+    </section>
+
     <p class="nota">
-      ⚠️ Testi di esempio: contenuti, quote e scadenze reali vanno forniti dalla Presidenza diocesana.
+      ⚠️ Passi, quote e scadenze della campagna adesioni sono ancora testi di esempio: vanno forniti dalla Presidenza diocesana.
     </p>
   </div>
 </Base>
@@ -82,6 +114,21 @@ import { url } from '../lib/url';
   }
   .passo h2 { font-size: var(--step-1); }
   .passo p { color: var(--col-inchiostro-tenue); font-size: var(--step--1); }
+
+  .riquadri {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: var(--spazio-m);
+    margin-top: var(--spazio-2xl);
+  }
+  .riquadro {
+    padding: var(--spazio-m);
+    background: var(--col-carta);
+    border: var(--bordo-sottile);
+    border-radius: var(--raggio);
+  }
+  .riquadro h2 { font-size: var(--step-1); }
+  .riquadro p { font-size: var(--step--1); }
 
   .azioni { display: flex; flex-wrap: wrap; gap: var(--spazio-s); margin-top: var(--spazio-2xl); }
   .nota {

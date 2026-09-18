@@ -8,9 +8,10 @@ Serve a due cose:
 2. Essere la **traccia B** del piano di lavoro (frontend statico che legge da un CMS),
    da confrontare con la traccia A (WordPress monolitico).
 
-> **Sui contenuti:** gli **eventi sono veri**, presi dalla programmazione diocesana
-> 2026/2027 (`../materiali/programmazione-diocesana-2026-2027.xlsx`). ⚠️ Tutto il resto — notizie,
-> documenti, nomi della Presidenza, testi di presentazione — è ancora **inventato**.
+> **Sui contenuti:** gli **eventi sono veri**, presi dalla programmazione annuale
+> 2026/2027 (`../materiali/programmazione-annuale-2026-2027.pdf`), come Presidenza e Consiglio, descrizioni dei settori, la
+> pagina `/programmazione` (`src/data/programmazione.ts`) e il Centro studi. ⚠️ Notizie,
+> documenti e il resto dei testi di presentazione sono in gran parte ancora **inventati**.
 > Cosa serve per completarlo: `../CONTENUTI-DA-RACCOGLIERE.md`.
 
 ---

@@ -1,8 +1,9 @@
 ---
-titolo: "Campo scuola diocesano 3ª media – 1ª superiore"
-sommario: "Il campo scuola diocesano per i ragazzi del passaggio."
+titolo: "Campo diocesano III media"
+sommario: "Il campo scuola diocesano per i ragazzi di terza media."
 dataInizio: 2027-08-16
 dataFine: 2027-08-28
+dataIndicativa: "Tra il 16 e il 28 agosto 2027"
 luogo:
   nome: "Sede da definire"
   comune: "Da definire"
@@ -11,6 +12,8 @@ annoAssociativo: "2026/2027"
 inEvidenza: false
 ---
 
-Appuntamento previsto dalla programmazione diocesana 2026/2027.
+Appuntamento della programmazione 2026/2027 dell’**Azione Cattolica dei Ragazzi**.
 
-> Sede, orario e dettagli sono in via di definizione.
+Le date precise, fra il 16 e il 28 agosto, sono ancora da definire.
+
+> Orario e dettagli saranno comunicati più avanti.

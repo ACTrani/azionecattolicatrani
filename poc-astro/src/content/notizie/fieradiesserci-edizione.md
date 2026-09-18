@@ -1,15 +1,14 @@
 ---
-titolo: "Torna «fierAdiesserCI», la festa diocesana dei ragazzi"
-sommario: "Una giornata di stand, giochi e testimonianze costruita dalle associazioni parrocchiali: un'edizione dedicata alla cura dei legami."
+titolo: "Domenica 11 ottobre a Barletta torna «…fierA di esserCI»"
+sommario: "La manifestazione diocesana unitaria riunisce ragazzi, giovani e adulti delle associazioni parrocchiali."
 data: 2026-09-12
-settore: acr
+settore: unitario
 comunicato: false
 inEvidenza: false
 ---
 
-Dopo le edizioni degli anni scorsi torna **fierAdiesserCI**, la festa che trasforma
-una piazza in un grande spazio educativo: stand delle parrocchie, giochi a squadre,
-testimonianze e un momento di preghiera conclusivo.
+Torna **…fierA di esserCI**, la manifestazione diocesana unitaria dell’Azione Cattolica: l’appuntamento è per domenica 11 ottobre a Barletta.
 
-L'organizzazione è affidata all'équipe diocesana ACR insieme ai responsabili
-parrocchiali.
+Sarà presente anche il Centro studi «Pier Giorgio Frassati», con i suoi materiali sulla storia dell’associazione nell’anno del centenario della nascita di Vittorio Bachelet.
+
+> Sede e programma della giornata saranno comunicati più avanti.

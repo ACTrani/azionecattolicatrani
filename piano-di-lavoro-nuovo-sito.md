@@ -275,10 +275,11 @@ Due conseguenze importanti:
 
 ## 12. Stato di avanzamento
 
-*(aggiornato al 16 settembre 2026)*
+*(aggiornato al 18 settembre 2026)*
 
-Entrambe le tracce esistono e girano. Non sono mockup: leggono gli stessi 29
-appuntamenti reali della programmazione diocesana 2026/2027.
+Entrambe le tracce esistono e girano. Non sono mockup: leggono gli stessi 48
+appuntamenti reali della programmazione annuale 2026/2027, insieme a Presidenza,
+Consiglio e cammini dei settori presi dallo stesso documento.
 
 | | Traccia A — WordPress | Traccia B — headless + Astro |
 |---|---|---|

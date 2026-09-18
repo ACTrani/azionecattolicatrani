@@ -18,7 +18,7 @@ export const settori: Settore[] = [
     nomeEsteso: 'Vita associativa unitaria',
     eta: 'Tutta l’associazione',
     descrizione:
-      'Gli appuntamenti che riuniscono l’intera associazione diocesana: assemblee, campi unitari, esercizi spirituali, formazione dei responsabili.',
+      'Gli appuntamenti che riuniscono tutta l’associazione diocesana: le assemblee, …fierA di esserCI, il Laboratorio diocesano della formazione, le celebrazioni dell’anno.',
     tinta: '#1f3f6b',
   },
   {
@@ -27,7 +27,7 @@ export const settori: Settore[] = [
     nomeEsteso: 'Settore Adulti',
     eta: 'dai 30 anni',
     descrizione:
-      'Adulti e famiglie che vivono la corresponsabilità nella parrocchia e l’impegno nella città: formazione permanente, coppie, terza età.',
+      'Adulti e famiglie che vogliono essere credenti e credibili, «di parola», in parrocchia, in famiglia e nella città: gruppi, serate di spiritualità, Fede & Cultura, Giornata della famiglia.',
     tinta: '#2c6e63',
   },
   {
@@ -36,16 +36,16 @@ export const settori: Settore[] = [
     nomeEsteso: 'Settore Giovani',
     eta: '15 – 30 anni',
     descrizione:
-      'Giovanissimi e giovani in cammino: ritiri, scuola di formazione, servizio, campi estivi e discernimento vocazionale.',
+      'Giovanissimi (15–18 anni) e giovani (19–30) in cammino nei gruppi parrocchiali e negli appuntamenti diocesani: ritiri, laboratorio della formazione, preghiera e servizio.',
     tinta: '#b5651d',
   },
   {
     slug: 'acr',
     nome: 'ACR',
     nomeEsteso: 'Azione Cattolica dei Ragazzi',
-    eta: '6 – 14 anni',
+    eta: 'Dai Piccolissimi ai 14 anni',
     descrizione:
-      'I ragazzi come protagonisti, non destinatari: Mese del Ciao, Mese della Pace, Festa degli Incontri, campi scuola.',
+      'I ragazzi dai Piccolissimi ai 14 anni, protagonisti del proprio cammino di fede, con un’attenzione speciale agli educatori e all’Equipe diocesana dei ragazzi (EDR).',
     tinta: '#c0392b',
   },
   {
@@ -54,7 +54,7 @@ export const settori: Settore[] = [
     nomeEsteso: 'Movimento Studenti di Azione Cattolica',
     eta: 'Studenti delle superiori',
     descrizione:
-      'Studenti che si prendono cura della scuola: rappresentanza, cittadinanza attiva, formazione politica.',
+      'La proposta missionaria per i giovanissimi che vivono tra i banchi di scuola: rappresentanza, cittadinanza attiva, legalità. In diocesi da dieci anni.',
     tinta: '#5b4b8a',
   },
   {
@@ -63,7 +63,7 @@ export const settori: Settore[] = [
     nomeEsteso: 'Movimento Lavoratori di Azione Cattolica',
     eta: 'Mondo del lavoro',
     descrizione:
-      'Il lavoro come luogo di vocazione e di giustizia: Progetto Policoro, dottrina sociale, precarietà e dignità.',
+      'Il lavoro letto alla luce del Vangelo e della Dottrina sociale: dignità, sicurezza, sostenibilità e partecipazione, insieme alla Pastorale sociale e del lavoro diocesana.',
     tinta: '#6b7a3a',
   },
 ];

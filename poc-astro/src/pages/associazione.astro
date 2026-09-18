@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { settori } from '../data/settori';
 import { sito } from '../data/sito';
+import { centroStudi } from '../data/programmazione';
 import { url } from '../lib/url';
 ---
 
@@ -31,9 +32,14 @@ import { url } from '../lib/url';
         appuntamenti unitari.
       </p>
       <p>
-        L'anno associativo si apre in autunno con l'assemblea diocesana e si chiude in
+        L'anno associativo si apre a settembre con l'assemblea diocesana e si chiude in
         estate con i campi scuola. Nel mezzo: formazione, servizio, spiritualità e
         impegno nella città.
+      </p>
+      <p>
+        Quest'anno il cammino è guidato dall'icona biblica «{sito.temaAnno}»
+        ({sito.temaAnnoRiferimento}) e dal verbo <em>generare</em>:
+        <a href={url('/programmazione')}>leggi la programmazione {sito.annoAssociativo}</a>.
       </p>
     </section>
 
@@ -53,20 +59,44 @@ import { url } from '../lib/url';
       </div>
     </section>
 
-    <section class="sezione">
-      <h2 class="occhiello">Presidenza diocesana</h2>
-      <p class="nota-segnaposto">
-        ⚠️ <strong>Contenuto da completare.</strong> I nomi dei componenti della
-        Presidenza vanno forniti dall'associazione: qui sono indicati solo i ruoli.
-      </p>
-      <ul class="presidenza">
-        {sito.presidenza.map((p) => (
-          <li>
-            <span class="presidenza__ruolo">{p.ruolo}</span>
-            <span class="presidenza__nome">{p.nome}</span>
-          </li>
+    <section class="sezione" id="presidenza">
+      <h2 class="occhiello">Presidenza e Consiglio diocesano</h2>
+      <p class="nota-triennio">Triennio {sito.triennio}</p>
+      <div class="consiglio">
+        {sito.consiglio.map((g) => (
+          <div class="consiglio__gruppo">
+            <h3>{g.gruppo}</h3>
+            <ul class="presidenza">
+              {g.persone.map((p) => (
+                <li>
+                  <span class="presidenza__nome">{p.nome}</span>
+                  <span class="presidenza__ruolo">{p.ruolo}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
-      </ul>
+      </div>
+    </section>
+
+    <section class="sezione" id="centro-studi">
+      <h2 class="occhiello">{centroStudi.nome}</h2>
+      <div class="intro">
+        <p class="intro__sottotitolo">{centroStudi.sottotitolo}</p>
+        <p>{centroStudi.introduzione}</p>
+        <ul class="elenco-puntato">
+          {centroStudi.proposte.map((p) => <li>{p}</li>)}
+        </ul>
+        <p>
+          Per contatti: {centroStudi.referente},
+          <a href={`mailto:${centroStudi.email}`}>{centroStudi.email}</a>
+        </p>
+        <ul class="collegamenti">
+          {centroStudi.collegamenti.map((c) => (
+            <li><a href={c.url} rel="noopener noreferrer" target="_blank">{c.nome} ↗</a></li>
+          ))}
+        </ul>
+      </div>
     </section>
   </div>
 </Base>
@@ -116,15 +146,15 @@ import { url } from '../lib/url';
   .scheda-settore__testo { color: var(--col-inchiostro-tenue); font-size: var(--step--1); flex: 1; }
   .scheda-settore__link { font-size: var(--step--1); font-weight: 600; text-decoration: none; }
 
-  .nota-segnaposto {
-    background: #fff6e2;
-    border: 1px dashed var(--col-ocra);
-    border-radius: var(--raggio);
-    padding: var(--spazio-s) var(--spazio-m);
-    font-size: var(--step--1);
-    max-width: 44rem;
+  .nota-triennio { color: var(--col-inchiostro-tenue); font-size: var(--step--1); }
+  .consiglio {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+    gap: var(--spazio-l) var(--spazio-xl);
+    margin-top: var(--spazio-m);
   }
-  .presidenza { list-style: none; margin: var(--spazio-l) 0 0; padding: 0; max-width: 44rem; }
+  .consiglio__gruppo h3 { font-size: var(--step-1); margin-bottom: 0; }
+  .presidenza { list-style: none; margin: var(--spazio-2xs) 0 0; padding: 0; }
   .presidenza li {
     display: flex;
     flex-wrap: wrap;
@@ -133,6 +163,12 @@ import { url } from '../lib/url';
     padding: var(--spazio-s) 0;
     border-bottom: 1px solid var(--col-bordo-tenue);
   }
-  .presidenza__ruolo { font-weight: 600; }
-  .presidenza__nome { color: var(--col-inchiostro-tenue); font-style: italic; }
+  .presidenza__nome { font-weight: 600; }
+  .presidenza__ruolo { color: var(--col-inchiostro-tenue); text-align: right; }
+
+  .intro__sottotitolo { font-style: italic; color: var(--col-inchiostro-tenue); }
+  .elenco-puntato { padding-left: 1.2rem; }
+  .elenco-puntato li { margin-bottom: var(--spazio-2xs); }
+  .collegamenti { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--spazio-s) var(--spazio-m); }
+  .collegamenti a { font-weight: 600; }
 </style>

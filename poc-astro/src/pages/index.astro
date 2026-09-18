@@ -7,7 +7,7 @@ import { settori } from '../data/settori';
 import { sito } from '../data/sito';
 import { url } from '../lib/url';
 import { luogoLeggibile } from '../lib/luogo';
-import { giorno, meseBreve, dataConGiorno } from '../lib/date';
+import { giornoOTrattino, meseBreve, dataConGiorno } from '../lib/date';
 
 const prossimi = await eventiProssimi(5);
 const [inPrimoPiano, ...altri] = prossimi;
@@ -27,7 +27,7 @@ const documenti = (await tuttiIDocumenti()).slice(0, 4);
         <p class="apertura__claim">{sito.claim}</p>
         <div class="apertura__azioni">
           <a class="bottone" href={url('/eventi')}>Prossimi appuntamenti</a>
-          <a class="bottone bottone--vuoto" href={url('/associazione')}>Chi siamo</a>
+          <a class="bottone bottone--vuoto" href={url('/programmazione')}>Il cammino dell'anno</a>
         </div>
       </div>
 
@@ -35,13 +35,13 @@ const documenti = (await tuttiIDocumenti()).slice(0, 4);
         <aside class="prossimo" data-settore={inPrimoPiano.data.settore} aria-label="Il prossimo appuntamento">
           <p class="prossimo__etichetta">Il prossimo appuntamento</p>
           <p class="prossimo__data">
-            <span class="prossimo__giorno">{giorno(inPrimoPiano.data.dataInizio)}</span>
+            <span class="prossimo__giorno">{giornoOTrattino(inPrimoPiano.data)}</span>
             <span class="prossimo__mese">{meseBreve(inPrimoPiano.data.dataInizio)}</span>
           </p>
           <h2 class="prossimo__titolo">
             <a href={url(`/eventi/${inPrimoPiano.id}`)}>{inPrimoPiano.data.titolo}</a>
           </h2>
-          <p class="prossimo__quando">{dataConGiorno(inPrimoPiano.data.dataInizio)}{inPrimoPiano.data.orario ? `, ${inPrimoPiano.data.orario}` : ''}</p>
+          <p class="prossimo__quando">{inPrimoPiano.data.dataIndicativa ?? dataConGiorno(inPrimoPiano.data.dataInizio)}{inPrimoPiano.data.orario ? `, ${inPrimoPiano.data.orario}` : ''}</p>
           <p class="prossimo__dove">{luogoLeggibile(inPrimoPiano.data.luogo)}</p>
         </aside>
       )}

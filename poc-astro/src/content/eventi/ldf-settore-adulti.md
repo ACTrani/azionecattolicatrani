@@ -1,15 +1,15 @@
 ---
-titolo: "LDF Settore Adulti"
-sommario: "Laboratorio della formazione del Settore Adulti."
+titolo: "Laboratorio della formazione — Settore Adulti"
+sommario: "Il laboratorio di settore, «Incontrare le piazze»: quali realtà ci interrogano oggi?"
 dataInizio: 2027-04-10
 luogo:
-  nome: "Santa Maria di Costantinopoli"
+  nome: "Parrocchia S. Maria di Costantinopoli"
   comune: "Bisceglie"
 settore: adulti
 annoAssociativo: "2026/2027"
 inEvidenza: false
 ---
 
-Appuntamento **confermato** nella programmazione diocesana 2026/2027.
+Appuntamento della programmazione 2026/2027 del **Settore Adulti**.
 
-> Sede, orario e dettagli sono in via di definizione.
+> Orario e dettagli saranno comunicati più avanti.

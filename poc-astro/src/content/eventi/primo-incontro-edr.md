@@ -1,6 +1,6 @@
 ---
-titolo: "1° incontro EDR"
-sommario: "Primo incontro dell’EDR del nuovo anno associativo."
+titolo: "Primo incontro EDR"
+sommario: "Il primo incontro dell’anno dell’Equipe diocesana dei ragazzi (EDR)."
 dataInizio: 2026-11-15
 luogo:
   nome: "Sede da definire"
@@ -10,6 +10,6 @@ annoAssociativo: "2026/2027"
 inEvidenza: false
 ---
 
-Appuntamento previsto dalla programmazione diocesana 2026/2027.
+Appuntamento della programmazione 2026/2027 dell’**Azione Cattolica dei Ragazzi**.
 
-> Sede, orario e dettagli sono in via di definizione.
+> Orario e dettagli saranno comunicati più avanti.

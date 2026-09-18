@@ -1,15 +1,15 @@
 ---
-titolo: "Back to School"
-sommario: "L’appuntamento che apre l’anno scolastico per gli studenti di Azione Cattolica."
+titolo: "Back to school"
+sommario: "L’appuntamento del MSAC che apre l’anno scolastico."
 dataInizio: 2026-09-10
 luogo:
-  nome: "Sede da definire"
-  comune: "Da definire"
+  nome: "Parrocchia SS. Angeli Custodi"
+  comune: "Trani"
 settore: msac
 annoAssociativo: "2026/2027"
 inEvidenza: false
 ---
 
-Appuntamento previsto dalla programmazione diocesana 2026/2027.
+Appuntamento della programmazione 2026/2027 del **Movimento Studenti di Azione Cattolica** (MSAC), dentro il calendario del Settore Giovani.
 
-> Sede, orario e dettagli sono in via di definizione.
+> Orario e dettagli saranno comunicati più avanti.
