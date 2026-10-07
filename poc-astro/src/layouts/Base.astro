@@ -2,7 +2,7 @@
 import Font from 'astro/components/Font.astro';
 import Intestazione from '../components/Intestazione.astro';
 import PiePagina from '../components/PiePagina.astro';
-import BannerPoc from '../components/BannerPoc.astro';
+import BarraAppuntamenti from '../components/BarraAppuntamenti.astro';
 import { sito } from '../data/sito';
 import { url } from '../lib/url';
 import '../styles/global.css';
@@ -27,6 +27,7 @@ const percorso = Astro.url.pathname;
     <title>{titoloCompleto}</title>
     <meta name="description" content={descrizione} />
     <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#2f5d8a" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="it_IT" />
@@ -40,7 +41,7 @@ const percorso = Astro.url.pathname;
 
   <body>
     <a class="salta-al-contenuto" href="#contenuto">Salta al contenuto</a>
-    <BannerPoc />
+    <BarraAppuntamenti />
     <Intestazione percorso={percorso} />
     <main id="contenuto">
       <slot />

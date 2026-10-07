@@ -17,20 +17,22 @@ export default defineConfig({
   // dichiarare nel cookie banner).
   fonts: [
     {
+      // Display: grottesco rotondo e pesante, come le lettere ritagliate dei cartelloni
       provider: fontProviders.google(),
-      name: 'Fraunces',
+      name: 'Rubik',
       cssVariable: '--font-display',
-      weights: ['400 700'],
+      weights: ['500 900'],
       styles: ['normal'],
       subsets: ['latin', 'latin-ext'],
-      fallbacks: ['Iowan Old Style', 'Palatino', 'Georgia', 'serif'],
+      fallbacks: ['Arial Rounded MT Bold', 'Helvetica Neue', 'Arial', 'sans-serif'],
     },
     {
+      // Testo: progettato per la massima leggibilità, anche per chi legge con fatica
       provider: fontProviders.google(),
-      name: 'Archivo',
+      name: 'Atkinson Hyperlegible Next',
       cssVariable: '--font-body',
-      weights: ['400 700'],
-      styles: ['normal'],
+      weights: ['400 800'],
+      styles: ['normal', 'italic'],
       subsets: ['latin', 'latin-ext'],
       fallbacks: ['Helvetica Neue', 'Arial', 'sans-serif'],
     },

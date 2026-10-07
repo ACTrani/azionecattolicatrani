@@ -5,6 +5,8 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  scrollbar-color: var(--col-filo-forte) var(--col-carta);
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -17,11 +19,11 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--col-pietra);
-  color: var(--col-inchiostro);
+  background-color: var(--col-carta);
+  color: var(--col-notte);
   font-family: var(--testo-corpo);
   font-size: var(--step-0);
-  line-height: 1.65;
+  line-height: 1.6;
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   display: flex;
@@ -29,133 +31,171 @@ body {
   min-height: 100vh;
 }
 
-/* Grana della carta: dà materia al fondo senza usare immagini */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.35;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-}
-body > * { position: relative; z-index: 1; }
+::selection { background: var(--col-blu-chiaro); color: var(--col-notte); }
 
 h1, h2, h3, h4 {
   font-family: var(--testo-display);
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.015em;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   margin: 0 0 var(--spazio-s);
   text-wrap: balance;
 }
 h1 { font-size: var(--step-5); }
 h2 { font-size: var(--step-3); }
-h3 { font-size: var(--step-1); }
+h3 { font-size: var(--step-1); font-weight: 700; letter-spacing: -0.01em; }
 
 p { margin: 0 0 var(--spazio-s); text-wrap: pretty; }
 
-a { color: var(--col-blu); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
-a:hover { color: var(--col-ocra); }
+a {
+  color: var(--col-blu);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  transition: text-decoration-color var(--transizione), color var(--transizione);
+}
+a:hover { text-decoration-color: currentColor; }
 
 :focus-visible {
-  outline: 3px solid var(--col-ocra);
+  outline: 3px solid var(--col-blu);
   outline-offset: 3px;
+  border-radius: 4px;
 }
 
 img { max-width: 100%; height: auto; display: block; }
 
+/* Cifre tabulari ovunque ci siano date, orari e conteggi */
+time, .cifre { font-variant-numeric: tabular-nums; }
+
 /* — Struttura ————————————————————————————————————————————— */
 .contenitore {
-  width: min(100% - 2.5rem, var(--larghezza-max));
+  width: min(100% - 2rem, var(--larghezza-max));
   margin-inline: auto;
 }
 .sezione { padding-block: var(--spazio-2xl); }
 main { flex: 1; }
 
-/* — Occhiello: il piccolo titolo di sezione, marchio editoriale del sito — */
-.occhiello {
-  font-family: var(--testo-corpo);
-  font-size: var(--step--1);
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--col-inchiostro-tenue);
+/* — Testata di sezione: titolo grande a sinistra, «vedi tutto» a destra — */
+.testa-sezione {
   display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spazio-2xs) var(--spazio-m);
+  margin-bottom: var(--spazio-l);
+}
+.testa-sezione h2 { margin: 0; font-size: var(--step-4); }
+.testa-sezione__link {
+  display: inline-flex;
   align-items: center;
-  gap: var(--spazio-s);
-  margin-bottom: var(--spazio-m);
+  gap: 0.35em;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
 }
-.occhiello::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--col-bordo);
-}
+.testa-sezione__link svg { transition: transform var(--transizione); }
+.testa-sezione__link:hover svg { transform: translateX(3px); }
 
-/* — Etichetta di settore ——————————————————————————————————— */
+/* — Etichetta di settore: un piccolo ritaglio pieno ————————————————— */
 .etichetta {
   display: inline-flex;
   align-items: center;
-  gap: 0.4em;
-  font-size: var(--step--1);
+  padding: 0.2em 0.6em 0.22em;
+  font-family: var(--testo-display);
+  font-size: var(--step--2);
   font-weight: 700;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--col-settore);
-  text-decoration: none;
-}
-.etichetta::before {
-  content: '';
-  width: 0.55em;
-  height: 0.55em;
+  line-height: 1.2;
+  border-radius: 999px;
   background: var(--col-settore);
-  border-radius: 50%;
+  color: var(--col-settore-testo);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.bollo-comunicato {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.2em 0.6em 0.22em;
+  font-family: var(--testo-display);
+  font-size: var(--step--2);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+  color: var(--col-notte);
 }
 
 /* — Bottoni ———————————————————————————————————————————————— */
 .bottone {
   display: inline-flex;
   align-items: center;
-  gap: var(--spazio-2xs);
-  padding: 0.75em 1.4em;
-  font-family: var(--testo-corpo);
+  justify-content: center;
+  gap: 0.5em;
+  min-height: 2.9rem;
+  padding: 0.65em 1.25em;
+  font-family: var(--testo-display);
   font-size: var(--step--1);
   font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  border: 1px solid var(--col-inchiostro);
-  border-radius: var(--raggio);
-  background: var(--col-inchiostro);
-  color: var(--col-pietra);
+  border: 2px solid var(--col-blu);
+  border-radius: 999px;
+  background: var(--col-blu);
+  color: #fff;
   cursor: pointer;
-  transition: background var(--transizione), color var(--transizione), transform var(--transizione);
+  transition: background var(--transizione), color var(--transizione), border-color var(--transizione), transform 160ms var(--curva);
 }
-.bottone:hover { background: var(--col-ocra); border-color: var(--col-ocra); color: #fff; transform: translateY(-2px); }
-.bottone--vuoto { background: transparent; color: var(--col-inchiostro); }
-.bottone--vuoto:hover { background: var(--col-inchiostro); color: var(--col-pietra); border-color: var(--col-inchiostro); }
-.bottone--chiaro { background: var(--col-ocra); border-color: var(--col-ocra); color: #fff; }
+.bottone:hover { background: var(--col-notte); border-color: var(--col-notte); color: #fff; }
+.bottone:active { transform: translateY(1px); }
+.bottone--vuoto { background: transparent; color: var(--col-blu); }
+.bottone--vuoto:hover { background: var(--col-blu); border-color: var(--col-blu); color: #fff; }
+/* Sui campi blu */
+.bottone--chiaro { background: #fff; border-color: #fff; color: var(--col-blu); }
+.bottone--chiaro:hover { background: var(--col-notte); border-color: var(--col-notte); color: #fff; }
+.bottone--filo { background: transparent; border-color: rgb(255 255 255 / 0.6); color: #fff; }
+.bottone--filo:hover { background: #fff; border-color: #fff; color: var(--col-blu); }
+/* «Il prossimo»: l'unico bottone lime */
+.bottone--prossimo { background: var(--col-lime); border-color: var(--col-lime); color: var(--col-notte); }
+.bottone--prossimo:hover { background: #fff; border-color: #fff; color: var(--col-notte); }
 
-/* — Rivelazione allo scroll ————————————————————————————————— */
-@media (prefers-reduced-motion: no-preference) {
-  .rivela {
-    animation: rivela linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 22%;
-  }
-  @keyframes rivela {
-    from { opacity: 0; transform: translateY(1.75rem); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+/* — Testo lungo (articoli, eventi, pagine) ———————————————————— */
+.testo-lungo { max-width: var(--larghezza-testo); font-size: var(--step-0); }
+.testo-lungo :where(h2) { font-size: var(--step-2); margin-top: var(--spazio-xl); }
+.testo-lungo :where(h3) { font-size: var(--step-1); margin-top: var(--spazio-l); }
+.testo-lungo :where(ul, ol) { padding-left: 1.2rem; }
+.testo-lungo :where(li) { margin-bottom: 0.4rem; }
+.testo-lungo :where(li)::marker { color: var(--col-settore-su-carta, var(--col-blu)); }
+.testo-lungo :where(blockquote) {
+  margin: var(--spazio-m) 0;
+  padding: 0;
+  font-weight: 700;
+  color: var(--col-tenue);
 }
+.testo-lungo :where(blockquote p:last-child) { margin: 0; }
+
+/* — Avviso di prototipo: i testi segnaposto sono dichiarati, non nascosti — */
+.nota-prototipo {
+  margin-top: var(--spazio-l);
+  padding: var(--spazio-s) var(--spazio-m);
+  max-width: 44rem;
+  background: var(--col-foglio);
+  border: 2px dashed var(--col-filo-forte);
+  border-radius: var(--raggio);
+  font-size: var(--step--1);
+  color: var(--col-tenue);
+}
+.nota-prototipo strong { color: var(--col-notte); }
 
 .salta-al-contenuto {
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--col-inchiostro);
-  color: var(--col-pietra);
+  background: var(--col-notte);
+  color: #fff;
   padding: var(--spazio-s);
   z-index: 100;
 }

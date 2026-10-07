@@ -1,54 +1,59 @@
 /*
- * TOKEN DI DESIGN
+ * TOKEN DI DESIGN — «Cartoncino»
  * ---------------------------------------------------------------------------
- * Questo è il file che i grafici toccano per primo: colori, tipografia e
- * spaziature del sito vivono tutti qui.
+ * Il mondo visivo del sito: i cartelloni dei campi ACR e dell'oratorio.
+ * Ogni settore è un foglio di cartoncino del suo colore, pieno, senza
+ * sfumature; ogni data è un numero ritagliato da quel foglio.
  *
- * Ogni token corrisponde a una voce di `theme.json` nel futuro block theme
- * WordPress, così il passaggio dal PoC al tema non è una riscrittura:
+ * Questo è il file che i grafici toccano per primo. Ogni token corrisponde a
+ * una voce di `theme.json` nel block theme WordPress:
  *   --col-*    →  settings.color.palette
  *   --font-*   →  settings.typography.fontFamilies
  *   --step-*   →  settings.typography.fontSizes (fluidi)
  *   --spazio-* →  settings.spacing.spacingSizes
+ *
+ * Due regole che tengono insieme il sistema:
+ *   1. Il verde lime del logo significa «il prossimo / oggi». Mai decorazione.
+ *   2. Il bordo tagliato a forbice esiste solo sulle date-ritaglio.
  */
 
 :root {
-  /* — Colori ————————————————————————————————————————————— */
-  /* Pietra di Trani: il fondo non è mai bianco puro */
-  --col-pietra: #f7f2e9;
-  --col-pietra-scura: #ece4d6;
-  --col-carta: #fffdf8;
+  /* — Colori del marchio ———————————————————————————————————— */
+  --col-blu: #2f5d8a;          /* il blu del logo: testata, apertura, azioni */
+  --col-blu-chiaro: #c9daec;   /* testo secondario sul blu (4.8:1) */
+  --col-notte: #12263d;        /* inchiostro e piede pagina */
+  --col-lime: #9bc53d;         /* il verde del logo: SOLO «prossimo / oggi» */
+  --col-lime-inchiostro: #4f7a12; /* il lime quando deve fare da testo su carta */
 
-  /* Inchiostro e blu Adriatico */
-  --col-inchiostro: #14202f;
-  --col-inchiostro-tenue: #4a5a6d;
-  --col-blu: #1f3f6b;
-  --col-blu-scuro: #12283f;
+  /* — Carta ——————————————————————————————————————————————— */
+  --col-carta: #f7f7f2;        /* il fondo: carta da disegno, non crema */
+  --col-foglio: #ffffff;       /* i fogli appoggiati sopra */
+  --col-tenue: #4a5a6e;        /* testo secondario su carta (6.5:1) */
+  --col-filo: #dcdfd6;         /* linee sottili */
+  --col-filo-forte: #b9beb2;
 
-  /* Accento: ocra, il caldo della pietra al tramonto */
-  --col-ocra: #c0761b;
-  --col-ocra-chiara: #e8a33f;
+  --col-errore: #b3261e;
 
-  --col-bordo: #d9cfbd;
-  --col-bordo-tenue: #e6ded0;
-
-  /* Tinta di settore: sovrascritta da [data-settore] */
+  /* — Tinte di settore: riempimento, testo sul riempimento, testo su carta — */
   --col-settore: var(--col-blu);
+  --col-settore-testo: #ffffff;
+  --col-settore-su-carta: var(--col-blu);
 
   /* — Tipografia ————————————————————————————————————————— */
-  /* --font-display (Fraunces) e --font-body (Archivo) arrivano da astro.config */
-  --testo-display: var(--font-display), Georgia, serif;
-  --testo-corpo: var(--font-body), system-ui, sans-serif;
+  /* --font-display (Rubik) e --font-body (Atkinson Hyperlegible Next) arrivano da astro.config */
+  --testo-display: var(--font-display), 'Arial Rounded MT Bold', Arial, sans-serif;
+  --testo-corpo: var(--font-body), 'Helvetica Neue', Arial, sans-serif;
 
   /* Scala fluida: da 320px a 1280px */
-  --step--1: clamp(0.83rem, 0.79rem + 0.18vw, 0.94rem);
-  --step-0: clamp(1rem, 0.95rem + 0.24vw, 1.13rem);
-  --step-1: clamp(1.2rem, 1.11rem + 0.44vw, 1.45rem);
-  --step-2: clamp(1.44rem, 1.28rem + 0.78vw, 1.86rem);
-  --step-3: clamp(1.73rem, 1.47rem + 1.27vw, 2.39rem);
-  --step-4: clamp(2.07rem, 1.68rem + 1.97vw, 3.06rem);
-  --step-5: clamp(2.49rem, 1.9rem + 2.94vw, 3.93rem);
-  --step-6: clamp(2.99rem, 2.13rem + 4.29vw, 5.05rem);
+  --step--2: clamp(0.75rem, 0.73rem + 0.08vw, 0.8rem);
+  --step--1: clamp(0.86rem, 0.83rem + 0.14vw, 0.94rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --step-1: clamp(1.18rem, 1.1rem + 0.4vw, 1.42rem);
+  --step-2: clamp(1.4rem, 1.25rem + 0.75vw, 1.85rem);
+  --step-3: clamp(1.68rem, 1.42rem + 1.3vw, 2.45rem);
+  --step-4: clamp(2rem, 1.6rem + 2vw, 3.2rem);
+  --step-5: clamp(2.4rem, 1.8rem + 3vw, 4.25rem);
+  --step-6: clamp(3rem, 2rem + 5vw, 6rem);
 
   /* — Spazio ————————————————————————————————————————————— */
   --spazio-3xs: 0.25rem;
@@ -59,21 +64,24 @@
   --spazio-l: 2.25rem;
   --spazio-xl: 3.5rem;
   --spazio-2xl: 5rem;
-  --spazio-3xl: 7.5rem;
+  --spazio-3xl: 7rem;
 
   /* — Struttura ——————————————————————————————————————————— */
-  --larghezza-max: 76rem;
-  --larghezza-testo: 38rem;
-  --raggio: 2px; /* squadrato: niente angoli morbidi da template generico */
-  --bordo-sottile: 1px solid var(--col-bordo);
-  --ombra-carta: 0 1px 0 var(--col-bordo), 0 12px 28px -18px rgba(20, 32, 47, 0.5);
-  --transizione: 220ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  --larghezza-max: 78rem;
+  --larghezza-testo: 40rem;
+  --raggio: 14px;              /* angoli di un cartoncino tagliato a mano */
+  --raggio-piccolo: 8px;
+  /* Un foglio appoggiato su un altro: ombra corta e morbida, mai a blocco */
+  --ombra-foglio: 0 1px 1px rgb(18 38 61 / 0.08), 0 8px 18px -10px rgb(18 38 61 / 0.35);
+  --ombra-foglio-alta: 0 2px 2px rgb(18 38 61 / 0.08), 0 18px 32px -14px rgb(18 38 61 / 0.45);
+  --curva: cubic-bezier(0.16, 1, 0.3, 1);   /* uscita esponenziale */
+  --transizione: 240ms var(--curva);
 }
 
 /* Tinte per settore — nel tema WordPress diventano classi di preset */
-[data-settore='unitario'] { --col-settore: #1f3f6b; }
-[data-settore='adulti']   { --col-settore: #2c6e63; }
-[data-settore='giovani']  { --col-settore: #b5651d; }
-[data-settore='acr']      { --col-settore: #c0392b; }
-[data-settore='msac']     { --col-settore: #5b4b8a; }
-[data-settore='mlac']     { --col-settore: #6b7a3a; }
+[data-settore='unitario'] { --col-settore: #2f5d8a; --col-settore-testo: #ffffff; --col-settore-su-carta: #2f5d8a; }
+[data-settore='adulti']   { --col-settore: #f2b705; --col-settore-testo: #12263d; --col-settore-su-carta: #7a5900; }
+[data-settore='giovani']  { --col-settore: #f07a3c; --col-settore-testo: #12263d; --col-settore-su-carta: #b33a17; }
+[data-settore='acr']      { --col-settore: #2ba3de; --col-settore-testo: #12263d; --col-settore-su-carta: #13668f; }
+[data-settore='msac']     { --col-settore: #7a4fb5; --col-settore-testo: #ffffff; --col-settore-su-carta: #6a3fa5; }
+[data-settore='mlac']     { --col-settore: #2e7d5b; --col-settore-testo: #ffffff; --col-settore-su-carta: #276b4e; }

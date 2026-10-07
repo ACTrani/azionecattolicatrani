@@ -2,9 +2,10 @@
 import type { Documento } from '../lib/contenuti';
 import { settorePerSlug } from '../data/settori';
 import { dataEstesa } from '../lib/date';
+import Icona from './Icona.astro';
 
-interface Props { documento: Documento }
-const { documento } = Astro.props;
+interface Props { documento: Documento; compatta?: boolean }
+const { documento, compatta = false } = Astro.props;
 const d = documento.data;
 const settore = settorePerSlug(d.settore)!;
 const tipiEstesi: Record<string, string> = {
@@ -18,28 +19,29 @@ const tipiEstesi: Record<string, string> = {
 ---
 
 <article
-  class="riga-doc"
+  class:list={['riga-doc', { 'riga-doc--compatta': compatta }]}
   data-settore={d.settore}
   data-filtro-settore={d.settore}
   data-filtro-tipo={d.tipo}
   data-filtro-anno={d.annoAssociativo}
   data-filtro-testo={`${d.titolo} ${d.descrizione}`.toLowerCase()}
 >
-  <div class="riga-doc__formato" aria-hidden="true">{d.formato}</div>
+  <span class="riga-doc__formato" aria-hidden="true">{d.formato}</span>
 
   <div class="riga-doc__corpo">
-    <div class="riga-doc__alto">
-      <span class="etichetta">{settore.nome}</span>
-      <span class="riga-doc__tipo">{tipiEstesi[d.tipo]}</span>
-      <span class="riga-doc__anno">{d.annoAssociativo}</span>
-    </div>
     <h3 class="riga-doc__titolo">{d.titolo}</h3>
-    <p class="riga-doc__descrizione">{d.descrizione}</p>
-    <p class="riga-doc__meta">Pubblicato il {dataEstesa(d.data)}{d.dimensione ? ` · ${d.dimensione}` : ''}</p>
+    {!compatta && <p class="riga-doc__descrizione">{d.descrizione}</p>}
+    <p class="riga-doc__meta">
+      <span class="etichetta">{settore.nome}</span>
+      <span>{tipiEstesi[d.tipo]}</span>
+      <span class="cifre">{d.annoAssociativo}</span>
+      {!compatta && <span>Pubblicato il {dataEstesa(d.data)}</span>}
+    </p>
   </div>
 
-  <a class="bottone bottone--vuoto riga-doc__scarica" href={d.file} download>
-    Scarica
+  <a class="riga-doc__scarica" href={d.file} download>
+    <Icona nome="scarica" dimensione={18} />
+    <span>Scarica{d.dimensione && <span class="riga-doc__peso cifre"> · {d.dimensione}</span>}</span>
     <span class="visivamente-nascosto">{d.titolo}</span>
   </a>
 </article>
@@ -47,41 +49,67 @@ const tipiEstesi: Record<string, string> = {
 <style>
   .riga-doc {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     gap: var(--spazio-m);
     padding: var(--spazio-m) 0;
-    border-bottom: 1px solid var(--col-bordo);
+    border-bottom: 1px solid var(--col-filo);
   }
+  /* Il formato come un foglio con l'angolo piegato, nel colore del settore */
   .riga-doc__formato {
     display: grid;
-    place-items: center;
-    width: 3.4rem; height: 4.2rem;
-    border: 1px solid var(--col-settore);
-    border-top-right-radius: 0.8rem;
-    color: var(--col-settore);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    background: linear-gradient(135deg, transparent 0 55%, color-mix(in srgb, var(--col-settore) 8%, transparent) 55%);
+    place-items: end start;
+    width: 3rem;
+    height: 3.8rem;
+    padding: 0.4rem;
+    border-radius: 6px 14px 6px 6px;
+    background:
+      linear-gradient(225deg, var(--col-carta) 0 0.7rem, transparent 0.7rem),
+      var(--col-settore);
+    color: var(--col-settore-testo);
+    font-family: var(--testo-display);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
   }
-  .riga-doc__alto {
+  .riga-doc__titolo { font-size: var(--step-1); margin-bottom: 0.25rem; }
+  .riga-doc__descrizione { color: var(--col-tenue); font-size: var(--step--1); margin-bottom: 0.5rem; max-width: 46rem; }
+  .riga-doc__meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--spazio-2xs) var(--spazio-s);
-    margin-bottom: var(--spazio-3xs);
-    font-size: var(--step--1);
+    gap: 0.25rem 0.75rem;
+    margin: 0;
+    font-size: var(--step--2);
+    font-weight: 700;
+    color: var(--col-tenue);
   }
-  .riga-doc__tipo { font-weight: 600; }
-  .riga-doc__anno { color: var(--col-inchiostro-tenue); }
-  .riga-doc__titolo { font-size: var(--step-1); margin-bottom: 0.2rem; }
-  .riga-doc__descrizione { color: var(--col-inchiostro-tenue); font-size: var(--step--1); margin-bottom: 0.3rem; max-width: 46rem; }
-  .riga-doc__meta { margin: 0; font-size: 0.75rem; color: var(--col-inchiostro-tenue); }
-  .riga-doc__scarica { white-space: nowrap; }
+  .riga-doc__scarica {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.75rem;
+    padding: 0.5em 1em;
+    border: 2px solid var(--col-filo-forte);
+    border-radius: 999px;
+    font-family: var(--testo-display);
+    font-weight: 700;
+    font-size: var(--step--1);
+    color: var(--col-notte);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background var(--transizione), border-color var(--transizione), color var(--transizione);
+  }
+  .riga-doc__scarica:hover { background: var(--col-blu); border-color: var(--col-blu); color: #fff; }
+  .riga-doc__peso { font-weight: 500; }
 
-  @media (max-width: 48rem) {
-    .riga-doc { grid-template-columns: auto 1fr; }
+  .riga-doc--compatta { padding-block: var(--spazio-s); gap: var(--spazio-s); }
+  .riga-doc--compatta .riga-doc__titolo { font-size: var(--step-0); }
+  .riga-doc--compatta .riga-doc__formato { width: 2.5rem; height: 3.1rem; font-size: 0.64rem; }
+  .riga-doc--compatta .riga-doc__peso { display: none; }
+
+  @media (max-width: 40rem) {
+    .riga-doc { grid-template-columns: auto minmax(0, 1fr); }
     .riga-doc__scarica { grid-column: 2; justify-self: start; }
   }
 </style>

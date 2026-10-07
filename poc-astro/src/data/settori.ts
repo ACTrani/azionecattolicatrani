@@ -9,6 +9,10 @@ export interface Settore {
   descrizione: string;
   /** Tinta del settore: nel tema WordPress diventerà una palette di theme.json */
   tinta: string;
+  /** Come compare nel menu «Settori», alla maniera di acaversa.it */
+  nomeMenu: string;
+  /** Il gruppo di `sito.consiglio` che raccoglie i responsabili del settore */
+  gruppoConsiglio?: string;
 }
 
 export const settori: Settore[] = [
@@ -19,7 +23,9 @@ export const settori: Settore[] = [
     eta: 'Tutta l’associazione',
     descrizione:
       'Gli appuntamenti che riuniscono tutta l’associazione diocesana: le assemblee, …fierA di esserCI, il Laboratorio diocesano della formazione, le celebrazioni dell’anno.',
-    tinta: '#1f3f6b',
+    tinta: '#2f5d8a',
+    nomeMenu: 'Unitario',
+    gruppoConsiglio: 'Presidenza',
   },
   {
     slug: 'adulti',
@@ -28,7 +34,9 @@ export const settori: Settore[] = [
     eta: 'dai 30 anni',
     descrizione:
       'Adulti e famiglie che vogliono essere credenti e credibili, «di parola», in parrocchia, in famiglia e nella città: gruppi, serate di spiritualità, Fede & Cultura, Giornata della famiglia.',
-    tinta: '#2c6e63',
+    tinta: '#f2b705',
+    nomeMenu: 'Adulti',
+    gruppoConsiglio: 'Settore Adulti',
   },
   {
     slug: 'giovani',
@@ -37,7 +45,9 @@ export const settori: Settore[] = [
     eta: '15 – 30 anni',
     descrizione:
       'Giovanissimi (15–18 anni) e giovani (19–30) in cammino nei gruppi parrocchiali e negli appuntamenti diocesani: ritiri, laboratorio della formazione, preghiera e servizio.',
-    tinta: '#b5651d',
+    tinta: '#f07a3c',
+    nomeMenu: 'Giovani',
+    gruppoConsiglio: 'Settore Giovani e MSAC',
   },
   {
     slug: 'acr',
@@ -46,7 +56,9 @@ export const settori: Settore[] = [
     eta: 'Dai Piccolissimi ai 14 anni',
     descrizione:
       'I ragazzi dai Piccolissimi ai 14 anni, protagonisti del proprio cammino di fede, con un’attenzione speciale agli educatori e all’Equipe diocesana dei ragazzi (EDR).',
-    tinta: '#c0392b',
+    tinta: '#2ba3de',
+    nomeMenu: 'Ragazzi (ACR)',
+    gruppoConsiglio: 'Azione Cattolica dei Ragazzi',
   },
   {
     slug: 'msac',
@@ -55,7 +67,9 @@ export const settori: Settore[] = [
     eta: 'Studenti delle superiori',
     descrizione:
       'La proposta missionaria per i giovanissimi che vivono tra i banchi di scuola: rappresentanza, cittadinanza attiva, legalità. In diocesi da dieci anni.',
-    tinta: '#5b4b8a',
+    tinta: '#7a4fb5',
+    nomeMenu: 'Studenti (MSAC)',
+    gruppoConsiglio: 'Settore Giovani e MSAC',
   },
   {
     slug: 'mlac',
@@ -64,7 +78,8 @@ export const settori: Settore[] = [
     eta: 'Mondo del lavoro',
     descrizione:
       'Il lavoro letto alla luce del Vangelo e della Dottrina sociale: dignità, sicurezza, sostenibilità e partecipazione, insieme alla Pastorale sociale e del lavoro diocesana.',
-    tinta: '#6b7a3a',
+    tinta: '#2e7d5b',
+    nomeMenu: 'Lavoratori (MLAC)',
   },
 ];
 

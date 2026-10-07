@@ -106,13 +106,22 @@ Gli eventi si ordinano da soli per data e passano da soli da «prossimi» a «pa
 ## Cosa c'è già e cosa no
 
 **Fatto**
-- Home con prossimo appuntamento in evidenza, eventi, settori, notizie, documenti
-- Eventi: elenco filtrabile per settore (il filtro finisce nell'URL, quindi è
-  condivisibile), pagina di dettaglio, export `.ics` per singolo evento e calendario
-  completo sottoscrivibile
+- Struttura e menu ripresi da [acaversa.it](https://www.acaversa.it/), scelta della
+  Presidenza come riferimento: Home · Notizie · Eventi · Settori ▾ · Assemblea ▾ ·
+  Informazioni ▾, barra dei prossimi appuntamenti in cima a ogni pagina
+- Grafica «Cartoncino» (vedi `../DESIGN.md`): palette dal logo, un colore pieno per
+  settore, la data-ritaglio come elemento firma
+- Home con prossimo appuntamento in evidenza, tessere dei settori, calendario,
+  notizie, documenti
+- Eventi raggruppati per mese, con filtro per settore e ricerca (il filtro finisce
+  nell'URL, quindi è condivisibile), pagina di dettaglio, export `.ics` per singolo
+  evento e calendario completo sottoscrivibile
+- Una pagina per ciascun settore (`/settori/acr`, …): cammino dell'anno,
+  appuntamenti, documenti, responsabili
+- Presidenza e Consiglio diocesano a schede, pagina Assemblea 2027
 - Documenti: ricerca testuale e filtri per settore, tipo e anno associativo
 - Notizie, con distinzione fra comunicati ufficiali e notizie ordinarie
-- Pagine associazione, adesione, contatti
+- Pagine Chi siamo, Programmazione, Aderisci, Contatti
 - Responsive, navigabile da tastiera, font serviti dal nostro dominio (nessuna
   chiamata a Google dal browser del visitatore)
 

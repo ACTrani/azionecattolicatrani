@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import { sito } from '../data/sito';
 import { url } from '../lib/url';
+import TestaPagina from '../components/TestaPagina.astro';
+import Icona from '../components/Icona.astro';
 
 const promozione = sito.consiglio
   .flatMap((g) => g.persone)
@@ -12,53 +14,47 @@ const promozione = sito.consiglio
   titolo="Aderisci"
   descrizione="Cosa significa aderire all'Azione Cattolica e come si fa nell'anno associativo in corso."
 >
-  <section class="apertura">
-    <div class="contenitore">
-      <p class="occhiello occhiello--chiaro">Anno associativo {sito.annoAssociativo}</p>
-      <h1>Aderire è una scelta,<br />non una tessera</h1>
-      <p class="apertura__testo">
-        Aderire all'Azione Cattolica significa dire che la propria fede si gioca dentro
-        una comunità concreta: la parrocchia, la diocesi, la città in cui si vive.
-      </p>
-      <p class="apertura__testo">
-        Ispirata dalla chiamata a essere «vino nuovo in otri nuovi», l'associazione offre a
-        ciascuno la possibilità di uscire da schemi rigidi e consuetudini stanche,
-        custodendo una fede viva, duttile e generativa. Scegliere l'AC significa scegliere
-        di camminare insieme per far fiorire spazi di pace, ascolto e continua novità.
-      </p>
-    </div>
-  </section>
+  <TestaPagina titolo="Aderire è una scelta, non una tessera">
+    <p>
+      Aderire all'Azione Cattolica significa dire che la propria fede si gioca dentro
+      una comunità concreta: la parrocchia, la diocesi, la città in cui si vive.
+    </p>
+  </TestaPagina>
 
   <div class="contenitore sezione">
-    <div class="passi">
-      <article class="passo">
-        <span class="passo__numero">01</span>
-        <h2>Parla con la tua parrocchia</h2>
+    <p class="guida">
+      Ispirata dalla chiamata a essere «vino nuovo in otri nuovi», l'associazione offre a
+      ciascuno la possibilità di uscire da schemi rigidi e consuetudini stanche,
+      custodendo una fede viva, duttile e generativa. Scegliere l'AC significa scegliere
+      di camminare insieme per far fiorire spazi di pace, ascolto e continua novità.
+    </p>
+    <h2 class="titolo-blocco">Come si aderisce</h2>
+    <ol class="passi">
+      <li class="passo">
+        <h3>Parla con la tua parrocchia</h3>
         <p>
           L'adesione passa dall'associazione parrocchiale. Il presidente parrocchiale o
           l'educatore del gruppo ti spiegano il cammino e ti consegnano la scheda.
         </p>
-      </article>
-      <article class="passo">
-        <span class="passo__numero">02</span>
-        <h2>Compila la scheda</h2>
+      </li>
+      <li class="passo">
+        <h3>Compila la scheda</h3>
         <p>
           Il modulo di adesione si scarica anche da questo sito, nella sezione documenti,
           insieme all'informativa privacy e alle quote aggiornate.
         </p>
-      </article>
-      <article class="passo">
-        <span class="passo__numero">03</span>
-        <h2>Consegna in segreteria</h2>
+      </li>
+      <li class="passo">
+        <h3>Consegna in segreteria</h3>
         <p>
           La parrocchia raccoglie le adesioni e le consegna alla segreteria diocesana
           entro i termini indicati nella campagna adesioni.
         </p>
-      </article>
-    </div>
+      </li>
+    </ol>
 
     <div class="azioni">
-      <a class="bottone" href={url('/documenti')}>Scarica il modulo di adesione</a>
+      <a class="bottone" href={url('/documenti')}><Icona nome="scarica" dimensione={18} /> Scarica il modulo di adesione</a>
       <a class="bottone bottone--vuoto" href={url('/contatti')}>Chiedi alla segreteria</a>
     </div>
 
@@ -79,65 +75,46 @@ const promozione = sito.consiglio
           dell'Arcidiocesi di Trani – Barletta – Bisceglie anche con la raccolta fondi online.
         </p>
         <p>
-          <a href={sito.raccoltaFondi.url} rel="noopener noreferrer" target="_blank">Vai alla raccolta fondi ↗</a>
+          <a href={sito.raccoltaFondi.url} rel="noopener noreferrer" target="_blank">Vai alla raccolta fondi <Icona nome="esterno" dimensione={14} /></a>
         </p>
       </article>
     </section>
 
-    <p class="nota">
-      ⚠️ Passi, quote e scadenze della campagna adesioni sono ancora testi di esempio: vanno forniti dalla Presidenza diocesana.
+    <p class="nota-prototipo">
+      <strong>Da completare:</strong> passi, quote e scadenze della campagna adesioni sono ancora testi di esempio: vanno forniti dalla Presidenza diocesana.
     </p>
   </div>
 </Base>
 
 <style>
-  .apertura {
-    background: var(--col-blu-scuro);
-    color: var(--col-pietra);
-    padding-block: var(--spazio-2xl);
-  }
-  .apertura h1 { font-size: var(--step-5); color: #fff; }
-  .apertura__testo { font-size: var(--step-1); max-width: 34rem; opacity: 0.8; }
-  .occhiello--chiaro { color: var(--col-ocra-chiara); }
-  .occhiello--chiaro::after { background: rgba(255, 255, 255, 0.2); }
+  .guida { max-width: var(--larghezza-testo); font-size: var(--step-1); line-height: 1.5; margin-bottom: var(--spazio-xl); }
+  .titolo-blocco { font-size: var(--step-4); margin-bottom: var(--spazio-l); }
 
-  .passi { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--spazio-l); }
-  .passo { border-top: 2px solid var(--col-inchiostro); padding-top: var(--spazio-s); }
-  .passo__numero {
-    display: block;
-    font-family: var(--testo-display);
-    font-size: var(--step-4);
-    font-weight: 700;
-    color: var(--col-ocra);
-    line-height: 1;
-    margin-bottom: var(--spazio-2xs);
-  }
-  .passo h2 { font-size: var(--step-1); }
-  .passo p { color: var(--col-inchiostro-tenue); font-size: var(--step--1); }
-
-  .riquadri {
+  .passi { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--spazio-m); counter-reset: passo; }
+  .passo { counter-increment: passo; padding: var(--spazio-m); background: var(--col-foglio); border-radius: var(--raggio); box-shadow: var(--ombra-foglio); }
+  .passo::before {
+    content: counter(passo);
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-    gap: var(--spazio-m);
-    margin-top: var(--spazio-2xl);
+    place-items: center;
+    width: 2.4rem; height: 2.4rem;
+    margin-bottom: var(--spazio-s);
+    border-radius: 999px;
+    background: var(--col-blu);
+    color: #fff;
+    font-family: var(--testo-display);
+    font-weight: 900;
   }
-  .riquadro {
-    padding: var(--spazio-m);
-    background: var(--col-carta);
-    border: var(--bordo-sottile);
-    border-radius: var(--raggio);
-  }
-  .riquadro h2 { font-size: var(--step-1); }
-  .riquadro p { font-size: var(--step--1); }
+  .passo h3 { font-size: var(--step-1); }
+  .passo p { color: var(--col-tenue); font-size: var(--step--1); margin: 0; }
 
-  .azioni { display: flex; flex-wrap: wrap; gap: var(--spazio-s); margin-top: var(--spazio-2xl); }
-  .nota {
-    margin-top: var(--spazio-l);
-    background: #fff6e2;
-    border: 1px dashed var(--col-ocra);
-    border-radius: var(--raggio);
-    padding: var(--spazio-s) var(--spazio-m);
-    font-size: var(--step--1);
-    max-width: 44rem;
-  }
+  .azioni { display: flex; flex-wrap: wrap; gap: var(--spazio-s); margin-top: var(--spazio-l); }
+
+  .riquadri { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--spazio-m); margin-top: var(--spazio-2xl); }
+  .riquadro { padding: var(--spazio-l); background: var(--col-blu); color: #fff; border-radius: var(--raggio); }
+  .riquadro + .riquadro { background: var(--col-notte); }
+  .riquadro h2 { font-size: var(--step-2); color: #fff; }
+  .riquadro p { color: var(--col-blu-chiaro); }
+  .riquadro a { color: #fff; font-weight: 700; display: inline-flex; align-items: center; gap: 0.3rem; }
+
+  @media (max-width: 52rem) { .passi, .riquadri { grid-template-columns: 1fr; } }
 </style>

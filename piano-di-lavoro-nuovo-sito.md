@@ -56,7 +56,13 @@ Questa disciplina è anche ciò che rende possibile la traccia B: se i dati vivo
 
 Ispirata a `azionecattolica.it`, ridotta alla scala diocesana.
 
-**Menu principale (4 voci + call to action)**
+> **Aggiornamento 7 ottobre 2026:** la Presidenza ha indicato come riferimento
+> [acaversa.it](https://www.acaversa.it/). Il prototipo Astro è stato rifatto con il suo
+> menu — Home · Notizie · Eventi · Settori ▾ · Assemblea ▾ · Informazioni ▾ — e con la
+> grafica «Cartoncino» descritta in [`DESIGN.md`](DESIGN.md). La struttura qui sotto è
+> quella iniziale, superata per il menu; il tema WordPress va allineato.
+
+**Menu principale (4 voci + call to action) — versione iniziale**
 
 1. **L'associazione** — Chi siamo · Presidenza diocesana · I settori e le articolazioni (Adulti, Giovani, ACR, MSAC, MLAC) · Le associazioni parrocchiali · Contatti
 2. **Eventi** — Prossimi appuntamenti (default) · Archivio eventi · filtri per settore e anno associativo

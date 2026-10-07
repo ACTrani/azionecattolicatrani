@@ -1,126 +1,294 @@
 ---
 import { Image } from 'astro:assets';
 import { url } from '../lib/url';
+import { menu } from '../data/navigazione';
+import Icona from './Icona.astro';
 import logo from '../assets/logo-ac-trani.png';
 
-const voci = [
-  { testo: "L'associazione", href: url('/associazione') },
-  { testo: 'Eventi', href: url('/eventi') },
-  { testo: 'Notizie', href: url('/notizie') },
-  { testo: 'Documenti', href: url('/documenti') },
-  { testo: 'Contatti', href: url('/contatti') },
-];
-
 const { percorso = '' } = Astro.props;
-const attiva = (href: string) => percorso.startsWith(href) && href !== url('/');
+const pulito = (p: string) => p.replace(/\/$/, '') || '/';
+const qui = pulito(percorso);
+const attiva = (href?: string) => !!href && (href === url('/') ? qui === pulito(url('/')) : qui.startsWith(pulito(href)));
+const sezioneAttiva = (figli?: { href: string }[]) => !!figli?.some((f) => attiva(f.href.split('#')[0]));
 ---
 
 <header class="testata">
   <div class="contenitore testata__riga">
     <a class="marchio" href={url('/')}>
-      <Image class="marchio__segno" src={logo} alt="" width={116} loading="eager" />
+      <Image class="marchio__segno" src={logo} alt="" width={128} loading="eager" />
       <span class="marchio__testo">
         <span class="marchio__nome">Azione Cattolica</span>
         <span class="marchio__diocesi">Trani · Barletta · Bisceglie</span>
       </span>
+      <span class="visivamente-nascosto">— vai alla homepage</span>
     </a>
 
-    <input type="checkbox" id="apri-menu" class="interruttore" />
-    <label for="apri-menu" class="pulsante-menu">
-      <span aria-hidden="true"></span>
-      <span class="visivamente-nascosto">Apri il menu</span>
-    </label>
+    <p class="testata__oggi" data-oggi hidden></p>
 
-    <nav class="navigazione" aria-label="Menu principale">
-      <ul>
-        {voci.map((v) => (
-          <li>
-            <a href={v.href} aria-current={attiva(v.href) ? 'page' : undefined}>{v.testo}</a>
+    <button class="pulsante-menu" type="button" aria-expanded="false" aria-controls="navigazione">
+      <Icona nome="menu" class="pulsante-menu__apri" dimensione={24} />
+      <Icona nome="chiudi" class="pulsante-menu__chiudi" dimensione={24} />
+      <span class="visivamente-nascosto">Menu</span>
+    </button>
+
+    <nav class="navigazione" id="navigazione" aria-label="Menu principale">
+      <ul class="navigazione__elenco">
+        {menu.map((v, i) => (
+          <li class:list={['voce', { 'voce--con-figli': !!v.figli }]}>
+            {v.href ? (
+              <a class="voce__link" href={v.href} aria-current={attiva(v.href) ? 'page' : undefined}>{v.testo}</a>
+            ) : (
+              <>
+                <button
+                  class:list={['voce__link', 'voce__apri', { 'voce__link--sezione': sezioneAttiva(v.figli) }]}
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls={`sottomenu-${i}`}
+                >
+                  {v.testo}
+                  <Icona nome="giu" dimensione={16} />
+                </button>
+                <ul class="sottomenu" id={`sottomenu-${i}`}>
+                  {v.figli!.map((f) => (
+                    <li>
+                      <a href={f.href} data-settore={f.settore} aria-current={attiva(f.href) && !f.href.includes('#') ? 'page' : undefined}>
+                        {f.settore && <span class="sottomenu__tinta" aria-hidden="true" />}
+                        {f.testo}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </li>
         ))}
       </ul>
-      <a class="bottone bottone--chiaro" href={url('/aderisci')}>Aderisci</a>
+      <a class="bottone navigazione__aderisci" href={url('/aderisci')}>Aderisci</a>
     </nav>
   </div>
 </header>
 
-<style>
-  .testata {
-    background: var(--col-pietra);
-    border-bottom: var(--bordo-sottile);
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    backdrop-filter: blur(6px);
-  }
-  .testata__riga {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--spazio-m);
-    min-height: 5rem;
+<script>
+  // La data di oggi, come su acaversa.it: calcolata nel browser, perché il sito è statico
+  const oggi = document.querySelector<HTMLElement>('[data-oggi]');
+  if (oggi) {
+    const testo = new Intl.DateTimeFormat('it-IT', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
+    oggi.textContent = testo.charAt(0).toUpperCase() + testo.slice(1);
+    oggi.hidden = false;
   }
 
-  .marchio { display: flex; align-items: center; gap: var(--spazio-xs); text-decoration: none; color: inherit; }
-  .marchio__segno { height: 3rem; width: auto; display: block; }
-  .marchio__testo { display: flex; flex-direction: column; line-height: 1.15; }
-  .marchio__nome { font-family: var(--testo-display); font-size: 1.1rem; font-weight: 600; }
+  const testata = document.querySelector('.testata')!;
+  const pulsante = testata.querySelector<HTMLButtonElement>('.pulsante-menu')!;
+  const aperture = testata.querySelectorAll<HTMLButtonElement>('.voce__apri');
+
+  const chiudiSottomenu = (tranne?: HTMLButtonElement) =>
+    aperture.forEach((b) => b !== tranne && b.setAttribute('aria-expanded', 'false'));
+
+  pulsante.addEventListener('click', () => {
+    const aperto = pulsante.getAttribute('aria-expanded') === 'true';
+    pulsante.setAttribute('aria-expanded', String(!aperto));
+    document.documentElement.classList.toggle('menu-aperto', !aperto);
+  });
+
+  aperture.forEach((b) => {
+    b.addEventListener('click', () => {
+      const aperto = b.getAttribute('aria-expanded') === 'true';
+      chiudiSottomenu(b);
+      b.setAttribute('aria-expanded', String(!aperto));
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('.voce--con-figli')) chiudiSottomenu();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const aperto = testata.querySelector<HTMLButtonElement>('.voce__apri[aria-expanded="true"]');
+    chiudiSottomenu();
+    aperto?.focus();
+  });
+</script>
+
+<style>
+  .testata {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: var(--col-foglio);
+    box-shadow: 0 1px 0 var(--col-filo), 0 10px 24px -22px rgb(18 38 61 / 0.6);
+  }
+  .testata__riga {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--spazio-m);
+    min-height: 5.25rem;
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .marchio { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit; margin-right: auto; }
+  .marchio__segno { height: 3.4rem; width: auto; display: block; }
+  .marchio__testo { display: flex; flex-direction: column; line-height: 1.1; }
+  .marchio__nome {
+    font-family: var(--testo-display);
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--col-notte);
+  }
   .marchio__diocesi {
-    font-size: 0.68rem;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    color: var(--col-inchiostro-tenue);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--col-blu);
+    margin-top: 0.15rem;
+  }
+
+  .testata__oggi {
+    position: absolute;
+    top: 0.3rem;
+    right: 0;
+    margin: 0;
+    font-size: var(--step--2);
+    font-weight: 700;
+    color: var(--col-tenue);
+    padding-bottom: 1px;
+    border-bottom: 2px solid var(--col-lime);
   }
 
   .navigazione { display: flex; align-items: center; gap: var(--spazio-m); }
-  .navigazione ul { display: flex; gap: var(--spazio-m); list-style: none; margin: 0; padding: 0; }
-  .navigazione a {
+  .navigazione__elenco { display: flex; align-items: center; gap: 0.25rem; list-style: none; margin: 0; padding: 0; }
+  .voce { position: relative; }
+  .voce__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.55rem 0.7rem;
+    font: 700 var(--step--1) / 1.2 var(--testo-display);
+    color: var(--col-notte);
     text-decoration: none;
-    color: var(--col-inchiostro);
-    font-size: var(--step--1);
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    padding-block: 0.35rem;
-    border-bottom: 2px solid transparent;
-    transition: border-color var(--transizione), color var(--transizione);
+    background: none;
+    border: 0;
+    border-radius: var(--raggio-piccolo);
+    cursor: pointer;
+    position: relative;
   }
-  .navigazione ul a:hover { border-color: var(--col-ocra); color: var(--col-ocra); }
-  .navigazione a[aria-current='page'] { border-color: var(--col-blu); }
-  .navigazione .bottone { border-bottom-width: 1px; }
+  .voce__link::after {
+    content: '';
+    position: absolute;
+    left: 0.7rem; right: 0.7rem; bottom: 0.2rem;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--col-blu);
+    scale: 0 1;
+    transition: scale var(--transizione);
+  }
+  .voce__link:hover { background: var(--col-carta); }
+  .voce__link[aria-current='page']::after,
+  .voce__link--sezione::after { scale: 1 1; }
+  .voce__link :global(svg) { transition: rotate var(--transizione); }
+  .voce__apri[aria-expanded='true'] :global(svg) { rotate: 180deg; }
 
-  .interruttore, .pulsante-menu { display: none; }
+  .sottomenu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    min-width: 15rem;
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem;
+    background: var(--col-foglio);
+    border-radius: var(--raggio);
+    box-shadow: var(--ombra-foglio-alta), 0 0 0 1px var(--col-filo);
+    opacity: 0;
+    translate: 0 -6px;
+    visibility: hidden;
+    transition: opacity 180ms var(--curva), translate 180ms var(--curva), visibility 0s 180ms;
+  }
+  .voce__apri[aria-expanded='true'] + .sottomenu {
+    opacity: 1;
+    translate: 0 0;
+    visibility: visible;
+    transition: opacity 180ms var(--curva), translate 180ms var(--curva);
+  }
+  .sottomenu a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--raggio-piccolo);
+    color: var(--col-notte);
+    font-weight: 700;
+    font-size: var(--step--1);
+    text-decoration: none;
+  }
+  .sottomenu a:hover { background: var(--col-carta); }
+  .sottomenu a[aria-current='page'] { background: var(--col-carta); color: var(--col-blu); }
+  .sottomenu__tinta {
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 3px;
+    background: var(--col-settore);
+    rotate: -6deg;
+  }
 
-  @media (max-width: 62rem) {
+  .pulsante-menu { display: none; }
+
+  @media (max-width: 66rem) {
+    .testata__oggi { display: none; }
+    .testata__riga { padding-block: 0.4rem; }
     .pulsante-menu {
-      display: block;
-      width: 2.75rem; height: 2.75rem;
-      border: var(--bordo-sottile);
-      border-radius: var(--raggio);
+      display: grid;
+      place-items: center;
+      width: 3rem; height: 3rem;
+      border: 2px solid var(--col-filo);
+      border-radius: 999px;
+      background: var(--col-foglio);
+      color: var(--col-notte);
       cursor: pointer;
-      position: relative;
-      background: transparent;
     }
-    .pulsante-menu span[aria-hidden] {
-      position: absolute; inset: 50% 22% auto 22%;
-      height: 2px; background: var(--col-inchiostro);
-      box-shadow: 0 -7px 0 var(--col-inchiostro), 0 7px 0 var(--col-inchiostro);
-    }
+    .pulsante-menu :global(.pulsante-menu__chiudi) { display: none; }
+    .pulsante-menu[aria-expanded='true'] :global(.pulsante-menu__apri) { display: none; }
+    .pulsante-menu[aria-expanded='true'] :global(.pulsante-menu__chiudi) { display: block; }
+
     .navigazione {
       display: none;
       position: absolute;
-      inset: 100% 0 auto 0;
+      top: 100%;
+      left: -1rem; right: -1rem;
+      max-height: calc(100dvh - 8rem);
+      overflow-y: auto;
       flex-direction: column;
       align-items: stretch;
       gap: var(--spazio-s);
-      background: var(--col-carta);
-      border-bottom: var(--bordo-sottile);
-      padding: var(--spazio-m) 1.25rem var(--spazio-l);
-      box-shadow: var(--ombra-carta);
+      padding: var(--spazio-s) 1rem var(--spazio-m);
+      background: var(--col-foglio);
+      box-shadow: 0 1px 0 var(--col-filo), var(--ombra-foglio-alta);
     }
-    .navigazione ul { flex-direction: column; gap: 0; }
-    .navigazione ul li { border-bottom: 1px solid var(--col-bordo-tenue); }
-    .navigazione ul a { display: block; padding: var(--spazio-s) 0; font-size: var(--step-0); border-bottom: none; }
-    .navigazione .bottone { justify-content: center; }
-    .interruttore:checked ~ .navigazione { display: flex; }
+    :global(.menu-aperto) .navigazione { display: flex; }
+    .navigazione__elenco { flex-direction: column; align-items: stretch; gap: 0; }
+    .voce { border-bottom: 1px solid var(--col-filo); }
+    .voce__link { width: 100%; justify-content: space-between; padding: 0.95rem 0.25rem; font-size: var(--step-0); }
+    .voce__link::after { left: 0.25rem; right: auto; width: 2rem; bottom: 0.45rem; }
+    .sottomenu {
+      position: static;
+      display: none;
+      min-width: 0;
+      padding: 0 0 0.75rem;
+      box-shadow: none;
+      opacity: 1;
+      translate: none;
+      visibility: visible;
+      transition: none;
+    }
+    .voce__apri[aria-expanded='true'] + .sottomenu { display: block; }
+    .sottomenu a { padding: 0.7rem 0.5rem; font-size: var(--step-0); }
+    .navigazione__aderisci { align-self: stretch; }
+  }
+
+  @media (max-width: 26rem) {
+    .marchio__segno { height: 2.8rem; }
+    .marchio__nome { font-size: 1.1rem; }
+    .marchio__diocesi { font-size: 0.72rem; }
   }
 </style>

@@ -1,174 +1,112 @@
 ---
 import Base from '../layouts/Base.astro';
-import { settori } from '../data/settori';
+import TestaPagina from '../components/TestaPagina.astro';
+import Icona from '../components/Icona.astro';
 import { sito } from '../data/sito';
+import { settoriInOrdine } from '../data/navigazione';
 import { centroStudi } from '../data/programmazione';
 import { url } from '../lib/url';
 ---
 
 <Base
-  titolo="L'associazione"
+  titolo="Chi siamo"
   descrizione="Chi siamo, come siamo organizzati e quali sono i settori dell'Azione Cattolica nell'Arcidiocesi di Trani – Barletta – Bisceglie."
 >
-  <header class="testa-pagina">
-    <div class="contenitore">
-      <p class="occhiello">Chi siamo</p>
-      <h1>L'associazione</h1>
-    </div>
-  </header>
+  <TestaPagina titolo="Chi siamo">
+    <p>Un'associazione di laici che scelgono di servire la Chiesa locale in modo stabile e organizzato, camminando insieme al vescovo e alla comunità diocesana.</p>
+  </TestaPagina>
 
   <div class="contenitore">
-    <section class="intro sezione">
-      <p class="intro__guida">
-        L'Azione Cattolica è un'associazione di laici che scelgono di servire la Chiesa
-        locale in modo stabile e organizzato, camminando insieme al vescovo e alla
-        comunità diocesana.
-      </p>
-      <p>
-        Nell'Arcidiocesi di Trani – Barletta – Bisceglie l'associazione è presente nelle
-        parrocchie delle tre città con gruppi di ragazzi, giovani e adulti. Ogni
-        associazione parrocchiale è autonoma nella vita quotidiana e si riconosce in un
-        cammino diocesano comune, scandito dalla programmazione annuale e dagli
-        appuntamenti unitari.
-      </p>
-      <p>
-        L'anno associativo si apre a settembre con l'assemblea diocesana e si chiude in
-        estate con i campi scuola. Nel mezzo: formazione, servizio, spiritualità e
-        impegno nella città.
-      </p>
-      <p>
-        Quest'anno il cammino è guidato dall'icona biblica «{sito.temaAnno}»
-        ({sito.temaAnnoRiferimento}) e dal verbo <em>generare</em>:
-        <a href={url('/programmazione')}>leggi la programmazione {sito.annoAssociativo}</a>.
-      </p>
-    </section>
-
-    <section class="sezione">
-      <h2 class="occhiello">I settori e le articolazioni</h2>
-      <div class="griglia-settori">
-        {settori.map((s) => (
-          <article class="scheda-settore" data-settore={s.slug}>
-            <p class="scheda-settore__eta">{s.eta}</p>
-            <h3>{s.nomeEsteso}</h3>
-            <p class="scheda-settore__testo">{s.descrizione}</p>
-            <a class="scheda-settore__link" href={`${url('/eventi')}?settore=${s.slug}`}>
-              Appuntamenti del settore →
-            </a>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section class="sezione" id="presidenza">
-      <h2 class="occhiello">Presidenza e Consiglio diocesano</h2>
-      <p class="nota-triennio">Triennio {sito.triennio}</p>
-      <div class="consiglio">
-        {sito.consiglio.map((g) => (
-          <div class="consiglio__gruppo">
-            <h3>{g.gruppo}</h3>
-            <ul class="presidenza">
-              {g.persone.map((p) => (
-                <li>
-                  <span class="presidenza__nome">{p.nome}</span>
-                  <span class="presidenza__ruolo">{p.ruolo}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <section class="sezione" id="centro-studi">
-      <h2 class="occhiello">{centroStudi.nome}</h2>
-      <div class="intro">
-        <p class="intro__sottotitolo">{centroStudi.sottotitolo}</p>
-        <p>{centroStudi.introduzione}</p>
-        <ul class="elenco-puntato">
-          {centroStudi.proposte.map((p) => <li>{p}</li>)}
-        </ul>
+    <section class="sezione due-colonne">
+      <h2>L'Azione Cattolica in diocesi</h2>
+      <div class="testo-lungo">
         <p>
-          Per contatti: {centroStudi.referente},
-          <a href={`mailto:${centroStudi.email}`}>{centroStudi.email}</a>
+          Nell'Arcidiocesi di Trani – Barletta – Bisceglie l'associazione è presente nelle
+          parrocchie delle tre città con gruppi di ragazzi, giovani e adulti. Ogni
+          associazione parrocchiale è autonoma nella vita quotidiana e si riconosce in un
+          cammino diocesano comune, scandito dalla programmazione annuale e dagli
+          appuntamenti unitari.
         </p>
+        <p>
+          L'anno associativo si apre a settembre con l'assemblea diocesana e si chiude in
+          estate con i campi scuola. Nel mezzo: formazione, servizio, spiritualità e
+          impegno nella città.
+        </p>
+        <p>
+          Quest'anno il cammino è guidato dall'icona biblica «{sito.temaAnno}»
+          ({sito.temaAnnoRiferimento}) e dal verbo <em>generare</em>:
+          <a href={url('/programmazione')}>leggi la programmazione {sito.annoAssociativo}</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="sezione filo" aria-labelledby="titolo-settori">
+      <h2 id="titolo-settori" class="titolo-blocco">Sei strade, una sola associazione</h2>
+      <ul class="settori">
+        {settoriInOrdine.map((s) => (
+          <li data-settore={s.slug}>
+            <a href={url(`/settori/${s.slug}`)}>
+              <span class="settori__nome">{s.nomeEsteso}</span>
+              <span class="settori__eta">{s.eta}</span>
+              <span class="settori__testo">{s.descrizione}</span>
+              <span class="settori__vai">La pagina del settore <Icona nome="freccia" dimensione={16} /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="centro-studi" class="sezione due-colonne filo">
+      <div>
+        <h2>{centroStudi.nome}</h2>
+        <p class="sotto">{centroStudi.sottotitolo}</p>
+      </div>
+      <div class="testo-lungo">
+        <p>{centroStudi.introduzione}</p>
+        <ul>{centroStudi.proposte.map((p) => <li>{p}</li>)}</ul>
+        <p>Per contatti: {centroStudi.referente}, <a href={`mailto:${centroStudi.email}`}>{centroStudi.email}</a></p>
         <ul class="collegamenti">
           {centroStudi.collegamenti.map((c) => (
-            <li><a href={c.url} rel="noopener noreferrer" target="_blank">{c.nome} ↗</a></li>
+            <li><a href={c.url} rel="noopener noreferrer" target="_blank">{c.nome} <Icona nome="esterno" dimensione={14} /></a></li>
           ))}
         </ul>
       </div>
     </section>
+
+    <p class="nota-prototipo"><strong>Da rileggere:</strong> il testo di presentazione è provvisorio e va sostituito con quello della Presidenza.</p>
   </div>
 </Base>
 
 <style>
-  .testa-pagina {
-    padding-block: var(--spazio-xl) var(--spazio-l);
-    border-bottom: var(--bordo-sottile);
-    background: linear-gradient(180deg, var(--col-carta), transparent);
-  }
-  .testa-pagina h1 { font-size: var(--step-5); }
+  .filo { border-top: 2px solid var(--col-notte); }
+  .due-colonne { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: var(--spazio-xl); }
+  .due-colonne h2 { font-size: var(--step-3); }
+  .sotto { color: var(--col-blu); font-weight: 700; }
+  .titolo-blocco { font-size: var(--step-4); margin-bottom: var(--spazio-l); }
 
-  .intro { max-width: 44rem; }
-  .intro__guida {
-    font-family: var(--testo-display);
-    font-size: var(--step-2);
-    line-height: 1.35;
-    color: var(--col-blu);
-    border-left: 4px solid var(--col-ocra);
-    padding-left: var(--spazio-m);
-    margin-bottom: var(--spazio-l);
-  }
-
-  .griglia-settori {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-    gap: var(--spazio-m);
-  }
-  .scheda-settore {
-    padding: var(--spazio-m);
-    background: var(--col-carta);
-    border: var(--bordo-sottile);
-    border-top: 4px solid var(--col-settore);
-    border-radius: var(--raggio);
+  .settori { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--spazio-m); }
+  .settori a {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    padding: var(--spazio-m);
+    background: var(--col-settore);
+    color: var(--col-settore-testo);
+    border-radius: var(--raggio);
+    box-shadow: var(--ombra-foglio);
+    text-decoration: none;
+    transition: translate var(--transizione), box-shadow var(--transizione);
   }
-  .scheda-settore__eta {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--col-settore);
-    margin-bottom: var(--spazio-2xs);
-  }
-  .scheda-settore h3 { font-size: var(--step-1); }
-  .scheda-settore__testo { color: var(--col-inchiostro-tenue); font-size: var(--step--1); flex: 1; }
-  .scheda-settore__link { font-size: var(--step--1); font-weight: 600; text-decoration: none; }
+  .settori a:hover { translate: 0 -4px; box-shadow: var(--ombra-foglio-alta); }
+  .settori__nome { font-family: var(--testo-display); font-weight: 900; font-size: var(--step-2); line-height: 1.05; }
+  .settori__eta { font-weight: 700; font-size: var(--step--1); margin: 0.35rem 0 var(--spazio-s); }
+  .settori__testo { font-size: var(--step--1); flex: 1; }
+  .settori__vai { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: var(--spazio-s); font-weight: 700; font-size: var(--step--1); }
 
-  .nota-triennio { color: var(--col-inchiostro-tenue); font-size: var(--step--1); }
-  .consiglio {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
-    gap: var(--spazio-l) var(--spazio-xl);
-    margin-top: var(--spazio-m);
-  }
-  .consiglio__gruppo h3 { font-size: var(--step-1); margin-bottom: 0; }
-  .presidenza { list-style: none; margin: var(--spazio-2xs) 0 0; padding: 0; }
-  .presidenza li {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: var(--spazio-s);
-    padding: var(--spazio-s) 0;
-    border-bottom: 1px solid var(--col-bordo-tenue);
-  }
-  .presidenza__nome { font-weight: 600; }
-  .presidenza__ruolo { color: var(--col-inchiostro-tenue); text-align: right; }
+  .collegamenti { list-style: none; padding: 0 !important; display: flex; flex-wrap: wrap; gap: var(--spazio-s) var(--spazio-m); }
+  .collegamenti a { display: inline-flex; align-items: center; gap: 0.3rem; font-weight: 700; }
 
-  .intro__sottotitolo { font-style: italic; color: var(--col-inchiostro-tenue); }
-  .elenco-puntato { padding-left: 1.2rem; }
-  .elenco-puntato li { margin-bottom: var(--spazio-2xs); }
-  .collegamenti { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--spazio-s) var(--spazio-m); }
-  .collegamenti a { font-weight: 600; }
+  @media (max-width: 62rem) { .settori { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 52rem) { .due-colonne { grid-template-columns: 1fr; gap: var(--spazio-s); } }
+  @media (max-width: 34rem) { .settori { grid-template-columns: 1fr; } }
 </style>

@@ -1,171 +1,230 @@
 ---
 import Base from '../../layouts/Base.astro';
-import CartaEvento from '../../components/CartaEvento.astro';
-import { eventiProssimi, eventiPassati } from '../../lib/contenuti';
-import { settori } from '../../data/settori';
+import TestaPagina from '../../components/TestaPagina.astro';
+import RigaEvento from '../../components/RigaEvento.astro';
+import Icona from '../../components/Icona.astro';
+import { eventiProssimi, eventiPassati, type Evento } from '../../lib/contenuti';
+import { settoriInOrdine } from '../../data/navigazione';
 import { url } from '../../lib/url';
 
 const prossimi = await eventiProssimi();
 const passati = await eventiPassati();
+
+/** Raggruppa per mese, come il calendario a fogli di acaversa.it */
+function perMese(eventi: Evento[]) {
+  const gruppi = new Map<string, Evento[]>();
+  for (const e of eventi) {
+    const chiave = new Intl.DateTimeFormat('it-IT', { month: 'long', year: 'numeric' }).format(e.data.dataInizio);
+    gruppi.set(chiave, [...(gruppi.get(chiave) ?? []), e]);
+  }
+  return [...gruppi].map(([mese, voci]) => ({ mese: mese.charAt(0).toUpperCase() + mese.slice(1), voci }));
+}
+const mesi = perMese(prossimi);
+const testo = (e: Evento) => `${e.data.titolo} ${e.data.sommario} ${e.data.luogo.nome} ${e.data.luogo.comune}`.toLowerCase();
 ---
 
 <Base
   titolo="Eventi"
   descrizione="Il calendario degli appuntamenti diocesani dell'Azione Cattolica: assemblee, ritiri, campi, formazione."
 >
-  <header class="testa-pagina">
-    <div class="contenitore">
-      <p class="occhiello">Calendario diocesano</p>
-      <h1>Eventi</h1>
-      <p class="testa-pagina__intro">
-        Tutti gli appuntamenti dell'associazione diocesana. Usa i filtri per vedere
-        solo quelli del tuo settore.
-      </p>
-    </div>
-  </header>
-
-  <div class="contenitore">
-    <!-- Filtri: funzionano lato browser, quindi il sito resta interamente statico -->
-    <nav class="filtri" aria-label="Filtra gli eventi per settore">
-      <button class="filtro filtro--attivo" data-settore="tutti" aria-pressed="true">Tutti</button>
-      {settori.map((s) => (
-        <button class="filtro" data-settore={s.slug} aria-pressed="false" style={`--col-settore:${s.tinta}`}>
-          {s.nome}
-        </button>
-      ))}
-    </nav>
-
-    <section class="sezione-eventi">
-      <h2 class="occhiello">Prossimi appuntamenti</h2>
-      <div id="elenco-prossimi" class="elenco">
-        {prossimi.map((e) => (
-          <div class="voce" data-filtro-settore={e.data.settore}>
-            <CartaEvento evento={e} />
-          </div>
+  <TestaPagina titolo="Eventi">
+    <p>Tutti gli appuntamenti diocesani dell'anno associativo, mese per mese. Filtra per il tuo settore o cerca per nome e città.</p>
+    <div slot="sotto" class="strumenti">
+      <div class="ricerca">
+        <label class="visivamente-nascosto" for="cerca-eventi">Cerca negli eventi</label>
+        <Icona nome="cerca" />
+        <input id="cerca-eventi" type="search" placeholder="Cerca: ritiro, Barletta, campo…" autocomplete="off" />
+      </div>
+      <div class="filtri" role="group" aria-label="Filtra per settore">
+        <button class="filtro" type="button" data-settore="tutti" aria-pressed="true">Tutti</button>
+        {settoriInOrdine.map((s) => (
+          <button class="filtro" type="button" data-settore={s.slug} aria-pressed="false">{s.nome}</button>
         ))}
       </div>
-      <p id="nessun-prossimo" class="vuoto" hidden>Nessun appuntamento in programma per questo settore.</p>
-    </section>
+    </div>
+  </TestaPagina>
 
-    {passati.length > 0 && (
-      <section class="sezione-eventi">
-        <h2 class="occhiello">Appuntamenti passati</h2>
-        <div id="elenco-passati" class="elenco elenco--tenue">
-          {passati.map((e) => (
-            <div class="voce" data-filtro-settore={e.data.settore}>
-              <CartaEvento evento={e} />
+  <div class="contenitore calendario">
+    <p class="conteggio cifre" aria-live="polite" id="conteggio">{prossimi.length} appuntamenti in programma</p>
+
+    {mesi.map(({ mese, voci }) => (
+      <section class="mese" aria-label={mese}>
+        <h2 class="mese__nome">{mese}</h2>
+        <div class="mese__voci">
+          {voci.map((e, i) => (
+            <div class="voce" data-filtro-settore={e.data.settore} data-filtro-testo={testo(e)}>
+              <RigaEvento evento={e} inclinazione={i % 2 ? 1.5 : -1.5} />
             </div>
           ))}
         </div>
-        <p id="nessun-passato" class="vuoto" hidden>Nessun appuntamento passato per questo settore.</p>
       </section>
+    ))}
+
+    <div class="vuoto" id="nessun-evento" hidden>
+      <p><strong>Nessun appuntamento corrisponde alla ricerca.</strong> Prova un'altra parola o scegli «Tutti».</p>
+      <button class="bottone bottone--vuoto" type="button" data-azzera>Mostra tutti gli eventi</button>
+    </div>
+
+    {passati.length > 0 && (
+      <details class="passati">
+        <summary><span class="cifre">Appuntamenti passati ({passati.length})</span><Icona nome="giu" /></summary>
+        <div class="passati__elenco">
+          {passati.map((e) => (
+            <div class="voce" data-filtro-settore={e.data.settore} data-filtro-testo={testo(e)}>
+              <RigaEvento evento={e} misura="piccola" sommario={false} inclinazione={0} />
+            </div>
+          ))}
+        </div>
+      </details>
     )}
 
-    <aside class="calendario-invito">
-      <h2>Porta il calendario con te</h2>
-      <p>
-        Puoi sottoscrivere il calendario diocesano dal tuo telefono: gli appuntamenti
-        compariranno in Google Calendar o nel calendario di iPhone e si aggiorneranno
-        da soli.
-      </p>
-      <a class="bottone" href={url('/calendario.ics')}>Scarica il calendario (.ics)</a>
-    </aside>
+    <p class="sottoscrivi">
+      <a class="bottone" href={url('/calendario.ics')}><Icona nome="calendario" dimensione={18} /> Iscriviti al calendario</a>
+      <span>Gli eventi con data ancora da fissare entrano nel calendario quando il giorno è deciso.</span>
+    </p>
   </div>
 </Base>
 
 <script>
   const bottoni = document.querySelectorAll<HTMLButtonElement>('.filtro');
-  const voci = document.querySelectorAll<HTMLElement>('.voce');
+  const ricerca = document.getElementById('cerca-eventi') as HTMLInputElement;
+  const voci = document.querySelectorAll<HTMLElement>('.calendario .mese .voce');
+  const vociPassate = document.querySelectorAll<HTMLElement>('.passati .voce');
+  const mesi = document.querySelectorAll<HTMLElement>('.mese');
+  const conteggio = document.getElementById('conteggio')!;
+  const vuoto = document.getElementById('nessun-evento')!;
+  let settore = 'tutti';
 
-  function applica(settore: string) {
-    voci.forEach((v) => {
-      const mostra = settore === 'tutti' || v.dataset.filtroSettore === settore;
-      v.hidden = !mostra;
-    });
+  function applica() {
+    const parola = ricerca.value.trim().toLowerCase();
+    const passa = (v: HTMLElement) =>
+      (settore === 'tutti' || v.dataset.filtroSettore === settore) &&
+      (parola === '' || (v.dataset.filtroTesto ?? '').includes(parola));
 
-    bottoni.forEach((b) => {
-      const attivo = b.dataset.settore === settore;
-      b.classList.toggle('filtro--attivo', attivo);
-      b.setAttribute('aria-pressed', String(attivo));
-    });
+    let visibili = 0;
+    voci.forEach((v) => { v.hidden = !passa(v); if (!v.hidden) visibili++; });
+    vociPassate.forEach((v) => { v.hidden = !passa(v); });
+    mesi.forEach((m) => { m.hidden = !m.querySelector('.voce:not([hidden])'); });
 
-    // Messaggio di "nessun risultato" per ciascuna delle due liste
-    for (const [idElenco, idVuoto] of [
-      ['elenco-prossimi', 'nessun-prossimo'],
-      ['elenco-passati', 'nessun-passato'],
-    ]) {
-      const elenco = document.getElementById(idElenco);
-      const vuoto = document.getElementById(idVuoto);
-      if (!elenco || !vuoto) continue;
-      const visibili = elenco.querySelectorAll<HTMLElement>('.voce:not([hidden])').length;
-      vuoto.hidden = visibili > 0;
-    }
+    conteggio.textContent = visibili === 1 ? '1 appuntamento in programma' : `${visibili} appuntamenti in programma`;
+    vuoto.hidden = visibili > 0;
+    bottoni.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.settore === settore)));
 
-    // L'URL riflette il filtro: il link è condivisibile
+    // L'URL riflette il filtro: il link si può girare su WhatsApp
     const u = new URL(window.location.href);
     if (settore === 'tutti') u.searchParams.delete('settore');
     else u.searchParams.set('settore', settore);
     history.replaceState(null, '', u);
   }
 
-  bottoni.forEach((b) => b.addEventListener('click', () => applica(b.dataset.settore!)));
+  bottoni.forEach((b) => b.addEventListener('click', () => { settore = b.dataset.settore!; applica(); }));
+  ricerca.addEventListener('input', applica);
+  document.querySelector('[data-azzera]')?.addEventListener('click', () => {
+    settore = 'tutti';
+    ricerca.value = '';
+    applica();
+    ricerca.focus();
+  });
 
   const iniziale = new URL(window.location.href).searchParams.get('settore');
-  if (iniziale) applica(iniziale);
+  if (iniziale) { settore = iniziale; applica(); }
 </script>
 
 <style>
-  .testa-pagina {
-    padding-block: var(--spazio-xl) var(--spazio-l);
-    border-bottom: var(--bordo-sottile);
-    background: linear-gradient(180deg, var(--col-carta), transparent);
-    margin-bottom: var(--spazio-xl);
-  }
-  .testa-pagina h1 { font-size: var(--step-5); }
-  .testa-pagina__intro { max-width: var(--larghezza-testo); color: var(--col-inchiostro-tenue); font-size: var(--step-1); }
-
-  .filtri {
+  .strumenti {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spazio-2xs);
-    padding-bottom: var(--spazio-l);
-    border-bottom: 1px solid var(--col-bordo-tenue);
+    align-items: center;
+    gap: var(--spazio-s) var(--spazio-m);
+    padding-block: var(--spazio-s);
   }
+  .ricerca {
+    position: relative;
+    flex: 1 1 18rem;
+    max-width: 26rem;
+  }
+  .ricerca :global(svg) { position: absolute; left: 0.95rem; top: 50%; translate: 0 -50%; color: var(--col-tenue); pointer-events: none; }
+  .ricerca input {
+    width: 100%;
+    min-height: 2.9rem;
+    padding: 0.6rem 1rem 0.6rem 2.8rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--col-foglio);
+    color: var(--col-notte);
+    font: inherit;
+    font-size: var(--step-0);
+  }
+  .ricerca input::placeholder { color: var(--col-tenue); }
+  .ricerca input:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+  .filtri { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .filtro {
-    font-family: var(--testo-corpo);
-    font-size: var(--step--1);
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    padding: 0.5em 1em;
-    border: 1px solid var(--col-bordo);
+    min-height: 2.6rem;
+    padding: 0.4em 1em;
+    border: 2px solid rgb(255 255 255 / 0.55);
     border-radius: 999px;
     background: transparent;
-    color: var(--col-inchiostro-tenue);
-    cursor: pointer;
-    transition: all var(--transizione);
-  }
-  .filtro:hover { border-color: var(--col-settore); color: var(--col-settore); }
-  .filtro--attivo {
-    background: var(--col-settore);
-    border-color: var(--col-settore);
     color: #fff;
+    font: 700 var(--step--1) / 1 var(--testo-display);
+    cursor: pointer;
+    transition: background var(--transizione), color var(--transizione), border-color var(--transizione);
   }
-  .filtro[data-settore='tutti'] { --col-settore: var(--col-inchiostro); }
-
-  .sezione-eventi { padding-block: var(--spazio-xl); }
-  .elenco--tenue { opacity: 0.62; }
-  .elenco--tenue:hover { opacity: 1; }
-  .vuoto { color: var(--col-inchiostro-tenue); font-style: italic; padding-block: var(--spazio-m); }
-
-  .calendario-invito {
-    margin-block: var(--spazio-xl);
-    padding: var(--spazio-l);
-    background: var(--col-carta);
-    border: var(--bordo-sottile);
-    border-left: 5px solid var(--col-ocra);
-    border-radius: var(--raggio);
-    max-width: 44rem;
+  .filtro:hover { border-color: #fff; }
+  .filtro[aria-pressed='true'] { background: #fff; border-color: #fff; color: var(--col-blu); }
+  .filtro[data-settore]:not([data-settore='tutti'])[aria-pressed='true'] {
+    background: var(--col-settore);
+    border-color: #fff;
+    color: var(--col-settore-testo);
   }
-  .calendario-invito h2 { font-size: var(--step-2); }
-  .calendario-invito p { color: var(--col-inchiostro-tenue); max-width: 34rem; }
+  .filtro:focus-visible { outline-color: #fff; }
+
+  .calendario { padding-top: var(--spazio-l); }
+  .conteggio { font-weight: 700; color: var(--col-tenue); font-size: var(--step--1); margin-bottom: var(--spazio-m); }
+
+  .mese { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: var(--spazio-l); padding-block: var(--spazio-l); border-top: 2px solid var(--col-notte); }
+  .mese__nome {
+    font-size: var(--step-2);
+    position: sticky;
+    top: 6.5rem;
+    align-self: start;
+    margin: var(--spazio-m) 0 0;
+  }
+  .mese__voci { display: grid; }
+
+  .vuoto { padding: var(--spazio-xl) 0; max-width: 34rem; }
+
+  .passati { margin-top: var(--spazio-xl); border-top: 2px solid var(--col-notte); }
+  .passati summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spazio-m) 0;
+    font-family: var(--testo-display);
+    font-weight: 800;
+    font-size: var(--step-1);
+    cursor: pointer;
+    list-style: none;
+  }
+  .passati summary::-webkit-details-marker { display: none; }
+  .passati summary :global(svg) { transition: rotate var(--transizione); }
+  .passati[open] summary :global(svg) { rotate: 180deg; }
+  .passati__elenco { opacity: 0.75; }
+
+  .sottoscrivi {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spazio-s) var(--spazio-m);
+    margin-top: var(--spazio-xl);
+    color: var(--col-tenue);
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 52rem) {
+    .mese { grid-template-columns: 1fr; gap: var(--spazio-2xs); }
+    .mese__nome { position: static; margin: 0; }
+    .filtri { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.25rem; margin-inline: -1rem; padding-inline: 1rem; scrollbar-width: none; }
+    .filtro { flex-shrink: 0; }
+  }
 </style>

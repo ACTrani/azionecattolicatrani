@@ -1,49 +1,74 @@
 ---
 import Base from '../../layouts/Base.astro';
+import TestaPagina from '../../components/TestaPagina.astro';
 import CartaNotizia from '../../components/CartaNotizia.astro';
 import { tutteLeNotizie } from '../../lib/contenuti';
 
 const notizie = await tutteLeNotizie();
 const comunicati = notizie.filter((n) => n.data.comunicato);
-const altre = notizie.filter((n) => !n.data.comunicato);
 ---
 
 <Base
-  titolo="Notizie e comunicati"
+  titolo="Notizie"
   descrizione="Notizie dalla vita associativa e comunicati ufficiali della Presidenza diocesana."
 >
-  <header class="testa-pagina">
-    <div class="contenitore">
-      <p class="occhiello">Dalla diocesi</p>
-      <h1>Notizie e comunicati</h1>
-      <p class="testa-pagina__intro">
-        I comunicati ufficiali della Presidenza e le notizie dalla vita dell'associazione.
-      </p>
+  <TestaPagina titolo="Notizie">
+    <p>Le notizie dalla vita dell'associazione e i comunicati ufficiali della Presidenza diocesana.</p>
+    <div slot="sotto" class="filtri" role="group" aria-label="Mostra">
+      <button class="filtro" type="button" data-vista="tutte" aria-pressed="true">Tutte ({notizie.length})</button>
+      <button class="filtro" type="button" data-vista="comunicati" aria-pressed="false">Solo comunicati ufficiali ({comunicati.length})</button>
     </div>
-  </header>
+  </TestaPagina>
 
-  <div class="contenitore">
-    {comunicati.length > 0 && (
-      <section class="sezione">
-        <h2 class="occhiello">Comunicati ufficiali</h2>
-        <div class="griglia">{comunicati.map((n) => <CartaNotizia notizia={n} />)}</div>
-      </section>
-    )}
-
-    <section class="sezione">
-      <h2 class="occhiello">Dalla vita associativa</h2>
-      <div class="griglia">{altre.map((n) => <CartaNotizia notizia={n} />)}</div>
-    </section>
+  <div class="contenitore griglia">
+    {notizie.map((n, i) => (
+      <div class="voce" data-comunicato={n.data.comunicato ? 'si' : 'no'}>
+        <CartaNotizia notizia={n} grande={i === 0} />
+      </div>
+    ))}
   </div>
+  <p class="contenitore nota-prototipo"><strong>Prototipo:</strong> le notizie sono testi di esempio, da sostituire con quelle vere della Presidenza.</p>
 </Base>
 
+<script>
+  const bottoni = document.querySelectorAll<HTMLButtonElement>('.filtro');
+  const voci = document.querySelectorAll<HTMLElement>('.voce');
+  bottoni.forEach((b) =>
+    b.addEventListener('click', () => {
+      const soloComunicati = b.dataset.vista === 'comunicati';
+      voci.forEach((v) => (v.hidden = soloComunicati && v.dataset.comunicato !== 'si'));
+      bottoni.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    }),
+  );
+</script>
+
 <style>
-  .testa-pagina {
-    padding-block: var(--spazio-xl) var(--spazio-l);
-    border-bottom: var(--bordo-sottile);
-    background: linear-gradient(180deg, var(--col-carta), transparent);
+  .filtri { display: flex; flex-wrap: wrap; gap: 0.4rem; padding-block: var(--spazio-s); }
+  .filtro {
+    min-height: 2.6rem;
+    padding: 0.4em 1em;
+    border: 2px solid rgb(255 255 255 / 0.55);
+    border-radius: 999px;
+    background: transparent;
+    color: #fff;
+    font: 700 var(--step--1) / 1 var(--testo-display);
+    cursor: pointer;
   }
-  .testa-pagina h1 { font-size: var(--step-5); }
-  .testa-pagina__intro { max-width: var(--larghezza-testo); color: var(--col-inchiostro-tenue); font-size: var(--step-1); }
-  .griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: var(--spazio-m); }
+  .filtro[aria-pressed='true'] { background: #fff; border-color: #fff; color: var(--col-blu); }
+  .filtro:focus-visible { outline-color: #fff; }
+
+  .griglia {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spazio-m);
+    padding-top: var(--spazio-xl);
+  }
+  .voce { display: flex; }
+  .voce > :global(*) { flex: 1; }
+  .voce:first-child { grid-column: span 2; }
+  @media (max-width: 62rem) { .griglia { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 40rem) {
+    .griglia { grid-template-columns: 1fr; }
+    .voce:first-child { grid-column: auto; }
+  }
 </style>

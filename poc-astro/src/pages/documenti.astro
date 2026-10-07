@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import RigaDocumento from '../components/RigaDocumento.astro';
+import TestaPagina from '../components/TestaPagina.astro';
 import { tuttiIDocumenti, anniAssociativi } from '../lib/contenuti';
 import { settori } from '../data/settori';
 
@@ -19,18 +20,11 @@ const tipi = [
   titolo="Documenti e modulistica"
   descrizione="Programmazioni, sussidi, moduli di iscrizione e documenti dell'associazione diocesana, pronti da scaricare."
 >
-  <header class="testa-pagina">
-    <div class="contenitore">
-      <p class="occhiello">Archivio</p>
-      <h1>Documenti e modulistica</h1>
-      <p class="testa-pagina__intro">
-        Programmazioni, sussidi per gli educatori, moduli di iscrizione e documenti
-        associativi. Cerca per parola o restringi con i filtri.
-      </p>
-    </div>
-  </header>
+  <TestaPagina titolo="Documenti e moduli">
+    <p>Programmazioni, sussidi per gli educatori, moduli di iscrizione e documenti associativi. Cerca per parola o restringi con i filtri.</p>
+  </TestaPagina>
 
-  <div class="contenitore">
+  <div class="contenitore archivio">
     <form class="strumenti" role="search" onsubmit="return false">
       <div class="campo">
         <label for="ricerca">Cerca nei documenti</label>
@@ -62,15 +56,17 @@ const tipi = [
       </div>
     </form>
 
-    <p class="conteggio" aria-live="polite" id="conteggio">{documenti.length} documenti</p>
+    <p class="conteggio cifre" aria-live="polite" id="conteggio">{documenti.length} documenti</p>
 
     <div id="elenco-documenti">
       {documenti.map((d) => <RigaDocumento documento={d} />)}
     </div>
 
     <p id="nessun-documento" class="vuoto" hidden>
-      Nessun documento corrisponde ai criteri scelti. Prova ad allargare la ricerca.
+      <strong>Nessun documento corrisponde ai criteri scelti.</strong> Prova ad allargare la ricerca.
     </p>
+
+    <p class="nota-prototipo"><strong>Prototipo:</strong> i documenti sono di esempio e i file non sono ancora caricati.</p>
   </div>
 </Base>
 
@@ -109,57 +105,38 @@ const tipi = [
 </script>
 
 <style>
-  .testa-pagina {
-    padding-block: var(--spazio-xl) var(--spazio-l);
-    border-bottom: var(--bordo-sottile);
-    background: linear-gradient(180deg, var(--col-carta), transparent);
-    margin-bottom: var(--spazio-xl);
-  }
-  .testa-pagina h1 { font-size: var(--step-5); }
-  .testa-pagina__intro { max-width: var(--larghezza-testo); color: var(--col-inchiostro-tenue); font-size: var(--step-1); }
-
+  .archivio { position: relative; }
   .strumenti {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: var(--spazio-s);
+    margin-top: calc(var(--spazio-l) * -1);
     padding: var(--spazio-m);
-    background: var(--col-carta);
-    border: var(--bordo-sottile);
+    background: var(--col-foglio);
     border-radius: var(--raggio);
+    box-shadow: var(--ombra-foglio-alta);
   }
-  .campo { display: grid; gap: 0.3rem; }
-  .campo label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--col-inchiostro-tenue);
-  }
+  .campo { display: grid; gap: 0.35rem; }
+  .campo label { font-size: var(--step--1); font-weight: 700; color: var(--col-notte); }
   input, select {
+    min-height: 2.9rem;
     font-family: var(--testo-corpo);
     font-size: var(--step-0);
-    padding: 0.6em 0.75em;
-    border: 1px solid var(--col-bordo);
-    border-radius: var(--raggio);
-    background: var(--col-pietra);
-    color: var(--col-inchiostro);
+    padding: 0.55em 0.8em;
+    border: 2px solid var(--col-filo);
+    border-radius: var(--raggio-piccolo);
+    background: var(--col-carta);
+    color: var(--col-notte);
   }
-  input:focus, select:focus { border-color: var(--col-blu); }
+  input::placeholder { color: var(--col-tenue); }
+  input:focus-visible, select:focus-visible { border-color: var(--col-blu); outline-offset: 1px; }
 
-  .conteggio {
-    margin: var(--spazio-l) 0 0;
-    font-size: var(--step--1);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--col-inchiostro-tenue);
-  }
-  .vuoto { color: var(--col-inchiostro-tenue); font-style: italic; padding-block: var(--spazio-l); }
+  .conteggio { margin: var(--spazio-l) 0 0; font-size: var(--step--1); font-weight: 700; color: var(--col-tenue); }
+  .vuoto { color: var(--col-tenue); padding-block: var(--spazio-l); }
 
   @media (max-width: 52rem) {
     .strumenti { grid-template-columns: 1fr 1fr; }
     .campo:first-child { grid-column: 1 / -1; }
   }
-  @media (max-width: 32rem) {
-    .strumenti { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 32rem) { .strumenti { grid-template-columns: 1fr; } }
 </style>

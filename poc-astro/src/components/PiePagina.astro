@@ -3,51 +3,69 @@ import { Image } from 'astro:assets';
 import { url } from '../lib/url';
 import logo from '../assets/logo-ac-trani-bianco.png';
 import { sito } from '../data/sito';
-import { settori } from '../data/settori';
+import { settoriInOrdine, menu } from '../data/navigazione';
+import Icona from './Icona.astro';
+
 const annoCorrente = new Date().getFullYear();
+const informazioni = menu.find((v) => v.testo === 'Informazioni')!.figli!;
 ---
 
 <footer class="piede">
+  <!-- Il calendario sottoscrivibile: l'invito chiude ogni pagina -->
+  <section class="calendario" aria-labelledby="titolo-calendario">
+    <div class="contenitore calendario__riga">
+      <div>
+        <h2 id="titolo-calendario">Tutto il calendario diocesano nel tuo telefono</h2>
+        <p>Sottoscrivilo una volta: gli appuntamenti compaiono in Google Calendar o sull'iPhone e si aggiornano da soli.</p>
+      </div>
+      <a class="bottone bottone--chiaro" href={url('/calendario.ics')}>
+        <Icona nome="calendario" />
+        Iscriviti al calendario
+      </a>
+    </div>
+  </section>
+
   <div class="contenitore piede__griglia">
     <div class="piede__identita">
-      <Image class="piede__segno" src={logo} alt="Azione Cattolica Italiana" width={160} loading="lazy" />
+      <Image class="piede__segno" src={logo} alt="Azione Cattolica Italiana" width={180} loading="lazy" />
       <p class="piede__diocesi">{sito.diocesi}</p>
-      <p class="piede__claim">{sito.claim}</p>
     </div>
 
     <div>
-      <h2 class="piede__titolo">Sede</h2>
+      <h2 class="piede__titolo">Segreteria diocesana</h2>
       <address>
         {sito.contatti.sede}<br />
-        {sito.contatti.comune}<br />
-        <a href={`tel:${sito.contatti.telefonoHref}`}>{sito.contatti.telefono}</a><br />
-        <a href={`mailto:${sito.contatti.email}`}>{sito.contatti.email}</a>
+        {sito.contatti.comune}
       </address>
+      <ul class="piede__elenco piede__recapiti">
+        <li><a href={`tel:${sito.contatti.telefonoHref}`}><Icona nome="telefono" dimensione={16} />{sito.contatti.telefono}</a></li>
+        <li><a href={`mailto:${sito.contatti.email}`}><Icona nome="posta" dimensione={16} />{sito.contatti.email}</a></li>
+      </ul>
       <p class="piede__orari">{sito.contatti.orari}</p>
     </div>
 
     <div>
       <h2 class="piede__titolo">Settori</h2>
       <ul class="piede__elenco">
-        {settori.map((s) => (
-          <li><a href={`${url('/eventi')}?settore=${s.slug}`}>{s.nomeEsteso}</a></li>
+        {settoriInOrdine.map((s) => (
+          <li data-settore={s.slug}><a href={url(`/settori/${s.slug}`)}><span class="piede__tinta" aria-hidden="true" />{s.nomeMenu}</a></li>
         ))}
       </ul>
     </div>
 
     <div>
-      <h2 class="piede__titolo">Il sito</h2>
+      <h2 class="piede__titolo">Informazioni</h2>
       <ul class="piede__elenco">
-        <li><a href={url('/eventi')}>Eventi</a></li>
-        <li><a href={url('/notizie')}>Notizie e comunicati</a></li>
-        <li><a href={url('/documenti')}>Documenti e modulistica</a></li>
+        {informazioni.map((v) => <li><a href={v.href}>{v.testo}</a></li>)}
         <li><a href={url('/aderisci')}>Aderisci</a></li>
-        <li><a href={url('/contatti')}>Contatti</a></li>
       </ul>
-      <h2 class="piede__titolo piede__titolo--distanziato">Social</h2>
+    </div>
+
+    <div>
+      <h2 class="piede__titolo">Seguici</h2>
       <ul class="piede__elenco">
         {sito.social.map((s) => (
-          <li><a href={s.url} rel="noopener noreferrer" target="_blank">{s.nome}</a></li>
+          <li><a href={s.url} rel="noopener noreferrer" target="_blank">{s.nome}<Icona nome="esterno" dimensione={14} /></a></li>
         ))}
       </ul>
     </div>
@@ -55,52 +73,76 @@ const annoCorrente = new Date().getFullYear();
 
   <div class="contenitore piede__legale">
     <p>© {annoCorrente} Azione Cattolica Italiana — {sito.diocesi}</p>
-    <p class="piede__nota">Prototipo a scopo di valutazione: non è il sito ufficiale dell'associazione.</p>
+    <p>Prototipo a scopo di valutazione: non è il sito ufficiale dell'associazione. Gli eventi sono reali, notizie e documenti sono di esempio.</p>
   </div>
 </footer>
 
 <style>
   .piede {
-    background: var(--col-blu-scuro);
-    color: #cfd8e3;
+    background: var(--col-notte);
+    color: #d5dee8;
     margin-top: var(--spazio-3xl);
-    padding-block: var(--spazio-xl) var(--spazio-m);
     font-size: var(--step--1);
   }
+
+  .calendario { background: var(--col-blu); color: #fff; }
+  .calendario__riga {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spazio-m) var(--spazio-xl);
+    padding-block: var(--spazio-l);
+  }
+  .calendario h2 { font-size: var(--step-2); margin-bottom: var(--spazio-2xs); color: #fff; }
+  .calendario p { margin: 0; color: var(--col-blu-chiaro); max-width: 40rem; font-size: var(--step-0); }
+
   .piede__griglia {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    grid-template-columns: 1.3fr repeat(4, 1fr);
     gap: var(--spazio-xl) var(--spazio-l);
+    padding-block: var(--spazio-xl);
   }
-  .piede__identita { grid-column: span 1; }
-  .piede__segno { height: 4.25rem; width: auto; margin-bottom: var(--spazio-s); }
-  .piede__diocesi { color: var(--col-ocra-chiara); font-weight: 600; margin-bottom: var(--spazio-s); }
-  .piede__claim { max-width: 22rem; opacity: 0.75; font-style: italic; }
+  .piede__segno { height: 4.5rem; width: auto; margin-bottom: var(--spazio-s); }
+  .piede__diocesi { font-family: var(--testo-display); font-weight: 700; font-size: var(--step-0); color: #fff; max-width: 16rem; line-height: 1.3; }
   .piede__titolo {
-    font-family: var(--testo-corpo);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #8fa3bb;
+    font-size: var(--step--1);
+    font-weight: 800;
+    color: #fff;
     margin-bottom: var(--spazio-s);
+    letter-spacing: 0;
   }
-  .piede__titolo--distanziato { margin-top: var(--spazio-m); }
-  .piede__elenco { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
-  .piede a { color: #e4ebf3; text-decoration: none; }
-  .piede a:hover { color: var(--col-ocra-chiara); text-decoration: underline; }
-  address { font-style: normal; line-height: 1.8; }
-  .piede__orari { margin-top: var(--spazio-s); opacity: 0.7; }
+  .piede__elenco { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .piede a:not(.bottone) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #d5dee8;
+    text-decoration: none;
+  }
+  .piede a:not(.bottone):hover { color: #fff; text-decoration: underline; text-underline-offset: 0.2em; }
+  .piede__tinta { width: 0.75rem; height: 0.75rem; border-radius: 3px; background: var(--col-settore); rotate: -6deg; }
+  address { font-style: normal; line-height: 1.7; margin-bottom: var(--spazio-xs); }
+  .piede__recapiti { margin-bottom: var(--spazio-xs); }
+  .piede__orari { color: #a9b8c9; margin: 0; }
+
   .piede__legale {
-    margin-top: var(--spazio-xl);
-    padding-top: var(--spazio-m);
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: var(--spazio-2xs);
-    opacity: 0.6;
-    font-size: 0.78rem;
+    gap: var(--spazio-2xs) var(--spazio-l);
+    padding-block: var(--spazio-m) var(--spazio-l);
+    border-top: 1px solid rgb(255 255 255 / 0.14);
+    color: #a9b8c9;
+    font-size: var(--step--2);
   }
-  .piede__legale p { margin: 0; }
+  .piede__legale p { margin: 0; max-width: 44rem; }
+
+  @media (max-width: 62rem) {
+    .piede__griglia { grid-template-columns: repeat(2, 1fr); }
+    .piede__identita { grid-column: 1 / -1; }
+  }
+  @media (max-width: 30rem) {
+    .piede__griglia { grid-template-columns: 1fr; gap: var(--spazio-l); }
+  }
 </style>
