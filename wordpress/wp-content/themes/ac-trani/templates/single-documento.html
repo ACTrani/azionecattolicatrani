@@ -1,21 +1,29 @@
+<!-- wp:template-part {"slug":"barra-appuntamenti","tagName":"div"} /-->
+
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
 <main class="wp-block-group">
-	<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-	<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--70);margin-bottom:var(--wp--preset--spacing--50)">
-		<!-- wp:post-terms {"term":"tipo-documento","fontSize":"piccolo","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.12em","fontWeight":"700"}}} /-->
-		<!-- wp:post-title {"level":1,"fontSize":"titolo-1"} /-->
-		<!-- wp:post-excerpt /-->
-	</div>
+	<!-- wp:group {"tagName":"header","align":"full","className":"ac-testa ac-testa--settore","layout":{"type":"constrained"}} -->
+	<header class="wp-block-group alignfull ac-testa ac-testa--settore">
+		<!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
+		<div class="wp-block-group alignwide">
+			<!-- wp:paragraph {"className":"ac-briciole"} -->
+			<p class="ac-briciole"><a href="/documenti/">Documenti e moduli</a> /</p>
+			<!-- /wp:paragraph -->
+			<!-- wp:post-title {"level":1} /-->
+			<!-- wp:post-excerpt /-->
+		</div>
+		<!-- /wp:group -->
+	</header>
 	<!-- /wp:group -->
 
-	<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+	<!-- wp:post-content {"align":"full","layout":{"type":"constrained"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|70"}}}} /-->
 
-	<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|80"}}},"layout":{"type":"constrained"}} -->
-	<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--80)">
-		<!-- wp:ac-trani/elenco-documenti {"numero":5,"titolo":"Altri documenti"} /-->
-	</div>
+	<!-- wp:group {"tagName":"section","align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|80"}}},"layout":{"type":"default"}} -->
+	<section class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--80)">
+		<!-- wp:ac-trani/elenco-documenti {"numero":5,"compatta":true,"titolo":"Altri documenti","linkArchivio":true} /-->
+	</section>
 	<!-- /wp:group -->
 </main>
 <!-- /wp:group -->

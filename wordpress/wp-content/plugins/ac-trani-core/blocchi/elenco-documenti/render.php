@@ -12,20 +12,21 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$documenti = ac_trani_documenti(
+$settore   = ac_trani_risolvi_settore( (string) ( $attributes['settore'] ?? '' ) );
+$documenti = ( 'corrente' === ( $attributes['settore'] ?? '' ) && ! $settore ) ? array() : ac_trani_documenti(
 	array(
 		'numero'  => $attributes['numero'] ?? 10,
-		'settore' => $attributes['settore'] ?? '',
+		'settore' => $settore,
 		'anno'    => $attributes['anno'] ?? '',
 		'tipo'    => $attributes['tipo'] ?? '',
 	)
 );
+$compatta = ! empty( $attributes['compatta'] );
+$link     = ! empty( $attributes['linkArchivio'] ) && $documenti ? (string) get_post_type_archive_link( 'documento' ) : '';
 
 ob_start();
 
-if ( ! empty( $attributes['titolo'] ) ) {
-	printf( '<h2 class="ac-sezione__titolo">%s</h2>', esc_html( $attributes['titolo'] ) );
-}
+echo ac_trani_testa_sezione( ac_trani_titolo_con_settore( (string) ( $attributes['titolo'] ?? '' ), $settore ), $link, 'Archivio completo' ); // phpcs:ignore WordPress.Security.EscapeOutput
 
 if ( ! $documenti ) {
 	echo ac_trani_vuoto( 'Nessun documento disponibile.' ); // phpcs:ignore WordPress.Security.EscapeOutput
@@ -33,8 +34,9 @@ if ( ! $documenti ) {
 	if ( ! empty( $attributes['filtri'] ) ) {
 		?>
 		<form class="ac-filtri" role="search" data-ac-filtri>
-			<p class="ac-filtri__campo">
+			<p class="ac-filtri__campo ac-filtri__campo--cerca">
 				<label for="ac-cerca-doc">Cerca</label>
+				<?php echo ac_trani_icona( 'cerca' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<input type="search" id="ac-cerca-doc" data-ac-cerca placeholder="Titolo o descrizione…">
 			</p>
 			<p class="ac-filtri__campo">
@@ -64,27 +66,41 @@ if ( ! $documenti ) {
 		$url     = ac_trani_file_url( $id );
 		$tipi    = get_the_terms( $id, 'tipo-documento' );
 		$tipo    = ( $tipi && ! is_wp_error( $tipi ) ) ? $tipi[0] : null;
-		$settore = ac_trani_settore( $id );
+		$anni    = get_the_terms( $id, 'anno-associativo' );
+		$anno    = ( $anni && ! is_wp_error( $anni ) ) ? $anni[0] : null;
+		$termine = ac_trani_settore( $id );
+		$formato = strtoupper( (string) get_post_meta( $id, 'ac_formato', true ) );
+		if ( ! $formato && (int) get_post_meta( $id, 'ac_file_id', true ) ) {
+			$formato = strtoupper( (string) pathinfo( (string) get_attached_file( (int) get_post_meta( $id, 'ac_file_id', true ) ), PATHINFO_EXTENSION ) );
+		}
+		$peso = (string) get_post_meta( $id, 'ac_dimensione', true );
+		$data = (string) get_post_meta( $id, 'ac_data', true );
 		?>
-		<li class="ac-documento"
-			data-settore="<?php echo esc_attr( $settore ? $settore->slug : '' ); ?>"
+		<li class="ac-documento<?php echo $compatta ? ' ac-documento--compatta' : ''; ?>"
+			data-settore="<?php echo esc_attr( ac_trani_settore_slug( $id ) ); ?>"
 			data-tipo="<?php echo esc_attr( $tipo ? $tipo->slug : '' ); ?>"
 			data-testo="<?php echo esc_attr( mb_strtolower( get_the_title( $id ) . ' ' . get_the_excerpt( $id ) ) ); ?>">
+			<span class="ac-documento__formato" aria-hidden="true"><?php echo esc_html( $formato ?: 'DOC' ); ?></span>
 			<div class="ac-documento__corpo">
-				<h3 class="ac-documento__titolo"><?php echo esc_html( get_the_title( $id ) ); ?></h3>
-				<?php if ( get_the_excerpt( $id ) ) : ?>
+				<h3 class="ac-documento__titolo"><a href="<?php echo esc_url( get_permalink( $id ) ); ?>"><?php echo esc_html( get_the_title( $id ) ); ?></a></h3>
+				<?php if ( ! $compatta && get_the_excerpt( $id ) ) : ?>
 					<p class="ac-documento__descrizione"><?php echo esc_html( get_the_excerpt( $id ) ); ?></p>
 				<?php endif; ?>
 				<p class="ac-documento__dati">
-					<?php if ( $tipo ) : ?><span class="ac-etichetta"><?php echo esc_html( $tipo->name ); ?></span><?php endif; ?>
-					<?php if ( $settore ) : ?><span class="ac-etichetta ac-etichetta--settore" data-settore="<?php echo esc_attr( $settore->slug ); ?>"><?php echo esc_html( $settore->name ); ?></span><?php endif; ?>
-					<span class="ac-documento__file"><?php echo esc_html( ac_trani_file_etichetta( $id ) ); ?></span>
+					<?php if ( $termine ) : ?><span class="ac-etichetta ac-etichetta--settore"><?php echo esc_html( $termine->name ); ?></span><?php endif; ?>
+					<?php if ( $tipo ) : ?><span><?php echo esc_html( $tipo->name ); ?></span><?php endif; ?>
+					<?php if ( $anno ) : ?><span class="ac-cifre"><?php echo esc_html( $anno->name ); ?></span><?php endif; ?>
+					<?php if ( ! $compatta && $data ) : ?><span>Pubblicato il <?php echo esc_html( ac_trani_data_italiana( (int) strtotime( $data ) ) ); ?></span><?php endif; ?>
 				</p>
 			</div>
 			<?php if ( $url ) : ?>
 				<a class="ac-documento__scarica" href="<?php echo esc_url( $url ); ?>" download>
-					Scarica<span class="ac-solo-lettori-schermo"> <?php echo esc_html( get_the_title( $id ) ); ?></span>
+					<?php echo ac_trani_icona( 'scarica', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					<span>Scarica<?php if ( $peso ) : ?><span class="ac-documento__peso"> · <?php echo esc_html( $peso ); ?></span><?php endif; ?></span>
+					<span class="ac-solo-lettori-schermo"> <?php echo esc_html( get_the_title( $id ) ); ?></span>
 				</a>
+			<?php else : ?>
+				<span class="ac-documento__mancante">File in arrivo</span>
 			<?php endif; ?>
 		</li>
 		<?php

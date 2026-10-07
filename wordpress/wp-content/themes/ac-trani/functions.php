@@ -13,7 +13,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AC_TRANI_TEMA_VERSIONE', '0.1.0' );
+define( 'AC_TRANI_TEMA_VERSIONE', '0.2.0' );
 
 add_action(
 	'after_setup_theme',
@@ -34,8 +34,64 @@ add_action(
 			'ac-trani',
 			get_stylesheet_uri(),
 			array(),
-			AC_TRANI_TEMA_VERSIONE
+			// La data del file come versione: ogni modifica scavalca la cache del browser.
+			(string) filemtime( get_stylesheet_directory() . '/style.css' )
 		);
+	}
+);
+
+/**
+ * La data di oggi in testata, come su acaversa.it. Si scrive nel browser:
+ * con una cache di pagina davanti, una data stampata da PHP resterebbe ferma
+ * al giorno in cui la pagina è stata salvata.
+ */
+add_action(
+	'wp_enqueue_scripts',
+	function () {
+		wp_enqueue_script(
+			'ac-trani-testata',
+			get_theme_file_uri( 'assets/testata.js' ),
+			array(),
+			AC_TRANI_TEMA_VERSIONE,
+			array( 'strategy' => 'defer', 'in_footer' => true )
+		);
+	}
+);
+
+/**
+ * La tinta del settore sul <body>: «ac-tinta-acr» nell'archivio di un settore
+ * e nelle pagine di un evento, una notizia o un documento che vi appartiene.
+ * Così le testate dei template prendono il cartoncino giusto senza che i
+ * grafici debbano preparare un template per ogni settore.
+ */
+add_filter(
+	'body_class',
+	function ( array $classi ) {
+		$slug = '';
+		if ( is_tax( 'settore' ) ) {
+			$termine = get_queried_object();
+			$slug    = $termine instanceof WP_Term ? $termine->slug : '';
+		} elseif ( is_singular( array( 'evento', 'post', 'documento' ) ) ) {
+			$termini = get_the_terms( get_queried_object_id(), 'settore' );
+			$slug    = ( $termini && ! is_wp_error( $termini ) ) ? $termini[0]->slug : '';
+		}
+		if ( $slug ) {
+			$classi[] = 'ac-tinta-' . sanitize_html_class( $slug );
+		}
+		return $classi;
+	}
+);
+
+/**
+ * Due varianti del blocco Pulsante per i fondi blu: «Chiaro» (pieno bianco) e
+ * «Filo» (contorno bianco). Il lime non è fra le varianti di proposito: vuol
+ * dire «il prossimo appuntamento», e lo usa solo il blocco omonimo.
+ */
+add_action(
+	'init',
+	function () {
+		register_block_style( 'core/button', array( 'name' => 'chiaro', 'label' => 'Chiaro (su blu)' ) );
+		register_block_style( 'core/button', array( 'name' => 'filo', 'label' => 'Filo (su blu)' ) );
 	}
 );
 

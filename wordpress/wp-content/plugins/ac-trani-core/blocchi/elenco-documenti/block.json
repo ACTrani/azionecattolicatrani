@@ -6,20 +6,57 @@
   "category": "widgets",
   "icon": "media-document",
   "description": "Documenti e modulistica da scaricare, con ricerca e filtri.",
-  "keywords": ["documenti", "modulistica", "download", "ac"],
+  "keywords": [
+    "documenti",
+    "modulistica",
+    "download",
+    "ac"
+  ],
   "textdomain": "ac-trani",
   "attributes": {
-    "numero":  { "type": "number",  "default": 10 },
-    "settore": { "type": "string",  "default": "" },
-    "anno":    { "type": "string",  "default": "" },
-    "tipo":    { "type": "string",  "default": "" },
-    "filtri":  { "type": "boolean", "default": false },
-    "titolo":  { "type": "string",  "default": "" }
+    "numero": {
+      "type": "number",
+      "default": 10
+    },
+    "settore": {
+      "type": "string",
+      "default": ""
+    },
+    "anno": {
+      "type": "string",
+      "default": ""
+    },
+    "tipo": {
+      "type": "string",
+      "default": ""
+    },
+    "filtri": {
+      "type": "boolean",
+      "default": false
+    },
+    "titolo": {
+      "type": "string",
+      "default": ""
+    },
+    "compatta": {
+      "type": "boolean",
+      "default": false
+    },
+    "linkArchivio": {
+      "type": "boolean",
+      "default": false
+    }
   },
   "supports": {
     "html": false,
-    "align": ["wide", "full"],
-    "spacing": { "margin": true, "padding": true }
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
   },
   "editorScript": "ac-trani-blocchi",
   "viewScript": "file:./filtri.js",

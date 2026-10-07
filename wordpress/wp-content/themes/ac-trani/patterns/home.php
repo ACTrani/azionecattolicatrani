@@ -3,49 +3,86 @@
  * Title: Home page
  * Slug: ac-trani/home
  * Categories: ac-trani
- * Description: La home page del sito: apertura con l'icona biblica dell'anno, prossimi appuntamenti, notizie, settori, documenti.
- * Keywords: home, apertura, eventi
+ * Description: La home del sito, sulla struttura di acaversa.it: il prossimo appuntamento in grande, le tessere dei settori, il calendario, le notizie in evidenza, documenti e cammino dell'anno.
+ * Keywords: home, apertura, eventi, settori
  * Viewport Width: 1400
  */
 ?>
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"}}},"backgroundColor":"blu","textColor":"carta","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-carta-color has-blu-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)">
-	<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.18em","fontWeight":"700","fontSize":"0.75rem"}},"textColor":"ocra-chiara"} -->
-	<p class="has-ocra-chiara-color has-text-color" style="font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase">Anno associativo 2026/2027</p>
-	<!-- /wp:paragraph -->
+<!-- wp:group {"align":"full","className":"ac-apertura","layout":{"type":"constrained"}} -->
+<div class="wp-block-group alignfull ac-apertura">
+	<!-- wp:group {"align":"wide","className":"ac-apertura__griglia","layout":{"type":"default"}} -->
+	<div class="wp-block-group alignwide ac-apertura__griglia">
+		<!-- wp:ac-trani/prossimo-appuntamento /-->
 
-	<!-- wp:heading {"level":1,"fontSize":"monumentale","style":{"typography":{"fontStyle":"italic","fontWeight":"600"},"spacing":{"margin":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|40"}}},"textColor":"carta"} -->
-	<h1 class="wp-block-heading has-carta-color has-text-color has-monumentale-font-size" style="margin-top:var(--wp--preset--spacing--30);margin-bottom:var(--wp--preset--spacing--40);font-style:italic;font-weight:600">Vino nuovo in otri nuovi</h1>
-	<!-- /wp:heading -->
-
-	<!-- wp:paragraph {"fontSize":"grande","style":{"color":{"text":"#cfd8e3"}}} -->
-	<p class="has-text-color has-grande-font-size" style="color:#cfd8e3">Laici che scelgono di stare, insieme, dentro la vita della Chiesa e della città. L'Azione Cattolica dell'Arcidiocesi di Trani – Barletta – Bisceglie.</p>
-	<!-- /wp:paragraph -->
-
-	<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->
-	<div class="wp-block-buttons" style="margin-top:var(--wp--preset--spacing--50)">
-		<!-- wp:button {"backgroundColor":"ocra","textColor":"inchiostro"} -->
-		<div class="wp-block-button"><a class="wp-block-button__link has-inchiostro-color has-ocra-background-color has-text-color has-background wp-element-button" href="/eventi/">Prossimi appuntamenti</a></div>
-		<!-- /wp:button -->
-		<!-- wp:button {"className":"is-style-outline"} -->
-		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/programmazione/">Il cammino dell'anno</a></div>
-		<!-- /wp:button -->
-		<!-- wp:button {"className":"is-style-outline"} -->
-		<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/aderisci/">Aderisci</a></div>
-		<!-- /wp:button -->
+		<!-- wp:group {"className":"ac-anno","layout":{"type":"default"}} -->
+		<div class="wp-block-group ac-anno">
+			<!-- wp:heading {"level":1} -->
+			<h1 class="wp-block-heading">Vino nuovo in otri nuovi</h1>
+			<!-- /wp:heading -->
+			<!-- wp:paragraph -->
+			<p>Mc 2,18-22 · l'icona biblica dell'anno associativo 2026/2027</p>
+			<!-- /wp:paragraph -->
+			<!-- wp:paragraph -->
+			<p><a href="/programmazione/">Il cammino dell'anno →</a></p>
+			<!-- /wp:paragraph -->
+		</div>
+		<!-- /wp:group -->
 	</div>
-	<!-- /wp:buttons -->
+	<!-- /wp:group -->
 </div>
 <!-- /wp:group -->
 
-<!-- wp:ac-trani/elenco-eventi {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|80"}}},"quando":"futuri","numero":4,"titolo":"Prossimi appuntamenti","layout":"griglia","linkArchivio":true} /-->
+<!-- wp:ac-trani/tessere-settori {"align":"wide","className":"ac-sovrapposte","colonne":6,"descrizioni":false} /-->
 
-<!-- wp:ac-trani/ultime-notizie {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|80"}}},"numero":3,"titolo":"Notizie e comunicati","linkArchivio":true} /-->
-
-<!-- wp:group {"align":"full","style":{"spacing":{"margin":{"top":"var:preset|spacing|80"},"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"}}},"backgroundColor":"pietra-scura","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-pietra-scura-background-color has-background" style="margin-top:var(--wp--preset--spacing--80);padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)">
-	<!-- wp:ac-trani/tessere-settori {"align":"wide","titolo":"L'associazione, settore per settore","colonne":3,"descrizioni":true} /-->
-</div>
+<!-- wp:group {"tagName":"section","align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"}}},"layout":{"type":"default"}} -->
+<section class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)">
+	<!-- wp:ac-trani/elenco-eventi {"numero":5,"salta":1,"titolo":"Poi, in calendario","linkArchivio":true} /-->
+</section>
 <!-- /wp:group -->
 
-<!-- wp:ac-trani/elenco-documenti {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|80"}}},"numero":5,"titolo":"Documenti e modulistica"} /-->
+<!-- wp:group {"tagName":"section","align":"full","className":"ac-fascia","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"}}},"layout":{"type":"constrained"}} -->
+<section class="wp-block-group alignfull ac-fascia" style="padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)">
+	<!-- wp:ac-trani/ultime-notizie {"align":"wide","numero":3,"primaGrande":true,"titolo":"Notizie in evidenza","linkArchivio":true} /-->
+</section>
+<!-- /wp:group -->
+
+<!-- wp:columns {"align":"wide","className":"ac-doppia","style":{"spacing":{"padding":{"top":"var:preset|spacing|80"}}}} -->
+<div class="wp-block-columns alignwide ac-doppia" style="padding-top:var(--wp--preset--spacing--80)">
+	<!-- wp:column {"width":"62%"} -->
+	<div class="wp-block-column" style="flex-basis:62%">
+		<!-- wp:ac-trani/elenco-documenti {"numero":6,"compatta":true,"titolo":"Documenti e moduli","linkArchivio":true} /-->
+	</div>
+	<!-- /wp:column -->
+
+	<!-- wp:column {"width":"38%"} -->
+	<div class="wp-block-column" style="flex-basis:38%">
+		<!-- wp:group {"tagName":"aside","className":"ac-cammino","layout":{"type":"default"}} -->
+		<aside class="wp-block-group ac-cammino">
+			<!-- wp:heading -->
+			<h2 class="wp-block-heading">Il cammino 2026/2027</h2>
+			<!-- /wp:heading -->
+			<!-- wp:paragraph {"className":"ac-cammino__voce"} -->
+			<p class="ac-cammino__voce"><strong>Il verbo</strong><span>generare</span></p>
+			<!-- /wp:paragraph -->
+			<!-- wp:paragraph {"className":"ac-cammino__voce"} -->
+			<p class="ac-cammino__voce"><strong>L’ambiente</strong><span>la piazza</span></p>
+			<!-- /wp:paragraph -->
+			<!-- wp:paragraph {"className":"ac-cammino__voce"} -->
+			<p class="ac-cammino__voce"><strong>Il triennio</strong><span>costruttori della storia</span></p>
+			<!-- /wp:paragraph -->
+			<!-- wp:paragraph {"className":"ac-cammino__voce"} -->
+			<p class="ac-cammino__voce"><strong>Il filo rosso</strong><span>la corresponsabilità</span></p>
+			<!-- /wp:paragraph -->
+			<!-- wp:buttons -->
+			<div class="wp-block-buttons">
+				<!-- wp:button {"className":"is-style-chiaro"} -->
+				<div class="wp-block-button is-style-chiaro"><a class="wp-block-button__link wp-element-button" href="/programmazione/">Leggi la programmazione</a></div>
+				<!-- /wp:button -->
+			</div>
+			<!-- /wp:buttons -->
+		</aside>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:column -->
+</div>
+<!-- /wp:columns -->

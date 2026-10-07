@@ -90,8 +90,15 @@ uno zip con il tema aggiornato; il contenuto va in
 Finché non si esporta, **il lavoro vive solo nel database locale**: nessun altro
 lo vede e un `./bin/azzera.sh` lo cancella.
 
-I cinque blocchi che il plugin mette a disposizione (elenco eventi, scheda
-evento, tessere settori, elenco documenti, notizie) si inseriscono come
+Il tema segue lo stile **«Cartoncino»** del prototipo Astro, descritto in
+[`DESIGN.md`](../DESIGN.md): stessi colori, stessi caratteri, stessa struttura
+presa da acaversa.it (barra dei prossimi appuntamenti, menu Settori ▾ ·
+Assemblea ▾ · Informazioni ▾, home col prossimo appuntamento in grande,
+calendario per mese, pagine di settore, Presidenza a schede).
+
+I sette blocchi che il plugin mette a disposizione (il prossimo appuntamento,
+elenco eventi, scheda evento, tessere settori, elenco documenti, notizie, barra
+degli appuntamenti) si inseriscono come
 qualsiasi altro blocco e si regolano dalla barra laterale: sono elencati in
 [`wp-content/plugins/ac-trani-core/CONTRATTO.md`](wp-content/plugins/ac-trani-core/CONTRATTO.md).
 

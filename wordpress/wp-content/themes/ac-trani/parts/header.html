@@ -1,23 +1,35 @@
-<!-- wp:group {"tagName":"header","className":"ac-testata","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"backgroundColor":"carta","layout":{"type":"constrained"}} -->
-<header class="wp-block-group ac-testata has-carta-background-color has-background" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)">
-	<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
-	<div class="wp-block-group alignwide">
+<!-- wp:group {"className":"ac-testata","layout":{"type":"constrained"}} -->
+<div class="wp-block-group ac-testata">
+	<!-- wp:group {"align":"wide","className":"ac-testata__riga","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
+	<div class="wp-block-group alignwide ac-testata__riga">
 		<!-- wp:group {"className":"ac-marchio","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
 		<div class="wp-block-group ac-marchio">
-			<!-- wp:site-logo {"width":58} /-->
-			<!-- wp:group {"layout":{"type":"constrained"}} -->
-			<div class="wp-block-group">
-				<!-- wp:site-title {"level":0,"style":{"typography":{"lineHeight":"1.1"}}} /-->
-				<!-- wp:paragraph {"style":{"typography":{"fontSize":"0.72rem","letterSpacing":"0.16em","textTransform":"uppercase","fontWeight":"700"}},"textColor":"ocra"} -->
-				<p class="has-ocra-color has-text-color" style="font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase">Trani · Barletta · Bisceglie</p>
+			<!-- wp:site-logo {"width":64} /-->
+			<!-- wp:group {"className":"ac-marchio__testo","layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group ac-marchio__testo">
+				<!-- wp:site-title {"level":0} /-->
+				<!-- wp:paragraph {"className":"ac-marchio__diocesi"} -->
+				<p class="ac-marchio__diocesi">Trani · Barletta · Bisceglie</p>
 				<!-- /wp:paragraph -->
 			</div>
 			<!-- /wp:group -->
 		</div>
 		<!-- /wp:group -->
 
-		<!-- wp:navigation {"overlayMenu":"mobile","style":{"typography":{"fontWeight":"600"}},"layout":{"type":"flex","justifyContent":"right","flexWrap":"wrap"}} /-->
+		<!-- wp:paragraph {"className":"ac-oggi"} -->
+		<p class="ac-oggi"></p>
+		<!-- /wp:paragraph -->
+
+		<!-- wp:navigation {"overlayMenu":"mobile","openSubmenusOnClick":true,"icon":"menu","layout":{"type":"flex","justifyContent":"right","flexWrap":"nowrap"}} /-->
+
+		<!-- wp:buttons -->
+		<div class="wp-block-buttons">
+			<!-- wp:button -->
+			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/aderisci/">Aderisci</a></div>
+			<!-- /wp:button -->
+		</div>
+		<!-- /wp:buttons -->
 	</div>
 	<!-- /wp:group -->
-</header>
+</div>
 <!-- /wp:group -->

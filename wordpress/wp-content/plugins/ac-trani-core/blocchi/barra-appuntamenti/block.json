@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ac-trani/barra-appuntamenti",
+  "title": "Barra dei prossimi appuntamenti",
+  "category": "widgets",
+  "icon": "megaphone",
+  "description": "La striscia in cima al sito con i prossimi appuntamenti, come su acaversa.it. Scorre piano sugli schermi larghi, si scorre col dito sul telefono.",
+  "keywords": ["barra", "ticker", "appuntamenti", "testata", "ac"],
+  "textdomain": "ac-trani",
+  "attributes": {
+    "numero": { "type": "number", "default": 8 }
+  },
+  "supports": {
+    "html": false,
+    "align": ["full"]
+  },
+  "editorScript": "ac-trani-blocchi",
+  "render": "file:./render.php"
+}

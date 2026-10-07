@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ac-trani/prossimo-appuntamento",
+  "title": "Il prossimo appuntamento",
+  "category": "widgets",
+  "icon": "star-filled",
+  "description": "Il primo appuntamento in calendario, in grande, con la data ritagliata nel verde del logo. Pensato per l'apertura della home, su fondo blu.",
+  "keywords": ["prossimo", "evento", "home", "apertura", "ac"],
+  "textdomain": "ac-trani",
+  "attributes": {
+    "settore": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "ac-trani-blocchi",
+  "render": "file:./render.php"
+}

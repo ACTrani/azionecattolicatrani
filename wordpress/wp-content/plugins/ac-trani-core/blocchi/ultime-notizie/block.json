@@ -5,20 +5,50 @@
   "title": "Notizie e comunicati",
   "category": "widgets",
   "icon": "megaphone",
-  "description": "Le ultime notizie, oppure i soli comunicati ufficiali.",
-  "keywords": ["notizie", "comunicati", "news", "ac"],
+  "description": "Le ultime notizie come piccoli cartelloni nel colore del settore, oppure i soli comunicati ufficiali.",
+  "keywords": [
+    "notizie",
+    "comunicati",
+    "news",
+    "ac"
+  ],
   "textdomain": "ac-trani",
   "attributes": {
-    "numero":         { "type": "number",  "default": 3 },
-    "settore":        { "type": "string",  "default": "" },
-    "soloComunicati": { "type": "boolean", "default": false },
-    "titolo":         { "type": "string",  "default": "" },
-    "linkArchivio":   { "type": "boolean", "default": true }
+    "numero": {
+      "type": "number",
+      "default": 3
+    },
+    "settore": {
+      "type": "string",
+      "default": ""
+    },
+    "soloComunicati": {
+      "type": "boolean",
+      "default": false
+    },
+    "titolo": {
+      "type": "string",
+      "default": ""
+    },
+    "linkArchivio": {
+      "type": "boolean",
+      "default": true
+    },
+    "primaGrande": {
+      "type": "boolean",
+      "default": false
+    }
   },
   "supports": {
     "html": false,
-    "align": ["wide", "full"],
-    "spacing": { "margin": true, "padding": true }
+    "align": [
+      "wide",
+      "full"
+    ],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
   },
   "editorScript": "ac-trani-blocchi",
   "render": "file:./render.php"

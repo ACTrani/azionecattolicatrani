@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 
 /** I blocchi registrati, nell'ordine in cui compaiono nell'inseritore. */
 function ac_trani_elenco_blocchi(): array {
-	return array( 'elenco-eventi', 'tessere-settori', 'elenco-documenti', 'ultime-notizie', 'scheda-evento' );
+	return array( 'prossimo-appuntamento', 'elenco-eventi', 'tessere-settori', 'elenco-documenti', 'ultime-notizie', 'scheda-evento', 'barra-appuntamenti' );
 }
 
 add_action( 'init', 'ac_trani_registra_blocchi', 20 );
@@ -35,7 +35,7 @@ function ac_trani_registra_blocchi(): void {
 		'ac-trani-blocchi',
 		'window.acTrani = ' . wp_json_encode(
 			array(
-				'settori' => ac_trani_opzioni_termini( 'settore' ),
+				'settori' => ac_trani_opzioni_termini( 'settore', true ),
 				'anni'    => ac_trani_opzioni_termini( 'anno-associativo' ),
 				'tipi'    => ac_trani_opzioni_termini( 'tipo-documento' ),
 			)
@@ -49,8 +49,12 @@ function ac_trani_registra_blocchi(): void {
 }
 
 /** Termini di una tassonomia nel formato che i controlli dell'editor si aspettano. */
-function ac_trani_opzioni_termini( string $tassonomia ): array {
+function ac_trani_opzioni_termini( string $tassonomia, bool $con_corrente = false ): array {
 	$opzioni = array( array( 'label' => 'Tutti', 'value' => '' ) );
+	// Il settore della pagina in cui il blocco si trova: utile nei template.
+	if ( $con_corrente ) {
+		$opzioni[] = array( 'label' => 'Quello della pagina', 'value' => 'corrente' );
+	}
 	$termini = get_terms( array( 'taxonomy' => $tassonomia, 'hide_empty' => false ) );
 
 	if ( is_wp_error( $termini ) ) {

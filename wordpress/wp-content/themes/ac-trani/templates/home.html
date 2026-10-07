@@ -1,30 +1,58 @@
+<!-- wp:template-part {"slug":"barra-appuntamenti","tagName":"div"} /-->
+
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
 <!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
 <main class="wp-block-group">
-	<!-- wp:query-title {"type":"archive","style":{"spacing":{"margin":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|50"}}}} /-->
-
-	<!-- wp:query {"queryId":1,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true},"layout":{"type":"default"}} -->
-	<div class="wp-block-query">
-		<!-- wp:post-template {"layout":{"type":"grid","columnCount":2}} -->
-			<!-- wp:post-date {"fontSize":"piccolo"} /-->
-			<!-- wp:post-title {"isLink":true,"level":2,"fontSize":"titolo-3"} /-->
-			<!-- wp:post-excerpt {"excerptLength":30} /-->
-		<!-- /wp:post-template -->
-
-		<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"space-between"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|70"}}}} -->
-			<!-- wp:query-pagination-previous {"label":"← Più recenti"} /-->
-			<!-- wp:query-pagination-numbers /-->
-			<!-- wp:query-pagination-next {"label":"Più vecchie →"} /-->
-		<!-- /wp:query-pagination -->
-
-		<!-- wp:query-no-results -->
+	<!-- wp:group {"tagName":"header","align":"full","className":"ac-testa","layout":{"type":"constrained"}} -->
+	<header class="wp-block-group alignfull ac-testa">
+		<!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
+		<div class="wp-block-group alignwide">
+			<!-- wp:heading {"level":1} -->
+			<h1 class="wp-block-heading">Notizie</h1>
+			<!-- /wp:heading -->
 			<!-- wp:paragraph -->
-			<p>Non c'è ancora nulla da mostrare qui.</p>
+			<p>Comunicati della Presidenza, resoconti degli incontri, proposte dei settori. I comunicati ufficiali sono segnati.</p>
 			<!-- /wp:paragraph -->
-		<!-- /wp:query-no-results -->
-	</div>
-	<!-- /wp:query -->
+		</div>
+		<!-- /wp:group -->
+	</header>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"tagName":"section","align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|60"}}},"layout":{"type":"default"}} -->
+	<section class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--60)">
+		<!-- wp:query {"queryId":1,"query":{"perPage":12,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true}} -->
+		<div class="wp-block-query">
+			<!-- wp:post-template {"className":"ac-griglia-notizie"} -->
+				<!-- wp:group {"className":"ac-notizia__cartellone","layout":{"type":"default"}} -->
+				<div class="wp-block-group ac-notizia__cartellone">
+					<!-- wp:post-title {"isLink":true,"level":2} /-->
+				</div>
+				<!-- /wp:group -->
+				<!-- wp:group {"className":"ac-notizia__corpo","layout":{"type":"default"}} -->
+				<div class="wp-block-group ac-notizia__corpo">
+					<!-- wp:post-terms {"term":"settore","className":"ac-notizia__dati"} /-->
+					<!-- wp:post-excerpt {"excerptLength":26} /-->
+					<!-- wp:post-date /-->
+				</div>
+				<!-- /wp:group -->
+			<!-- /wp:post-template -->
+
+			<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"space-between"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|70"}}}} -->
+				<!-- wp:query-pagination-previous {"label":"← Più recenti"} /-->
+				<!-- wp:query-pagination-numbers /-->
+				<!-- wp:query-pagination-next {"label":"Più vecchie →"} /-->
+			<!-- /wp:query-pagination -->
+
+			<!-- wp:query-no-results -->
+				<!-- wp:paragraph -->
+				<p>Non c'è ancora nulla da mostrare qui.</p>
+				<!-- /wp:paragraph -->
+			<!-- /wp:query-no-results -->
+		</div>
+		<!-- /wp:query -->
+	</section>
+	<!-- /wp:group -->
 </main>
 <!-- /wp:group -->
 

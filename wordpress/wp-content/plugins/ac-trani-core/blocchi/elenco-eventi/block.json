@@ -5,17 +5,21 @@
   "title": "Elenco eventi",
   "category": "widgets",
   "icon": "calendar-alt",
-  "description": "Gli appuntamenti dell'associazione, filtrabili per settore e anno associativo.",
+  "description": "Gli appuntamenti dell'associazione come righe di calendario, con la data ritagliata. Filtrabili per settore e anno, raggruppabili per mese.",
   "keywords": ["eventi", "appuntamenti", "calendario", "ac"],
   "textdomain": "ac-trani",
   "attributes": {
-    "quando":   { "type": "string",  "default": "futuri" },
-    "numero":   { "type": "number",  "default": 4 },
-    "settore":  { "type": "string",  "default": "" },
-    "anno":     { "type": "string",  "default": "" },
-    "evidenza": { "type": "boolean", "default": false },
-    "layout":   { "type": "string",  "default": "griglia" },
-    "titolo":   { "type": "string",  "default": "" },
+    "quando":       { "type": "string",  "default": "futuri" },
+    "numero":       { "type": "number",  "default": 4 },
+    "salta":        { "type": "number",  "default": 0 },
+    "settore":      { "type": "string",  "default": "" },
+    "anno":         { "type": "string",  "default": "" },
+    "evidenza":     { "type": "boolean", "default": false },
+    "layout":       { "type": "string",  "default": "righe" },
+    "sommario":     { "type": "boolean", "default": true },
+    "perMese":      { "type": "boolean", "default": false },
+    "filtri":       { "type": "boolean", "default": false },
+    "titolo":       { "type": "string",  "default": "" },
     "linkArchivio": { "type": "boolean", "default": true }
   },
   "supports": {
@@ -24,5 +28,6 @@
     "spacing": { "margin": true, "padding": true }
   },
   "editorScript": "ac-trani-blocchi",
+  "viewScript": "file:./filtri.js",
   "render": "file:./render.php"
 }

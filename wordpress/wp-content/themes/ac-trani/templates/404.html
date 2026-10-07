@@ -1,15 +1,30 @@
+<!-- wp:template-part {"slug":"barra-appuntamenti","tagName":"div"} /-->
+
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"}}},"layout":{"type":"constrained"}} -->
-<main class="wp-block-group" style="margin-top:var(--wp--preset--spacing--80);margin-bottom:var(--wp--preset--spacing--80)">
-	<!-- wp:heading {"level":1,"fontSize":"titolo-1"} -->
-	<h1 class="wp-block-heading has-titolo-1-font-size">Pagina non trovata</h1>
-	<!-- /wp:heading -->
-	<!-- wp:paragraph -->
-	<p>L'indirizzo non corrisponde a nessuna pagina. Può succedere con i link del vecchio sito: molti contenuti sono stati spostati nell'archivio.</p>
-	<!-- /wp:paragraph -->
-	<!-- wp:search {"label":"Cerca","buttonText":"Cerca","buttonPosition":"button-outside"} /-->
-	<!-- wp:ac-trani/elenco-eventi {"numero":3,"titolo":"Intanto, i prossimi appuntamenti","layout":"elenco","style":{"spacing":{"margin":{"top":"var:preset|spacing|70"}}}} /-->
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+	<!-- wp:group {"tagName":"header","align":"full","className":"ac-testa","layout":{"type":"constrained"}} -->
+	<header class="wp-block-group alignfull ac-testa">
+		<!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
+		<div class="wp-block-group alignwide">
+			<!-- wp:heading {"level":1} -->
+			<h1 class="wp-block-heading">Pagina non trovata</h1>
+			<!-- /wp:heading -->
+			<!-- wp:paragraph -->
+			<p>L'indirizzo non corrisponde a nessuna pagina. Può succedere con i link del vecchio sito: molti contenuti sono stati spostati.</p>
+			<!-- /wp:paragraph -->
+		</div>
+		<!-- /wp:group -->
+	</header>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"tagName":"section","align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|60"}}},"layout":{"type":"default"}} -->
+	<section class="wp-block-group alignwide" style="padding-top:var(--wp--preset--spacing--60)">
+		<!-- wp:search {"label":"Cerca nel sito","buttonText":"Cerca","buttonPosition":"button-inside","style":{"spacing":{"margin":{"bottom":"var:preset|spacing|70"}}}} /-->
+		<!-- wp:ac-trani/elenco-eventi {"numero":3,"titolo":"Intanto, i prossimi appuntamenti","layout":"compatto","sommario":false,"linkArchivio":true} /-->
+	</section>
+	<!-- /wp:group -->
 </main>
 <!-- /wp:group -->
 

@@ -9,12 +9,12 @@
  * Fonte: materiali/programmazione-annuale-2026-2027.pdf.
  */
 ?>
-<!-- wp:heading {"fontSize":"titolo-1"} -->
-<h2 class="wp-block-heading has-titolo-1-font-size">Centro studi «Pier Giorgio Frassati»</h2>
+<!-- wp:heading {"style":{"spacing":{"margin":{"top":"var:preset|spacing|80"}}}} -->
+<h2 class="wp-block-heading" style="margin-top:var(--wp--preset--spacing--80)">Centro studi «Pier Giorgio Frassati»</h2>
 <!-- /wp:heading -->
 
-<!-- wp:paragraph {"textColor":"inchiostro-tenue"} -->
-<p class="has-inchiostro-tenue-color has-text-color"><em>Per la storia dell’Azione Cattolica diocesana</em></p>
+<!-- wp:paragraph {"textColor":"tenue"} -->
+<p class="has-tenue-color has-text-color"><em>Per la storia dell’Azione Cattolica diocesana</em></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->

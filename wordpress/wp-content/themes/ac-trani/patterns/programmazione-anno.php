@@ -12,18 +12,14 @@
  * va cambiato anche là.
  */
 ?>
-<!-- wp:group {"align":"full","style":{"spacing":{"padding":{"top":"var:preset|spacing|80","bottom":"var:preset|spacing|80"}}},"backgroundColor":"blu","textColor":"carta","layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignfull has-carta-color has-blu-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--80);padding-bottom:var(--wp--preset--spacing--80)">
-	<!-- wp:paragraph {"style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.18em","fontWeight":"700","fontSize":"0.75rem"}},"textColor":"ocra-chiara"} -->
-	<p class="has-ocra-chiara-color has-text-color" style="font-size:0.75rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase">Programmazione diocesana 2026/2027</p>
-	<!-- /wp:paragraph -->
-
-	<!-- wp:heading {"level":1,"fontSize":"monumentale","style":{"typography":{"fontStyle":"italic","fontWeight":"400"},"spacing":{"margin":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|20"}}},"textColor":"carta"} -->
-	<h1 class="wp-block-heading has-carta-color has-text-color has-monumentale-font-size" style="margin-top:var(--wp--preset--spacing--30);margin-bottom:var(--wp--preset--spacing--20);font-style:italic;font-weight:400">Vino nuovo in otri nuovi</h1>
+<!-- wp:group {"className":"ac-anno","layout":{"type":"default"}} -->
+<div class="wp-block-group ac-anno">
+	<!-- wp:heading -->
+	<h2 class="wp-block-heading">Vino nuovo in otri nuovi</h2>
 	<!-- /wp:heading -->
 
-	<!-- wp:paragraph {"fontSize":"grande","textColor":"ocra-chiara"} -->
-	<p class="has-ocra-chiara-color has-text-color has-grande-font-size">Mc 2,18-22</p>
+	<!-- wp:paragraph -->
+	<p>Mc 2,18-22 · l'icona biblica dell'anno associativo 2026/2027</p>
 	<!-- /wp:paragraph -->
 
 	<!-- wp:quote -->
@@ -285,4 +281,4 @@
 </div>
 <!-- /wp:group -->
 
-<!-- wp:ac-trani/elenco-eventi {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|80"}}},"quando":"futuri","numero":6,"titolo":"I prossimi appuntamenti","layout":"griglia","linkArchivio":true} /-->
+<!-- wp:ac-trani/elenco-eventi {"align":"wide","style":{"spacing":{"margin":{"top":"var:preset|spacing|80"}}},"quando":"futuri","numero":6,"titolo":"I prossimi appuntamenti","linkArchivio":true} /-->

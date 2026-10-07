@@ -18,7 +18,8 @@ function ac_trani_oggi(): string {
  * Eventi.
  *
  * @param array $opzioni quando: futuri|passati|tutti · numero · settore (slug o
- *                       elenco) · anno (slug) · evidenza (bool).
+ *                       elenco) · anno (slug) · evidenza (bool) · salta (quanti
+ *                       saltarne dall'inizio) · escludi (ID da non mostrare).
  * @return WP_Post[]
  */
 function ac_trani_eventi( array $opzioni = array() ): array {
@@ -30,11 +31,15 @@ function ac_trani_eventi( array $opzioni = array() ): array {
 			'settore'  => '',
 			'anno'     => '',
 			'evidenza' => false,
+			'salta'    => 0,
+			'escludi'  => array(),
 		)
 	);
 
 	$args = array(
 		'post_type'      => 'evento',
+		'offset'         => max( 0, (int) $o['salta'] ),
+		'post__not_in'   => array_map( 'intval', (array) $o['escludi'] ),
 		'post_status'    => 'publish',
 		'posts_per_page' => (int) $o['numero'],
 		'meta_key'       => 'ac_data_inizio',
@@ -123,16 +128,17 @@ function ac_trani_documenti( array $opzioni = array() ): array {
 /**
  * Notizie (articoli standard).
  *
- * @param array $opzioni numero · settore · solo_comunicati (bool).
+ * @param array $opzioni numero · settore · solo_comunicati (bool) · escludi (ID).
  * @return WP_Post[]
  */
 function ac_trani_notizie( array $opzioni = array() ): array {
-	$o = wp_parse_args( $opzioni, array( 'numero' => 3, 'settore' => '', 'solo_comunicati' => false ) );
+	$o = wp_parse_args( $opzioni, array( 'numero' => 3, 'settore' => '', 'solo_comunicati' => false, 'escludi' => array() ) );
 
 	$args = array(
 		'post_type'      => 'post',
 		'post_status'    => 'publish',
 		'posts_per_page' => (int) $o['numero'],
+		'post__not_in'   => array_map( 'intval', (array) $o['escludi'] ),
 		'no_found_rows'  => true,
 	);
 

@@ -15,37 +15,43 @@ function ac_trani_settori(): array {
 		'unitario' => array(
 			'nome'        => 'Unitario',
 			'esteso'      => 'Vita associativa unitaria',
-			'colore'      => '#1f3f6b',
+			'colore'      => '#2f5d8a',
+			'eta'         => 'Tutta l’associazione',
 			'descrizione' => 'Gli appuntamenti che riuniscono tutta l’associazione diocesana: le assemblee, …fierA di esserCI, il Laboratorio diocesano della formazione, le celebrazioni dell’anno.',
 		),
 		'adulti' => array(
 			'nome'        => 'Adulti',
 			'esteso'      => 'Settore Adulti',
-			'colore'      => '#2c6e63',
+			'colore'      => '#f2b705',
+			'eta'         => 'dai 30 anni',
 			'descrizione' => 'Adulti e famiglie che vogliono essere credenti e credibili, «di parola», in parrocchia, in famiglia e nella città: gruppi, serate di spiritualità, Fede & Cultura, Giornata della famiglia.',
 		),
 		'giovani' => array(
 			'nome'        => 'Giovani',
 			'esteso'      => 'Settore Giovani',
-			'colore'      => '#b5651d',
+			'colore'      => '#f07a3c',
+			'eta'         => '15 – 30 anni',
 			'descrizione' => 'Giovanissimi (15–18 anni) e giovani (19–30) in cammino nei gruppi parrocchiali e negli appuntamenti diocesani: ritiri, laboratorio della formazione, preghiera e servizio.',
 		),
 		'acr' => array(
 			'nome'        => 'ACR',
 			'esteso'      => 'Azione Cattolica dei Ragazzi',
-			'colore'      => '#c0392b',
+			'colore'      => '#2ba3de',
+			'eta'         => 'Dai Piccolissimi ai 14 anni',
 			'descrizione' => 'I ragazzi dai Piccolissimi ai 14 anni, protagonisti del proprio cammino di fede, con un’attenzione speciale agli educatori e all’Equipe diocesana dei ragazzi (EDR).',
 		),
 		'msac' => array(
 			'nome'        => 'MSAC',
 			'esteso'      => 'Movimento Studenti di Azione Cattolica',
-			'colore'      => '#5b4b8a',
+			'colore'      => '#7a4fb5',
+			'eta'         => 'Studenti delle superiori',
 			'descrizione' => 'La proposta missionaria per i giovanissimi che vivono tra i banchi di scuola: rappresentanza, cittadinanza attiva, legalità. In diocesi da dieci anni.',
 		),
 		'mlac' => array(
 			'nome'        => 'MLAC',
 			'esteso'      => 'Movimento Lavoratori di Azione Cattolica',
-			'colore'      => '#6b7a3a',
+			'colore'      => '#2e7d5b',
+			'eta'         => 'Mondo del lavoro',
 			'descrizione' => 'Il lavoro letto alla luce del Vangelo e della Dottrina sociale: dignità, sicurezza, sostenibilità e partecipazione, insieme alla Pastorale sociale e del lavoro diocesana.',
 		),
 	);
@@ -184,7 +190,18 @@ function ac_trani_registra_tassonomie(): void {
 			'type'         => 'string',
 			'single'       => true,
 			'show_in_rest' => true,
-			'default'      => '#1f3f6b',
+			'default'      => '#2f5d8a',
+			'auth_callback' => fn() => current_user_can( 'manage_categories' ),
+		)
+	);
+	// La fascia d'età, scritta sotto il nome nelle tessere dei settori.
+	register_term_meta(
+		'settore',
+		'ac_eta',
+		array(
+			'type'          => 'string',
+			'single'        => true,
+			'show_in_rest'  => true,
 			'auth_callback' => fn() => current_user_can( 'manage_categories' ),
 		)
 	);
@@ -215,6 +232,7 @@ function ac_trani_semina_termini(): void {
 		if ( ! is_wp_error( $termine ) ) {
 			update_term_meta( (int) $termine['term_id'], 'ac_colore', $s['colore'] );
 			update_term_meta( (int) $termine['term_id'], 'ac_nome_esteso', $s['esteso'] );
+			update_term_meta( (int) $termine['term_id'], 'ac_eta', $s['eta'] );
 			// La descrizione è un testo redazionale: si semina una volta e poi
 			// resta modificabile dalla bacheca senza che una riesecuzione la
 			// sovrascriva.

@@ -66,7 +66,7 @@
 	blocchi.registerBlockType('ac-trani/elenco-eventi', {
 		edit: costruisci('ac-trani/elenco-eventi', function (props) {
 			return [
-				campo(TextControl, props, 'titolo', { key: 't', label: 'Titolo della sezione', help: 'Lascia vuoto per non mostrarlo.' }),
+				campo(TextControl, props, 'titolo', { key: 't', label: 'Titolo della sezione', help: 'Lascia vuoto per non mostrarlo. {settore} diventa il nome del settore.' }),
 				campo(SelectControl, props, 'quando', {
 					key: 'q',
 					label: 'Quali eventi',
@@ -76,17 +76,21 @@
 						{ label: 'Tutti', value: 'tutti' },
 					],
 				}),
-				campo(RangeControl, props, 'numero', { key: 'n', label: 'Quanti mostrarne', min: 1, max: 24 }),
+				campo(RangeControl, props, 'numero', { key: 'n', label: 'Quanti mostrarne', min: 1, max: 60 }),
+				campo(RangeControl, props, 'salta', { key: 'k', label: 'Salta i primi', help: 'In home: 1, perché il primo è già nell’apertura.', min: 0, max: 5 }),
 				campo(SelectControl, props, 'settore', { key: 's', label: 'Settore', options: dati.settori }),
 				campo(SelectControl, props, 'anno', { key: 'a', label: 'Anno associativo', options: dati.anni }),
 				campo(SelectControl, props, 'layout', {
 					key: 'l',
 					label: 'Disposizione',
 					options: [
-						{ label: 'Griglia di schede', value: 'griglia' },
-						{ label: 'Elenco compatto', value: 'elenco' },
+						{ label: 'Righe di calendario', value: 'righe' },
+						{ label: 'Righe compatte', value: 'compatto' },
 					],
 				}),
+				campo(ToggleControl, props, 'sommario', { key: 'o', label: 'Mostra il sommario' }),
+				campo(ToggleControl, props, 'perMese', { key: 'm', label: 'Raggruppa per mese' }),
+				campo(ToggleControl, props, 'filtri', { key: 'f', label: 'Ricerca e filtro per settore', help: 'Da attivare nella pagina dell’archivio.' }),
 				campo(ToggleControl, props, 'evidenza', { key: 'e', label: 'Solo quelli in evidenza' }),
 				campo(ToggleControl, props, 'linkArchivio', { key: 'r', label: 'Mostra il link all’archivio' }),
 			];
@@ -117,7 +121,9 @@
 				campo(SelectControl, props, 'settore', { key: 's', label: 'Settore', options: dati.settori }),
 				campo(SelectControl, props, 'tipo', { key: 'p', label: 'Tipo di documento', options: dati.tipi }),
 				campo(SelectControl, props, 'anno', { key: 'a', label: 'Anno associativo', options: dati.anni }),
+				campo(ToggleControl, props, 'compatta', { key: 'c', label: 'Righe compatte', help: 'Senza descrizione: per la home e le colonne strette.' }),
 				campo(ToggleControl, props, 'filtri', { key: 'f', label: 'Mostra ricerca e filtri', help: 'Da attivare nella pagina dell’archivio.' }),
+				campo(ToggleControl, props, 'linkArchivio', { key: 'r', label: 'Mostra il link all’archivio' }),
 			];
 		}),
 		save: function () {
@@ -132,6 +138,7 @@
 				campo(RangeControl, props, 'numero', { key: 'n', label: 'Quante mostrarne', min: 1, max: 12 }),
 				campo(SelectControl, props, 'settore', { key: 's', label: 'Settore', options: dati.settori }),
 				campo(ToggleControl, props, 'soloComunicati', { key: 'c', label: 'Solo comunicati ufficiali' }),
+				campo(ToggleControl, props, 'primaGrande', { key: 'g', label: 'La prima notizia in grande' }),
 				campo(ToggleControl, props, 'linkArchivio', { key: 'r', label: 'Mostra il link all’archivio' }),
 			];
 		}),
@@ -165,6 +172,26 @@
 				)
 			);
 		},
+		save: function () {
+			return null;
+		},
+	});
+
+	blocchi.registerBlockType('ac-trani/prossimo-appuntamento', {
+		edit: costruisci('ac-trani/prossimo-appuntamento', function (props) {
+			return [
+				campo(SelectControl, props, 'settore', { key: 's', label: 'Settore', help: 'Vuoto: il prossimo appuntamento di tutta l’associazione.', options: dati.settori }),
+			];
+		}),
+		save: function () {
+			return null;
+		},
+	});
+
+	blocchi.registerBlockType('ac-trani/barra-appuntamenti', {
+		edit: costruisci('ac-trani/barra-appuntamenti', function (props) {
+			return [campo(RangeControl, props, 'numero', { key: 'n', label: 'Quanti appuntamenti', min: 3, max: 12 })];
+		}),
 		save: function () {
 			return null;
 		},
