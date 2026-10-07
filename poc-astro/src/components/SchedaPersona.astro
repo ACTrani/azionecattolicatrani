@@ -1,0 +1,72 @@
+---
+/**
+ * Una persona della Presidenza o del Consiglio, come le schede di acaversa.it.
+ * Non abbiamo foto: al loro posto le iniziali ritagliate sul cartoncino del
+ * settore. Quando arriveranno i ritratti, prenderanno il posto del riquadro.
+ */
+interface Props { nome: string; ruolo: string; settore?: string }
+const { nome, ruolo, settore = 'unitario' } = Astro.props;
+const iniziali = nome
+  .replace(/^don\s+/i, '')
+  .split(/\s+/)
+  .filter((p) => /^[A-ZÀ-Ý]/.test(p))
+  .map((p) => p[0])
+  .slice(0, 2)
+  .join('');
+---
+
+<li class="persona" data-settore={settore}>
+  <span class="persona__ritratto" aria-hidden="true"><span>{iniziali}</span></span>
+  <span class="persona__nome">{nome}</span>
+  <span class="persona__ruolo">{ruolo}</span>
+</li>
+
+<style>
+  /* Le griglie di persone: colonne scelte dal numero (vedi colonnePer) */
+  :global(.persone) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--colonne, 3), minmax(0, 1fr));
+    gap: var(--spazio-m);
+  }
+  @media (max-width: 62rem) { :global(.persone) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 40rem) { :global(.persone) { grid-template-columns: 1fr; gap: var(--spazio-xs); } }
+
+  .persona {
+    display: grid;
+    grid-template-columns: 4.25rem minmax(0, 1fr);
+    align-items: center;
+    gap: 0.2rem var(--spazio-s);
+    padding: var(--spazio-s);
+    background: var(--col-foglio);
+    border-radius: var(--raggio);
+    box-shadow: var(--ombra-foglio);
+  }
+  .persona__ritratto {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 4.25rem;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    background: var(--col-settore);
+    color: var(--col-settore-testo);
+    rotate: -3deg;
+  }
+  .persona__ritratto span {
+    font-family: var(--testo-display);
+    font-weight: 900;
+    font-size: 1.35rem;
+    letter-spacing: -0.03em;
+  }
+  .persona__nome { align-self: end; font-family: var(--testo-display); font-weight: 800; font-size: var(--step-1); line-height: 1.15; }
+  .persona__ruolo {
+    align-self: start;
+    font-size: var(--step--1);
+    font-weight: 700;
+    color: var(--col-settore-su-carta);
+    line-height: 1.35;
+  }
+</style>

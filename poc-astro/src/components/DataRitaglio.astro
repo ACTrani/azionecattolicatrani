@@ -1,0 +1,124 @@
+---
+/**
+ * LA DATA-RITAGLIO — l'elemento firma del sito.
+ *
+ * Un numero ritagliato con le forbici a zigzag dal cartoncino del settore e
+ * appoggiato sulla pagina. È l'unico punto del sito con il bordo tagliato.
+ * Quando l'evento è «il prossimo», il cartoncino è verde lime: il lime del
+ * logo vuol dire sempre e solo «prossimo / oggi».
+ */
+import { giorno, meseBreve } from '../lib/date';
+
+interface Props {
+  data: { dataInizio: Date; dataFine?: Date; dataIndicativa?: string };
+  settore: string;
+  misura?: 'piccola' | 'media' | 'grande';
+  prossimo?: boolean;
+  /** Un testo breve stampato in cima al ritaglio, es. «Il prossimo» */
+  dicitura?: string;
+  inclinazione?: number;
+}
+
+const { data, settore, misura = 'media', prossimo = false, dicitura, inclinazione = -1.5 } = Astro.props;
+
+const settimana = new Intl.DateTimeFormat('it-IT', { weekday: 'short' }).format(data.dataInizio).replace('.', '');
+const fine = data.dataFine && +data.dataFine !== +data.dataInizio ? data.dataFine : undefined;
+const stessoMese = fine && fine.getMonth() === data.dataInizio.getMonth();
+
+// Se il giorno non è fissato si ritaglia il mese, non un numero inventato
+const numero = data.dataIndicativa
+  ? meseBreve(data.dataInizio)
+  : fine && stessoMese
+    ? `${data.dataInizio.getDate()}–${fine.getDate()}`
+    : giorno(data.dataInizio);
+const sotto = data.dataIndicativa
+  ? 'da fissare'
+  : fine && !stessoMese
+    ? `${meseBreve(data.dataInizio)} – ${giorno(fine)} ${meseBreve(fine)}`
+    : meseBreve(data.dataInizio);
+const sopra = dicitura ?? (data.dataIndicativa || fine ? '' : settimana);
+---
+
+<span
+  class:list={['ritaglio', `ritaglio--${misura}`, { 'ritaglio--prossimo': prossimo, 'ritaglio--parola': !!data.dataIndicativa, 'ritaglio--lungo': numero.length > 3 }]}
+  data-settore={settore}
+  style={`--inclinazione:${inclinazione}deg`}
+  aria-hidden="true"
+>
+  <span class="ritaglio__foglio">
+    {sopra && <span class="ritaglio__sopra">{sopra}</span>}
+    <span class="ritaglio__numero">{numero}</span>
+    <span class="ritaglio__sotto">{sotto}</span>
+  </span>
+</span>
+
+<style>
+  .ritaglio {
+    --dente: 7px;
+    --fondo: var(--col-settore);
+    --inchiostro: var(--col-settore-testo);
+    display: inline-block;
+    flex-shrink: 0;
+    rotate: var(--inclinazione);
+    /* L'ombra va sul contenitore: la maschera del foglio la taglierebbe */
+    filter: drop-shadow(0 1px 1px rgb(18 38 61 / 0.18)) drop-shadow(0 6px 8px rgb(18 38 61 / 0.18));
+  }
+  .ritaglio--prossimo { --fondo: var(--col-lime); --inchiostro: var(--col-notte); }
+
+  .ritaglio__foglio {
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    min-width: var(--larghezza);
+    padding: var(--pad-alto) 0.55em calc(var(--pad-basso) + var(--dente));
+    background: var(--fondo);
+    color: var(--inchiostro);
+    border-radius: 6px 6px 0 0;
+    font-family: var(--testo-display);
+    line-height: 1;
+    text-align: center;
+    /* Il taglio delle forbici a zigzag, solo sul lato basso */
+    -webkit-mask:
+      linear-gradient(#000 0 0) top / 100% calc(100% - var(--dente)) no-repeat,
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--dente) * 2) var(--dente) repeat-x;
+    mask:
+      linear-gradient(#000 0 0) top / 100% calc(100% - var(--dente)) no-repeat,
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--dente) * 2) var(--dente) repeat-x;
+  }
+
+  .ritaglio__sopra {
+    font-size: var(--sopra);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.3em;
+    white-space: nowrap;
+  }
+  .ritaglio__numero {
+    font-size: var(--numero);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .ritaglio__sotto {
+    font-size: var(--sotto);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.25em;
+    white-space: nowrap;
+  }
+  .ritaglio--parola .ritaglio__numero { text-transform: uppercase; letter-spacing: -0.02em; }
+
+  /* La rampa d'importanza: tre misure fisse, nient'altro */
+  .ritaglio--piccola { --larghezza: 3.4rem; --pad-alto: 0.45rem; --pad-basso: 0.4rem; --sopra: 0.62rem; --numero: 1.55rem; --sotto: 0.66rem; --dente: 5px; }
+  .ritaglio--media   { --larghezza: 4.6rem; --pad-alto: 0.6rem;  --pad-basso: 0.5rem; --sopra: 0.7rem;  --numero: 2.35rem; --sotto: 0.75rem; }
+  .ritaglio--grande  { --larghezza: 9rem;   --pad-alto: 1rem;    --pad-basso: 0.8rem; --sopra: 0.9rem;  --numero: clamp(4rem, 3rem + 4vw, 6.25rem); --sotto: 1.05rem; --dente: 10px; }
+  .ritaglio--grande.ritaglio--lungo .ritaglio__numero,
+  .ritaglio--grande.ritaglio--parola .ritaglio__numero { font-size: clamp(2.6rem, 2rem + 2.6vw, 4rem); }
+  .ritaglio--media.ritaglio--lungo .ritaglio__numero,
+  .ritaglio--media.ritaglio--parola .ritaglio__numero { font-size: 1.6rem; }
+  .ritaglio--piccola.ritaglio--lungo .ritaglio__numero,
+  .ritaglio--piccola.ritaglio--parola .ritaglio__numero { font-size: 1.05rem; }
+</style>

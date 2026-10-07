@@ -1,0 +1,147 @@
+---
+import Base from '../../layouts/Base.astro';
+import TestaPagina from '../../components/TestaPagina.astro';
+import RigaEvento from '../../components/RigaEvento.astro';
+import RigaDocumento from '../../components/RigaDocumento.astro';
+import SchedaPersona from '../../components/SchedaPersona.astro';
+import Icona from '../../components/Icona.astro';
+import { settori } from '../../data/settori';
+import { sito } from '../../data/sito';
+import { cammini, laboratorio } from '../../data/programmazione';
+import { eventiProssimi, tuttiIDocumenti } from '../../lib/contenuti';
+import { url } from '../../lib/url';
+import { colonnePer } from '../../lib/colonne';
+
+export function getStaticPaths() {
+  return settori.map((s) => ({ params: { slug: s.slug }, props: { settore: s } }));
+}
+
+const { settore } = Astro.props;
+const cammino = cammini.find((c) => c.settore === settore.slug);
+const eventi = (await eventiProssimi()).filter((e) => e.data.settore === settore.slug);
+const documenti = (await tuttiIDocumenti()).filter((d) => d.data.settore === settore.slug);
+
+// I responsabili vengono dal Consiglio diocesano; Giovani e MSAC condividono un gruppo
+const gruppo = sito.consiglio.find((g) => g.gruppo === settore.gruppoConsiglio);
+const persone = (gruppo?.persone ?? []).filter((p) =>
+  settore.slug === 'msac' ? /MSAC/.test(p.ruolo) : settore.slug === 'giovani' ? !/^Segretaria MSAC/.test(p.ruolo) : true,
+);
+
+const sezioni = [
+  { id: 'cammino', testo: 'Il cammino' },
+  { id: 'appuntamenti', testo: `Appuntamenti (${eventi.length})` },
+  { id: 'documenti', testo: 'Documenti' },
+  { id: 'responsabili', testo: 'Responsabili' },
+];
+---
+
+<Base titolo={settore.nomeEsteso} descrizione={settore.descrizione}>
+  <TestaPagina titolo={settore.nomeEsteso} settore={settore.slug}>
+    <p class="eta">{settore.eta}</p>
+    <p>{settore.descrizione}</p>
+    <nav slot="sotto" class="sottonav" aria-label={`Sezioni della pagina ${settore.nome}`}>
+      <ul>
+        {sezioni.map((s) => <li><a href={`#${s.id}`}>{s.testo}</a></li>)}
+      </ul>
+    </nav>
+  </TestaPagina>
+
+  <div class="contenitore" data-settore={settore.slug}>
+    <section id="cammino" class="sezione blocco">
+      {cammino ? (
+        <>
+          <div>
+            <h2>{cammino.titolo}</h2>
+            <p class="blocco__sotto">{cammino.sottotitolo}</p>
+          </div>
+          <div class="testo-lungo">
+            {cammino.paragrafi.map((p) => <p>{p}</p>)}
+            {cammino.punti && <ul>{cammino.punti.map((p) => <li>{p}</li>)}</ul>}
+          </div>
+        </>
+      ) : (
+        <>
+          <div>
+            <h2>Il Laboratorio diocesano della formazione</h2>
+            <p class="blocco__sotto">Il percorso che unisce tutta l'associazione</p>
+          </div>
+          <div class="testo-lungo">
+            <ol>
+              {laboratorio.passaggi.map((p) => (
+                <li><strong>{p.titolo}.</strong> {p.testo} <em>{p.quando}.</em></li>
+              ))}
+            </ol>
+            <p><a href={url('/programmazione')}>Tutta la programmazione {sito.annoAssociativo}</a></p>
+          </div>
+        </>
+      )}
+    </section>
+
+    <section id="appuntamenti" class="sezione sezione--filo">
+      <div class="testa-sezione">
+        <h2>Prossimi appuntamenti</h2>
+        <a class="testa-sezione__link" href={`${url('/eventi')}?settore=${settore.slug}`}>Nel calendario <Icona nome="freccia" dimensione={18} /></a>
+      </div>
+      {eventi.length ? (
+        <div class="elenco">{eventi.map((e, i) => <RigaEvento evento={e} inclinazione={i % 2 ? 1.5 : -1.5} />)}</div>
+      ) : (
+        <p class="vuoto">Per ora non ci sono appuntamenti in programma per questo settore.</p>
+      )}
+    </section>
+
+    <section id="documenti" class="sezione sezione--filo">
+      <div class="testa-sezione">
+        <h2>Documenti e sussidi</h2>
+        <a class="testa-sezione__link" href={url('/documenti')}>Tutti i documenti <Icona nome="freccia" dimensione={18} /></a>
+      </div>
+      {documenti.length ? (
+        documenti.map((d) => <RigaDocumento documento={d} />)
+      ) : (
+        <p class="vuoto">Nessun documento caricato per questo settore. Sussidi e moduli compariranno qui appena pubblicati.</p>
+      )}
+    </section>
+
+    <section id="responsabili" class="sezione sezione--filo">
+      <div class="testa-sezione">
+        <h2>Responsabili diocesani</h2>
+        <a class="testa-sezione__link" href={url('/presidenza')}>Presidenza e Consiglio <Icona nome="freccia" dimensione={18} /></a>
+      </div>
+      {persone.length ? (
+        <ul class="persone" style={`--colonne:${colonnePer(persone.length)}`}>{persone.map((p) => <SchedaPersona nome={p.nome} ruolo={p.ruolo} settore={settore.slug} />)}</ul>
+      ) : (
+        <p class="vuoto">Nella programmazione {sito.annoAssociativo} non è indicato un responsabile per il {settore.nome}: per informazioni scrivi alla <a href={url('/contatti')}>segreteria diocesana</a>.</p>
+      )}
+    </section>
+  </div>
+</Base>
+
+<style>
+  .eta { font-family: var(--testo-display); font-weight: 800; font-size: var(--step-1); margin-bottom: var(--spazio-2xs); }
+
+  .sottonav ul { display: flex; flex-wrap: wrap; gap: 0.25rem 0.5rem; list-style: none; margin: 0; padding: var(--spazio-xs) 0; }
+  .sottonav a {
+    display: inline-flex;
+    min-height: 2.6rem;
+    align-items: center;
+    padding: 0 0.9rem;
+    border-radius: 999px;
+    font-family: var(--testo-display);
+    font-weight: 700;
+    font-size: var(--step--1);
+    color: inherit;
+    text-decoration: none;
+  }
+  .sottonav a:hover { background: rgb(255 255 255 / 0.35); }
+
+  .blocco { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--spazio-xl); }
+  .blocco h2 { font-size: var(--step-4); }
+  .blocco__sotto { font-size: var(--step-1); color: var(--col-settore-su-carta); font-weight: 700; }
+
+  .sezione--filo { border-top: 2px solid var(--col-notte); padding-top: var(--spazio-xl); }
+  .testa-sezione h2 { font-size: var(--step-3); }
+  .elenco { margin-inline: calc(var(--spazio-s) * -1); }
+  .vuoto { color: var(--col-tenue); max-width: 40rem; }
+
+
+  @media (max-width: 52rem) { .blocco { grid-template-columns: 1fr; gap: var(--spazio-m); } }
+</style>

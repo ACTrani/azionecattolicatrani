@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import TestaPagina from '../components/TestaPagina.astro';
+import SchedaPersona from '../components/SchedaPersona.astro';
+import { sito } from '../data/sito';
+import { colonnePer } from '../lib/colonne';
+
+/** Il colore di ogni gruppo del Consiglio: quello del settore che rappresenta */
+const tinta: Record<string, string> = {
+  Presidenza: 'unitario',
+  'Settore Adulti': 'adulti',
+  'Settore Giovani e MSAC': 'giovani',
+  'Azione Cattolica dei Ragazzi': 'acr',
+  'Coordinatori cittadini': 'unitario',
+  'Altri servizi associativi': 'unitario',
+};
+const [presidenza, ...consiglio] = sito.consiglio;
+---
+
+<Base
+  titolo="Presidenza e Consiglio diocesano"
+  descrizione={`La Presidenza e il Consiglio diocesano dell'Azione Cattolica, triennio ${sito.triennio}.`}
+>
+  <TestaPagina titolo="Presidenza diocesana">
+    <p>Il triennio {sito.triennio} si chiude con l'assemblea elettiva di febbraio 2027, che eleggerà il nuovo Consiglio diocesano.</p>
+  </TestaPagina>
+
+  <div class="contenitore">
+    <section class="sezione" aria-label="Presidenza">
+      <ul class="persone persone--grandi" style={`--colonne:${colonnePer(presidenza.persone.length)}`}>
+        {presidenza.persone.map((p) => <SchedaPersona nome={p.nome} ruolo={p.ruolo} settore="unitario" />)}
+      </ul>
+    </section>
+
+    <section id="consiglio" class="consiglio" aria-labelledby="titolo-consiglio">
+      <h2 id="titolo-consiglio">Consiglio diocesano</h2>
+      {consiglio.map((g) => (
+        <div class="gruppo">
+          <h3>{g.gruppo}</h3>
+          <ul class="persone" style={`--colonne:${colonnePer(g.persone.length)}`}>
+            {g.persone.map((p) => (
+              <SchedaPersona nome={p.nome} ruolo={p.ruolo} settore={/MSAC/.test(p.ruolo) ? 'msac' : tinta[g.gruppo]} />
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <p class="nota-prototipo">
+      <strong>Recapiti:</strong> i telefoni e le mail personali indicati nella programmazione non sono pubblicati.
+      Per contattare la Presidenza scrivi a <a href={`mailto:${sito.contatti.email}`}>{sito.contatti.email}</a>.
+    </p>
+  </div>
+</Base>
+
+<style>
+  .persone--grandi :global(.persona) { padding: var(--spazio-m); }
+  .consiglio { border-top: 2px solid var(--col-notte); padding-top: var(--spazio-xl); }
+  .consiglio > h2 { font-size: var(--step-4); margin-bottom: var(--spazio-l); }
+  .gruppo + .gruppo { margin-top: var(--spazio-xl); }
+  .gruppo h3 { font-size: var(--step-2); margin-bottom: var(--spazio-m); }
+</style>

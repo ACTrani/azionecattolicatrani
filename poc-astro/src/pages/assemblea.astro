@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import TestaPagina from '../components/TestaPagina.astro';
+import DataRitaglio from '../components/DataRitaglio.astro';
+import Icona from '../components/Icona.astro';
+import { tuttiGliEventi } from '../lib/contenuti';
+import { appuntamentiNazionali } from '../data/programmazione';
+import { sito } from '../data/sito';
+import { url } from '../lib/url';
+import { quando } from '../lib/date';
+
+const eventi = await tuttiGliEventi();
+const elettiva = eventi.find((e) => e.id === 'assemblea-diocesana-elettiva')!;
+const nazionale = appuntamentiNazionali.find((a) => a.includes('XIX Assemblea'));
+---
+
+<Base
+  titolo="Assemblea diocesana 2027"
+  descrizione="L'assemblea diocesana elettiva dell'Azione Cattolica, 27 e 28 febbraio 2027, e le assemblee parrocchiali che la preparano."
+>
+  <TestaPagina titolo="Assemblea diocesana elettiva">
+    <p>Ogni tre anni l'associazione si riunisce per fare il punto del cammino ed eleggere chi la guiderà. Il triennio {sito.triennio} si chiude così.</p>
+  </TestaPagina>
+
+  <div class="contenitore">
+    <section class="sezione appuntamento" aria-label="Quando e dove">
+      <DataRitaglio data={elettiva.data} settore="unitario" misura="grande" inclinazione={-3} />
+      <div>
+        <h2>{quando(elettiva.data)}</h2>
+        <p class="appuntamento__luogo"><Icona nome="luogo" />{elettiva.data.luogo.nome}, {elettiva.data.luogo.comune}</p>
+        <p>{elettiva.data.sommario}</p>
+        <div class="azioni">
+          <a class="bottone" href={url(`/eventi/${elettiva.id}`)}>Dettagli</a>
+          <a class="bottone bottone--vuoto" href={url(`/eventi/${elettiva.id}.ics`)}><Icona nome="calendario" dimensione={18} /> Aggiungi al calendario</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="parrocchiali" class="sezione percorso" aria-labelledby="titolo-percorso">
+      <h2 id="titolo-percorso">Il percorso assembleare</h2>
+      <ol>
+        <li>
+          <h3>Le assemblee parrocchiali</h3>
+          <p>Ogni associazione parrocchiale si riunisce in assemblea, rilegge il triennio, elegge il proprio consiglio e i delegati all'assemblea diocesana.</p>
+        </li>
+        <li>
+          <h3>L'assemblea diocesana</h3>
+          <p>I delegati delle parrocchie eleggono il nuovo Consiglio diocesano, che a sua volta propone al Vescovo una terna di nomi per la nomina del presidente diocesano.</p>
+        </li>
+        <li>
+          <h3>L'assemblea nazionale</h3>
+          <p>{nazionale}</p>
+        </li>
+      </ol>
+    </section>
+
+    <p class="nota-prototipo">
+      <strong>Da completare con la Presidenza:</strong> calendario delle assemblee parrocchiali, regolamento assembleare,
+      numero di delegati per parrocchia e documento assembleare. Il percorso descritto qui è quello previsto dallo Statuto,
+      da confermare nei dettagli.
+    </p>
+  </div>
+</Base>
+
+<style>
+  .appuntamento { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--spazio-xl); align-items: start; }
+  .appuntamento h2 { font-size: var(--step-4); }
+  .appuntamento__luogo { display: flex; align-items: center; gap: 0.45rem; font-weight: 700; font-size: var(--step-1); }
+  .appuntamento__luogo :global(svg) { color: var(--col-blu); }
+  .azioni { display: flex; flex-wrap: wrap; gap: var(--spazio-xs); margin-top: var(--spazio-m); }
+
+  .percorso { border-top: 2px solid var(--col-notte); }
+  .percorso > h2 { font-size: var(--step-4); margin-bottom: var(--spazio-l); }
+  .percorso ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--spazio-m); counter-reset: passo; }
+  .percorso li {
+    counter-increment: passo;
+    padding: var(--spazio-m);
+    background: var(--col-foglio);
+    border-radius: var(--raggio);
+    box-shadow: var(--ombra-foglio);
+  }
+  .percorso li::before {
+    content: counter(passo);
+    display: grid;
+    place-items: center;
+    width: 2.4rem; height: 2.4rem;
+    margin-bottom: var(--spazio-s);
+    border-radius: 999px;
+    background: var(--col-blu);
+    color: #fff;
+    font-family: var(--testo-display);
+    font-weight: 900;
+  }
+  .percorso h3 { font-size: var(--step-1); }
+  .percorso p { color: var(--col-tenue); font-size: var(--step--1); margin: 0; }
+
+  @media (max-width: 52rem) {
+    .appuntamento { grid-template-columns: 1fr; }
+    .percorso ol { grid-template-columns: 1fr; }
+  }
+</style>

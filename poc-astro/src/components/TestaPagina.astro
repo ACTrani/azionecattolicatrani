@@ -1,0 +1,70 @@
+---
+/**
+ * La testata delle pagine interne: un campo pieno di cartoncino (blu del logo,
+ * o il colore del settore) con il titolo grande. Lo slot accoglie
+ * l'introduzione, il secondo slot `sotto` la navigazione interna.
+ */
+interface Props {
+  titolo: string;
+  settore?: string;
+  briciole?: { testo: string; href: string }[];
+}
+const { titolo, settore, briciole = [] } = Astro.props;
+---
+
+<header class:list={['testa', { 'testa--settore': !!settore }]} data-settore={settore}>
+  <div class="contenitore testa__riga">
+    {briciole.length > 0 && (
+      <nav class="testa__briciole" aria-label="Sei qui">
+        <ol>
+          {briciole.map((b) => <li><a href={b.href}>{b.testo}</a></li>)}
+          <li aria-current="page">{titolo}</li>
+        </ol>
+      </nav>
+    )}
+    <h1>{titolo}</h1>
+    <div class="testa__intro"><slot /></div>
+  </div>
+  {Astro.slots.has('sotto') && (
+    <div class="testa__sotto">
+      <div class="contenitore"><slot name="sotto" /></div>
+    </div>
+  )}
+</header>
+
+<style>
+  .testa {
+    --fondo: var(--col-blu);
+    --inchiostro: #fff;
+    --tenue: var(--col-blu-chiaro);
+    background: var(--fondo);
+    color: var(--inchiostro);
+  }
+  .testa--settore {
+    --fondo: var(--col-settore);
+    --inchiostro: var(--col-settore-testo);
+    --tenue: var(--col-settore-testo);
+  }
+  .testa__riga { padding-block: var(--spazio-xl) var(--spazio-l); }
+  .testa h1 { font-size: var(--step-6); font-weight: 900; letter-spacing: -0.035em; margin-bottom: var(--spazio-s); max-width: 18ch; }
+  .testa__intro { max-width: 44rem; font-size: var(--step-1); line-height: 1.45; color: var(--tenue); }
+  .testa__intro :global(p:last-child) { margin-bottom: 0; }
+  .testa__intro :global(a) { color: inherit; }
+
+  .testa__briciole ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 0 0 var(--spazio-m);
+    padding: 0;
+    font-size: var(--step--1);
+    font-weight: 700;
+  }
+  .testa__briciole li:not(:last-child)::after { content: '/'; margin-left: 0.35rem; opacity: 0.6; }
+  .testa__briciole a { color: inherit; }
+  .testa__briciole [aria-current] { opacity: 0.8; }
+
+  .testa__sotto { background: rgb(0 0 0 / 0.12); }
+  .testa--settore .testa__sotto { background: rgb(255 255 255 / 0.22); }
+</style>

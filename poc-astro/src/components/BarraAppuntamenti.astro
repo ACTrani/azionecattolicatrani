@@ -1,0 +1,119 @@
+---
+/**
+ * La barra dei prossimi appuntamenti in cima a ogni pagina (come su
+ * acaversa.it): scorre piano, si ferma sotto il puntatore o il focus, e resta
+ * ferma e scorribile a mano per chi ha chiesto meno movimento.
+ */
+import { eventiProssimi } from '../lib/contenuti';
+import { url } from '../lib/url';
+import { quando } from '../lib/date';
+
+const eventi = await eventiProssimi(8);
+const breve = (d: Date) =>
+  new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'short' }).format(d).replace('.', '');
+---
+
+{eventi.length > 0 && (
+  <aside class="barra" aria-label="Prossimi appuntamenti">
+    <a class="barra__titolo" href={url('/eventi')}>Prossimi appuntamenti</a>
+    <div class="barra__finestra">
+      <div class="barra__nastro">
+        {[0, 1].map((copia) => (
+          <ul class="barra__elenco" aria-hidden={copia === 1 ? 'true' : undefined}>
+            {eventi.map((e) => (
+              <li data-settore={e.data.settore}>
+                <a href={url(`/eventi/${e.id}`)} tabindex={copia === 1 ? -1 : undefined}>
+                  <span class="barra__data cifre">{e.data.dataIndicativa ? quando(e.data) : breve(e.data.dataInizio)}</span>
+                  <span class="barra__evento">{e.data.titolo}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+  </aside>
+)}
+
+<style>
+  .barra {
+    display: flex;
+    align-items: stretch;
+    background: var(--col-notte);
+    color: #fff;
+    font-size: var(--step--1);
+    min-height: 2.6rem;
+  }
+  .barra__titolo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    background: var(--col-lime);
+    color: var(--col-notte);
+    font-family: var(--testo-display);
+    font-weight: 800;
+    font-size: var(--step--2);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .barra__titolo:hover { background: #fff; }
+
+  .barra__finestra {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    -webkit-mask: linear-gradient(90deg, transparent, #000 0.6rem, #000 calc(100% - 3rem), transparent);
+    mask: linear-gradient(90deg, transparent, #000 0.6rem, #000 calc(100% - 3rem), transparent);
+  }
+  .barra__nastro { display: flex; width: max-content; }
+  .barra__elenco { display: flex; list-style: none; margin: 0; padding: 0; }
+  .barra__elenco li { display: flex; }
+  .barra__elenco a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 1.4rem 0.35rem 1.1rem;
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .barra__elenco a:hover .barra__evento { text-decoration: underline; text-underline-offset: 0.2em; }
+  .barra__data {
+    padding: 0.15em 0.55em;
+    border-radius: 4px;
+    background: var(--col-settore);
+    color: var(--col-settore-testo);
+    font-family: var(--testo-display);
+    font-weight: 700;
+    font-size: var(--step--2);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  @media (prefers-reduced-motion: no-preference) and (min-width: 64rem) {
+    .barra__nastro { animation: scorri 70s linear infinite; }
+    .barra:hover .barra__nastro,
+    .barra:focus-within .barra__nastro { animation-play-state: paused; }
+    @keyframes scorri { to { transform: translateX(-50%); } }
+  }
+  /* Sul telefono e per chi chiede meno movimento: fermo, si scorre col dito */
+  @media (prefers-reduced-motion: reduce), (max-width: 63.99rem) {
+    .barra__finestra {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-mask: linear-gradient(90deg, #000 calc(100% - 2.5rem), transparent);
+      mask: linear-gradient(90deg, #000 calc(100% - 2.5rem), transparent);
+    }
+    .barra__elenco li { scroll-snap-align: start; }
+    .barra__elenco[aria-hidden] { display: none; }
+  }
+
+  @media (max-width: 40rem) {
+    .barra__titolo { font-size: 0; padding: 0 0.8rem; }
+    .barra__titolo::after { content: 'Prossimi'; font-size: var(--step--2); }
+  }
+</style>
