@@ -28,3 +28,11 @@ www.azionecattolicatrani.it/ACR/Iniziativa annuale e Mese del Ciao/cedipiu video
 # Cache runtime di MkPortal (rigenerata a ogni avvio)
 www.azionecattolicatrani.it/mkportal/cache/*
 !www.azionecattolicatrani.it/mkportal/cache/index.html
+
+# ---------------------------------------------------------------------------
+# Strumenti di design (Playwright, Impeccable)
+# Screenshot di lavoro: quelli di acaversa.it non sono nostri, le catture di
+# revisione si rigenerano e pesano.
+# ---------------------------------------------------------------------------
+.playwright-mcp/
+.impeccable/review/

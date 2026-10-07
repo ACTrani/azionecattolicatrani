@@ -60,7 +60,8 @@ Ispirata a `azionecattolica.it`, ridotta alla scala diocesana.
 > [acaversa.it](https://www.acaversa.it/). Il prototipo Astro è stato rifatto con il suo
 > menu — Home · Notizie · Eventi · Settori ▾ · Assemblea ▾ · Informazioni ▾ — e con la
 > grafica «Cartoncino» descritta in [`DESIGN.md`](DESIGN.md). La struttura qui sotto è
-> quella iniziale, superata per il menu; il tema WordPress va allineato.
+> quella iniziale, superata per il menu. Il tema WordPress `ac-trani` e i blocchi di
+> `ac-trani-core` sono stati allineati lo stesso giorno (vedi `wordpress/README.md`).
 
 **Menu principale (4 voci + call to action) — versione iniziale**
 

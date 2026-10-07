@@ -1,0 +1,123 @@
+{
+  "title": "Scegli il mondo visivo del nuovo sito",
+  "question": "Struttura e menu restano quelli di acaversa.it, palette dal logo (blu + verde lime). Cambia il carattere: tieni la direzione proposta, prendi un'alternativa o rilancia.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Cartoncino",
+      "kicker": "THE ROLL",
+      "lineage": "I cartelloni dei campi ACR e dell'oratorio: cartoncino colorato, forbici, pennarello",
+      "thesis": "Ogni settore è un foglio di cartoncino del suo colore, e ogni data è un numero ritagliato da quel foglio.",
+      "palette": ["#2F5D8A", "#9BC53D", "#F4EFE4", "#E8542F", "#F2B705", "#7A4FB5", "#12263D"],
+      "materials": ["cartoncino colorato pieno, senza sfumature", "bordi tagliati a forbice solo sui numeri delle date", "grottesco rotondo e pesante per i titoli, sans di lavoro per i testi"],
+      "viewport": "Barra blu con il prossimo appuntamento; testata bianca con logo e menu; hero blu-logo con il prossimo evento: data ritagliata in grande in verde lime, titolo, luogo, 'Aggiungi al calendario'; sotto, le sei tessere-cartoncino dei settori sovrapposte al bordo dell'hero.",
+      "risk": "Se i ritagli diventano decorazione ovunque, il sito sembra un lavoretto: il taglio va SOLO sui numeri delle date.",
+      "raised": [
+        {"from": "challenger-wayfinding", "raise": "Il verde lime è riservato a una cosa sola: 'il prossimo / oggi'. Mai decorativo."},
+        {"from": "challenger-star-atlas", "raise": "Rampa fissa di importanza: il prossimo evento enorme, la settimana grande, il mese in elenco."},
+        {"from": "challenger-datamatics", "raise": "Elenchi eventi in colonne tabellari rigorose, cifre tabulari allineate."},
+        {"from": "challenger-jcard", "raise": "Orario e luogo allineati a destra, stretti al margine, come i tempi di una scaletta."}
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Calendario da parete",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Il calendario-almanacco appeso in ogni cucina e sacrestia: mesi, feste in rosso, santo del giorno",
+      "thesis": "Il sito è il calendario dell'anno associativo: si sfoglia per mese, il resto si appende intorno.",
+      "palette": ["#FBFAF6", "#1E3A5F", "#9BC53D", "#C8102E", "#2B2B2B"],
+      "materials": ["griglia di mese a fogli", "domeniche e feste in rosso", "numeri grandi da almanacco"],
+      "viewport": "Il mese corrente come foglio di calendario a tutta larghezza, gli appuntamenti nelle caselle colorate per settore; notizie e settori sotto.",
+      "risk": "È la soluzione più familiare: chiara, ma vicina a ciò che fanno molti siti parrocchiali."
+    },
+    {
+      "id": "challenger-wayfinding",
+      "label": "Segnaletica",
+      "verdict": "competitive",
+      "lineage": "Segnaletica aeroportuale: pannelli gialli, frecce, numeri di gate monumentali",
+      "thesis": "Ogni pagina risponde a una sola domanda: qual è la prossima tappa, e dove.",
+      "palette": ["#9BC53D", "#111111", "#FFFFFF", "#2F5D8A"],
+      "materials": ["pannelli pieni", "pittogrammi bianchi su nero", "numeri giganti"],
+      "viewport": "Fascia lime con il prossimo appuntamento in numeri monumentali e freccia verso il luogo; sotto le altre 'tappe'.",
+      "case": "Vince sulla chiarezza (data e luogo al primo colpo), perde sull'identificazione: non è il mondo di chi frequenta la parrocchia.",
+      "risk": "Freddo e trasportistico, fuori registro per un'associazione ecclesiale."
+    },
+    {
+      "id": "challenger-datamatics",
+      "label": "Campo di dati",
+      "verdict": "declined",
+      "lineage": "Ryoji Ikeda, datamatics",
+      "palette": ["#000000", "#FFFFFF"],
+      "materials": ["codici a barre", "monospazio"],
+      "thesis": "Il calendario come campo di dati in bianco e nero.",
+      "viewport": "Colonne di cifre.",
+      "case": "Perde su entrambi gli assi.",
+      "risk": "Illeggibile per il pubblico.",
+      "kept": "Colonne tabellari rigorose per gli elenchi eventi."
+    },
+    {
+      "id": "challenger-star-atlas",
+      "label": "Atlante stellare",
+      "verdict": "declined",
+      "lineage": "Carte celesti",
+      "palette": ["#0E1E3A", "#F5F3EA", "#D9583B"],
+      "materials": ["punti per magnitudine", "corsivi serif"],
+      "thesis": "Gli eventi come stelle per importanza.",
+      "viewport": "Carta notturna.",
+      "case": "Perde su entrambi gli assi.",
+      "risk": "Metafora lontana dal pubblico.",
+      "kept": "Importanza espressa da una rampa fissa di dimensioni."
+    },
+    {
+      "id": "challenger-jcard",
+      "label": "Copertina di cassetta",
+      "verdict": "declined",
+      "lineage": "J-card di mixtape scritte a penna",
+      "palette": ["#FFFFFF", "#1F3FA0", "#C8102E"],
+      "materials": ["penna a sfera", "righe stampate"],
+      "thesis": "La programmazione come scaletta lato A / lato B.",
+      "viewport": "Scaletta a due lati.",
+      "case": "Perde su entrambi gli assi.",
+      "risk": "Nostalgia senza funzione.",
+      "kept": "Tempi allineati a destra, stretti al margine."
+    },
+    {
+      "id": "challenger-streaming",
+      "label": "Parete di locandine",
+      "verdict": "declined",
+      "lineage": "Interfacce streaming a righe di poster",
+      "palette": ["#141414", "#E50914", "#FFFFFF"],
+      "materials": ["locandine a rapporto fisso"],
+      "thesis": "Notizie ed eventi come file di locandine.",
+      "viewport": "Righe orizzontali di poster.",
+      "case": "Perde su entrambi: senza foto non regge, e non è il mondo del pubblico.",
+      "risk": "Vuoto senza immagini.",
+      "kept": "Rapporto fisso per le locandine, quando arriveranno."
+    },
+    {
+      "id": "challenger-bitmap",
+      "label": "Specimen bitmap",
+      "verdict": "declined",
+      "lineage": "Emigre",
+      "palette": ["#FFFFFF", "#111111", "#FF3B00"],
+      "materials": ["pixel", "retino"],
+      "thesis": "Tipografia a pixel come identità.",
+      "viewport": "Titolo pixelato gigante.",
+      "case": "Perde su entrambi gli assi.",
+      "risk": "Fuori registro.",
+      "kept": "Un solo carattere display usato su una scala rigorosa."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code", "toggle": false},
+  "canon": true,
+  "canonCard": {
+    "label": "Lo standard: acaversa.it rifatto bene",
+    "thesis": "Il sito associativo come lo fanno tutti, eseguito con cura.",
+    "palette": ["#FFFFFF", "#12263D", "#2F5D8A", "#9BC53D"],
+    "materials": ["griglia pulita", "card con ombra", "tessere colorate"],
+    "viewport": "Barra appuntamenti, testata, hero con slogan, tessere settori, griglia notizie: la stessa pagina di Aversa con i colori di Trani.",
+    "risk": "Indistinguibile da Aversa e dagli altri siti diocesani, per scelta."
+  },
+  "steer": true
+}

@@ -1,0 +1,833 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T09:31:28+00:00",
+  "title": "Design System: Azione Cattolica – Diocesi di Trani",
+  "extensions": {
+    "colorMeta": {
+      "col-blu": {
+        "role": "primary",
+        "displayName": "Blu del logo",
+        "canonical": "#2f5d8a",
+        "oklch": "oklch(46.7% 0.089 249.8)",
+        "tonalRamp": [
+          "#000c1c",
+          "#002648",
+          "#15446f",
+          "#366492",
+          "#5786b6",
+          "#7fa9d5",
+          "#b3cce7",
+          "#e8eff8"
+        ],
+        "cssVariable": "--col-blu",
+        "themeJson": "settings.color.palette[slug=blu]"
+      },
+      "col-blu-chiaro": {
+        "role": "primary",
+        "displayName": "Azzurro sul blu",
+        "canonical": "#c9daec",
+        "oklch": "oklch(88.1% 0.031 249.7)",
+        "tonalRamp": [
+          "#070c11",
+          "#1b2631",
+          "#364452",
+          "#546372",
+          "#758495",
+          "#98a7b6",
+          "#c1cad4",
+          "#eceff2"
+        ],
+        "cssVariable": "--col-blu-chiaro",
+        "themeJson": "settings.color.palette[slug=blu-chiaro]"
+      },
+      "col-notte": {
+        "role": "neutral",
+        "displayName": "Inchiostro notte",
+        "canonical": "#12263d",
+        "oklch": "oklch(26.4% 0.051 253.2)",
+        "tonalRamp": [
+          "#050c15",
+          "#152639",
+          "#2e445c",
+          "#4d637e",
+          "#6d85a1",
+          "#92a7c1",
+          "#bdcbdb",
+          "#ebeff4"
+        ],
+        "cssVariable": "--col-notte",
+        "themeJson": "settings.color.palette[slug=notte]"
+      },
+      "col-lime": {
+        "role": "secondary",
+        "displayName": "Lime «il prossimo»",
+        "canonical": "#9bc53d",
+        "oklch": "oklch(76.7% 0.167 125.1)",
+        "tonalRamp": [
+          "#050f00",
+          "#152d00",
+          "#2e4e00",
+          "#4c6f00",
+          "#6b9200",
+          "#90b541",
+          "#bcd495",
+          "#eaf2df"
+        ],
+        "cssVariable": "--col-lime",
+        "themeJson": "settings.color.palette[slug=lime]"
+      },
+      "col-carta": {
+        "role": "neutral",
+        "displayName": "Carta da disegno",
+        "canonical": "#f7f7f2",
+        "oklch": "oklch(97.5% 0.007 106.5)",
+        "tonalRamp": [
+          "#0b0b08",
+          "#252522",
+          "#42423e",
+          "#61615d",
+          "#83837e",
+          "#a5a5a1",
+          "#c9c9c5",
+          "#efefea"
+        ],
+        "cssVariable": "--col-carta",
+        "themeJson": "settings.color.palette[slug=carta]"
+      },
+      "col-foglio": {
+        "role": "neutral",
+        "displayName": "Foglio bianco",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ],
+        "cssVariable": "--col-foglio",
+        "themeJson": "settings.color.palette[slug=foglio]"
+      },
+      "col-tenue": {
+        "role": "neutral",
+        "displayName": "Grigio-blu tenue",
+        "canonical": "#4a5a6e",
+        "oklch": "oklch(46.2% 0.038 254.2)",
+        "tonalRamp": [
+          "#060c13",
+          "#1a2635",
+          "#344356",
+          "#526377",
+          "#738499",
+          "#97a7bb",
+          "#c0cad6",
+          "#eceff3"
+        ],
+        "cssVariable": "--col-tenue",
+        "themeJson": "settings.color.palette[slug=tenue]"
+      },
+      "col-filo": {
+        "role": "neutral",
+        "displayName": "Filo",
+        "canonical": "#dcdfd6",
+        "oklch": "oklch(89.9% 0.013 121.7)",
+        "tonalRamp": [
+          "#0b0c09",
+          "#242620",
+          "#41433c",
+          "#60625b",
+          "#81847b",
+          "#a4a69f",
+          "#c8cac5",
+          "#eeefed"
+        ],
+        "cssVariable": "--col-filo",
+        "themeJson": "settings.color.palette[slug=filo]"
+      },
+      "col-filo-forte": {
+        "role": "neutral",
+        "displayName": "Filo forte",
+        "canonical": "#b9beb2",
+        "oklch": "oklch(79.4% 0.018 125.4)",
+        "tonalRamp": [
+          "#0a0c08",
+          "#23261f",
+          "#40443a",
+          "#5f6358",
+          "#808479",
+          "#a3a79c",
+          "#c8cac4",
+          "#eeefed"
+        ],
+        "cssVariable": "--col-filo-forte",
+        "themeJson": "settings.color.palette[slug=filo-forte]"
+      },
+      "col-errore": {
+        "role": "neutral",
+        "displayName": "Rosso annullato",
+        "canonical": "#b3261e",
+        "oklch": "oklch(50.1% 0.178 28.7)",
+        "tonalRamp": [
+          "#250000",
+          "#5a0000",
+          "#880000",
+          "#b0221b",
+          "#d84c3f",
+          "#f9796a",
+          "#ffb2a6",
+          "#ffe8e4"
+        ],
+        "cssVariable": "--col-errore",
+        "themeJson": "settings.color.palette[slug=errore]"
+      },
+      "settore-unitario": {
+        "role": "tertiary",
+        "displayName": "Unitario – riempimento",
+        "canonical": "#2f5d8a",
+        "oklch": "oklch(46.7% 0.089 249.8)",
+        "tonalRamp": [
+          "#000c1c",
+          "#002648",
+          "#15446f",
+          "#366492",
+          "#5786b6",
+          "#7fa9d5",
+          "#b3cce7",
+          "#e8eff8"
+        ],
+        "cssVariable": "--col-settore (in [data-settore='unitario'])"
+      },
+      "settore-unitario-testo": {
+        "role": "tertiary",
+        "displayName": "Unitario – testo sul riempimento",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ],
+        "cssVariable": "--col-settore-testo (in [data-settore='unitario'])"
+      },
+      "settore-unitario-su-carta": {
+        "role": "tertiary",
+        "displayName": "Unitario – testo su carta",
+        "canonical": "#2f5d8a",
+        "oklch": "oklch(46.7% 0.089 249.8)",
+        "tonalRamp": [
+          "#000c1c",
+          "#002648",
+          "#15446f",
+          "#366492",
+          "#5786b6",
+          "#7fa9d5",
+          "#b3cce7",
+          "#e8eff8"
+        ],
+        "cssVariable": "--col-settore-su-carta (in [data-settore='unitario'])"
+      },
+      "settore-adulti": {
+        "role": "tertiary",
+        "displayName": "Adulti – riempimento",
+        "canonical": "#f2b705",
+        "oklch": "oklch(81.1% 0.166 85.0)",
+        "tonalRamp": [
+          "#1a0500",
+          "#421700",
+          "#693300",
+          "#8b5400",
+          "#af7700",
+          "#cf9c01",
+          "#e3c587",
+          "#f7eedb"
+        ],
+        "cssVariable": "--col-settore (in [data-settore='adulti'])"
+      },
+      "settore-adulti-testo": {
+        "role": "tertiary",
+        "displayName": "Adulti – testo sul riempimento",
+        "canonical": "#12263d",
+        "oklch": "oklch(26.4% 0.051 253.2)",
+        "tonalRamp": [
+          "#050c15",
+          "#152639",
+          "#2e445c",
+          "#4d637e",
+          "#6d85a1",
+          "#92a7c1",
+          "#bdcbdb",
+          "#ebeff4"
+        ],
+        "cssVariable": "--col-settore-testo (in [data-settore='adulti'])"
+      },
+      "settore-adulti-su-carta": {
+        "role": "tertiary",
+        "displayName": "Adulti – testo su carta",
+        "canonical": "#7a5900",
+        "oklch": "oklch(48.6% 0.100 83.4)",
+        "tonalRamp": [
+          "#150800",
+          "#381f00",
+          "#5b3b00",
+          "#7c5b04",
+          "#9f7d34",
+          "#c0a062",
+          "#dac7a3",
+          "#f4eee3"
+        ],
+        "cssVariable": "--col-settore-su-carta (in [data-settore='adulti'])"
+      },
+      "settore-giovani": {
+        "role": "tertiary",
+        "displayName": "Giovani – riempimento",
+        "canonical": "#f07a3c",
+        "oklch": "oklch(70.5% 0.163 45.9)",
+        "tonalRamp": [
+          "#220000",
+          "#540000",
+          "#810900",
+          "#a73700",
+          "#ce5b14",
+          "#ee8550",
+          "#f9b89a",
+          "#feeae0"
+        ],
+        "cssVariable": "--col-settore (in [data-settore='giovani'])"
+      },
+      "settore-giovani-testo": {
+        "role": "tertiary",
+        "displayName": "Giovani – testo sul riempimento",
+        "canonical": "#12263d",
+        "oklch": "oklch(26.4% 0.051 253.2)",
+        "tonalRamp": [
+          "#050c15",
+          "#152639",
+          "#2e445c",
+          "#4d637e",
+          "#6d85a1",
+          "#92a7c1",
+          "#bdcbdb",
+          "#ebeff4"
+        ],
+        "cssVariable": "--col-settore-testo (in [data-settore='giovani'])"
+      },
+      "settore-giovani-su-carta": {
+        "role": "tertiary",
+        "displayName": "Giovani – testo su carta",
+        "canonical": "#b33a17",
+        "oklch": "oklch(52.0% 0.163 35.9)",
+        "tonalRamp": [
+          "#230000",
+          "#560000",
+          "#830000",
+          "#aa310a",
+          "#d15635",
+          "#f18062",
+          "#fbb6a3",
+          "#ffe9e3"
+        ],
+        "cssVariable": "--col-settore-su-carta (in [data-settore='giovani'])"
+      },
+      "settore-acr": {
+        "role": "tertiary",
+        "displayName": "ACR – riempimento",
+        "canonical": "#2ba3de",
+        "oklch": "oklch(67.8% 0.133 235.9)",
+        "tonalRamp": [
+          "#000d22",
+          "#002953",
+          "#00487e",
+          "#006aa1",
+          "#008dc6",
+          "#50b0e5",
+          "#9dd1f1",
+          "#e2f1fb"
+        ],
+        "cssVariable": "--col-settore (in [data-settore='acr'])"
+      },
+      "settore-acr-testo": {
+        "role": "tertiary",
+        "displayName": "ACR – testo sul riempimento",
+        "canonical": "#12263d",
+        "oklch": "oklch(26.4% 0.051 253.2)",
+        "tonalRamp": [
+          "#050c15",
+          "#152639",
+          "#2e445c",
+          "#4d637e",
+          "#6d85a1",
+          "#92a7c1",
+          "#bdcbdb",
+          "#ebeff4"
+        ],
+        "cssVariable": "--col-settore-testo (in [data-settore='acr'])"
+      },
+      "settore-acr-su-carta": {
+        "role": "tertiary",
+        "displayName": "ACR – testo su carta",
+        "canonical": "#13668f",
+        "oklch": "oklch(48.4% 0.099 236.8)",
+        "tonalRamp": [
+          "#000d1c",
+          "#002948",
+          "#00486f",
+          "#176992",
+          "#408bb6",
+          "#6daed5",
+          "#aacfe7",
+          "#e5f0f8"
+        ],
+        "cssVariable": "--col-settore-su-carta (in [data-settore='acr'])"
+      },
+      "settore-msac": {
+        "role": "tertiary",
+        "displayName": "MSAC – riempimento",
+        "canonical": "#7a4fb5",
+        "oklch": "oklch(52.4% 0.157 300.5)",
+        "tonalRamp": [
+          "#110125",
+          "#310559",
+          "#512286",
+          "#7146ab",
+          "#9368d1",
+          "#b48fef",
+          "#d2bdf7",
+          "#f1ebfd"
+        ],
+        "cssVariable": "--col-settore (in [data-settore='msac'])"
+      },
+      "settore-msac-testo": {
+        "role": "tertiary",
+        "displayName": "MSAC – testo sul riempimento",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ],
+        "cssVariable": "--col-settore-testo (in [data-settore='msac'])"
+      },
+      "settore-msac-su-carta": {
+        "role": "tertiary",
+        "displayName": "MSAC – testo su carta",
+        "canonical": "#6a3fa5",
+        "oklch": "oklch(47.1% 0.158 299.7)",
+        "tonalRamp": [
+          "#110125",
+          "#31055a",
+          "#512287",
+          "#7046ac",
+          "#9268d2",
+          "#b38ff0",
+          "#d1bef8",
+          "#f1ebfe"
+        ],
+        "cssVariable": "--col-settore-su-carta (in [data-settore='msac'])"
+      },
+      "settore-mlac": {
+        "role": "tertiary",
+        "displayName": "MLAC – riempimento",
+        "canonical": "#2e7d5b",
+        "oklch": "oklch(53.1% 0.095 161.9)",
+        "tonalRamp": [
+          "#001106",
+          "#003018",
+          "#005132",
+          "#207250",
+          "#479471",
+          "#73b695",
+          "#add4bf",
+          "#e6f2eb"
+        ],
+        "cssVariable": "--col-settore (in [data-settore='mlac'])"
+      },
+      "settore-mlac-testo": {
+        "role": "tertiary",
+        "displayName": "MLAC – testo sul riempimento",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ],
+        "cssVariable": "--col-settore-testo (in [data-settore='mlac'])"
+      },
+      "settore-mlac-su-carta": {
+        "role": "tertiary",
+        "displayName": "MLAC – testo su carta",
+        "canonical": "#276b4e",
+        "oklch": "oklch(47.6% 0.084 162.2)",
+        "tonalRamp": [
+          "#001006",
+          "#002f1a",
+          "#004f34",
+          "#2c7053",
+          "#509273",
+          "#7ab497",
+          "#b1d3c1",
+          "#e7f1ec"
+        ],
+        "cssVariable": "--col-settore-su-carta (in [data-settore='mlac'])"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Titolo h1 delle testate di pagina interne (--step-6, 900).",
+        "cssVariable": "--step-6",
+        "themeJson": "settings.typography.fontSizes[slug=step-6]"
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "h1 generico e titolo del prossimo evento in apertura (--step-5).",
+        "cssVariable": "--step-5",
+        "themeJson": "settings.typography.fontSizes[slug=step-5]"
+      },
+      "headline-sezione": {
+        "displayName": "Headline di sezione",
+        "purpose": "h2 e testate di sezione (--step-3; --step-4 nelle testate della home).",
+        "cssVariable": "--step-3",
+        "themeJson": "settings.typography.fontSizes[slug=step-3]"
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "h3: titoli di evento, documento, notizia, nomi delle persone (--step-1).",
+        "cssVariable": "--step-1",
+        "themeJson": "settings.typography.fontSizes[slug=step-1]"
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Testo corrente, massimo 40rem nel testo lungo (--step-0).",
+        "cssVariable": "--step-0",
+        "themeJson": "settings.typography.fontSizes[slug=step-0]"
+      },
+      "body-piccolo": {
+        "displayName": "Body piccolo",
+        "purpose": "Sommari, metadati, voci di menu, bottoni (--step--1).",
+        "cssVariable": "--step--1",
+        "themeJson": "settings.typography.fontSizes[slug=step--1]"
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Etichette di settore, bollo Comunicato, date della barra; Rubik 700 maiuscolo (--step--2).",
+        "cssVariable": "--step--2",
+        "themeJson": "settings.typography.fontSizes[slug=step--2]"
+      },
+      "cifra-ritaglio": {
+        "displayName": "Cifra del ritaglio",
+        "purpose": "Il numero della data-ritaglio grande; cifre tabulari. Le misure piccola e media usano 1.55rem e 2.35rem."
+      }
+    },
+    "fontFamilies": [
+      {
+        "name": "--font-display",
+        "family": "Rubik",
+        "weights": "500 900",
+        "styles": [
+          "normal"
+        ],
+        "purpose": "Titoli, numeri, etichette, bottoni, menu.",
+        "themeJson": "settings.typography.fontFamilies[slug=display] con fontFace locali"
+      },
+      {
+        "name": "--font-body",
+        "family": "Atkinson Hyperlegible Next",
+        "weights": "400 800",
+        "styles": [
+          "normal",
+          "italic"
+        ],
+        "purpose": "Testo corrente.",
+        "themeJson": "settings.typography.fontFamilies[slug=body] con fontFace locali"
+      }
+    ],
+    "fluidScale": {
+      "range": "320px → 1280px",
+      "steps": {
+        "--step--2": "clamp(0.75rem, 0.73rem + 0.08vw, 0.8rem)",
+        "--step--1": "clamp(0.86rem, 0.83rem + 0.14vw, 0.94rem)",
+        "--step-0": "clamp(1rem, 0.96rem + 0.2vw, 1.125rem)",
+        "--step-1": "clamp(1.18rem, 1.1rem + 0.4vw, 1.42rem)",
+        "--step-2": "clamp(1.4rem, 1.25rem + 0.75vw, 1.85rem)",
+        "--step-3": "clamp(1.68rem, 1.42rem + 1.3vw, 2.45rem)",
+        "--step-4": "clamp(2rem, 1.6rem + 2vw, 3.2rem)",
+        "--step-5": "clamp(2.4rem, 1.8rem + 3vw, 4.25rem)",
+        "--step-6": "clamp(3rem, 2rem + 5vw, 6rem)"
+      }
+    },
+    "layout": {
+      "--larghezza-max": "78rem",
+      "--larghezza-testo": "40rem",
+      "contenitore": "min(100% - 2rem, var(--larghezza-max))",
+      "colonnePer": "n <= 4 ? n : n % 3 === 0 ? 3 : n % 4 === 0 ? 4 : 3 (griglie di persone dimensionate dal numero)"
+    },
+    "shadows": [
+      {
+        "name": "--ombra-foglio",
+        "value": "0 1px 1px rgb(18 38 61 / 0.08), 0 8px 18px -10px rgb(18 38 61 / 0.35)",
+        "purpose": "Foglio appoggiato a riposo: card, tessere, schede, hover delle righe evento.",
+        "themeJson": "settings.shadow.presets[slug=foglio]"
+      },
+      {
+        "name": "--ombra-foglio-alta",
+        "value": "0 2px 2px rgb(18 38 61 / 0.08), 0 18px 32px -14px rgb(18 38 61 / 0.45)",
+        "purpose": "Foglio sollevato: hover di card e tessere, sottomenu, foglio del tema dell'anno.",
+        "themeJson": "settings.shadow.presets[slug=foglio-alta]"
+      },
+      {
+        "name": "ritaglio",
+        "value": "drop-shadow(0 1px 1px rgb(18 38 61 / 0.18)) drop-shadow(0 6px 8px rgb(18 38 61 / 0.18))",
+        "purpose": "Solo la data-ritaglio, come filter: la maschera a zigzag taglierebbe un box-shadow."
+      },
+      {
+        "name": "testata",
+        "value": "0 1px 0 var(--col-filo), 0 10px 24px -22px rgb(18 38 61 / 0.6)",
+        "purpose": "Testata appiccicosa sopra il contenuto."
+      }
+    ],
+    "motion": [
+      {
+        "name": "--curva",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Uscita esponenziale per tutte le transizioni di stato."
+      },
+      {
+        "name": "--transizione",
+        "value": "240ms var(--curva)",
+        "purpose": "Durata standard: colori, sollevamento dei fogli, frecce."
+      },
+      {
+        "name": "sottomenu",
+        "value": "180ms var(--curva)",
+        "purpose": "Apertura del sottomenu (opacità + 6px di traslazione)."
+      },
+      {
+        "name": "posa",
+        "value": "900ms var(--curva) 120ms",
+        "purpose": "Il ritaglio grande del prossimo evento si posa sulla pagina (da -11°, scala 1.12)."
+      },
+      {
+        "name": "raddrizza",
+        "value": "320ms var(--curva)",
+        "purpose": "In hover la riga evento raddrizza il suo ritaglio e lo alza di 2px."
+      },
+      {
+        "name": "scorri",
+        "value": "70s linear infinite",
+        "purpose": "Nastro della barra appuntamenti, solo da 64rem e senza reduced-motion; si ferma con hover/focus."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "telefono-stretto",
+        "value": "26rem"
+      },
+      {
+        "name": "piede-una-colonna",
+        "value": "30rem"
+      },
+      {
+        "name": "telefono",
+        "value": "40rem"
+      },
+      {
+        "name": "righe-evento-impilate",
+        "value": "52rem"
+      },
+      {
+        "name": "apertura-una-colonna",
+        "value": "60rem"
+      },
+      {
+        "name": "persone-due-colonne",
+        "value": "62rem"
+      },
+      {
+        "name": "barra-animata",
+        "value": "64rem"
+      },
+      {
+        "name": "menu-a-scomparsa",
+        "value": "66rem"
+      },
+      {
+        "name": "tessere-tre-colonne",
+        "value": "72rem"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Data-ritaglio",
+      "kind": "custom",
+      "refersTo": "ritaglio-media",
+      "description": "Elemento firma: numero ritagliato a zigzag dal cartoncino del settore; lime solo quando è il prossimo. Tre misure: piccola, media, grande.",
+      "html": "<div class=\"ds-ritagli\"><span class=\"ds-ritaglio ds-ritaglio--media\" style=\"--col-settore:#2ba3de;--col-settore-testo:#12263d\"><span class=\"ds-ritaglio__foglio\"><span class=\"ds-ritaglio__sopra\">dom</span><span class=\"ds-ritaglio__numero\">15</span><span class=\"ds-ritaglio__sotto\">nov</span></span></span><span class=\"ds-ritaglio ds-ritaglio--grande ds-ritaglio--prossimo\" style=\"--inclinazione:-3deg\"><span class=\"ds-ritaglio__foglio\"><span class=\"ds-ritaglio__sopra\">Il prossimo</span><span class=\"ds-ritaglio__numero\">11</span><span class=\"ds-ritaglio__sotto\">ott</span></span></span></div>",
+      "css": ".ds-ritagli { display: flex; gap: 2rem; align-items: flex-start; padding: 1rem; } .ds-ritaglio { --dente: 7px; --fondo: var(--col-settore, #2f5d8a); --inchiostro: var(--col-settore-testo, #fff); display: inline-block; rotate: var(--inclinazione, -1.5deg); filter: drop-shadow(0 1px 1px rgb(18 38 61 / 0.18)) drop-shadow(0 6px 8px rgb(18 38 61 / 0.18)); transition: rotate 320ms cubic-bezier(0.16,1,0.3,1), translate 320ms cubic-bezier(0.16,1,0.3,1); } .ds-ritaglio:hover { rotate: 0deg; translate: 0 -2px; } .ds-ritaglio--prossimo { --fondo: #9bc53d; --inchiostro: #12263d; } .ds-ritaglio__foglio { display: grid; justify-items: center; min-width: var(--larghezza); padding: var(--pad-alto) 0.55em calc(var(--pad-basso) + var(--dente)); background: var(--fondo); color: var(--inchiostro); border-radius: 6px 6px 0 0; font-family: Rubik, 'Arial Rounded MT Bold', Arial, sans-serif; line-height: 1; text-align: center; -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - var(--dente)) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--dente) * 2) var(--dente) repeat-x; mask: linear-gradient(#000 0 0) top / 100% calc(100% - var(--dente)) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--dente) * 2) var(--dente) repeat-x; } .ds-ritaglio__sopra { font-size: var(--sopra); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3em; white-space: nowrap; } .ds-ritaglio__numero { font-size: var(--numero); font-weight: 900; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; } .ds-ritaglio__sotto { font-size: var(--sotto); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.25em; } .ds-ritaglio--media { --larghezza: 4.6rem; --pad-alto: 0.6rem; --pad-basso: 0.5rem; --sopra: 0.7rem; --numero: 2.35rem; --sotto: 0.75rem; } .ds-ritaglio--grande { --larghezza: 9rem; --pad-alto: 1rem; --pad-basso: 0.8rem; --sopra: 0.9rem; --numero: 5.5rem; --sotto: 1.05rem; --dente: 10px; }"
+    },
+    {
+      "name": "Bottone primario",
+      "kind": "button",
+      "refersTo": "bottone",
+      "description": "Pillola blu del logo; hover inchiostro notte. Variante vuota a contorno.",
+      "html": "<div class=\"ds-fila\"><a class=\"ds-bottone\" href=\"#\">Leggi la programmazione</a><a class=\"ds-bottone ds-bottone--vuoto\" href=\"#\">Tutti gli appuntamenti</a></div>",
+      "css": ".ds-fila { display: flex; gap: 0.75rem; flex-wrap: wrap; padding: 1rem; background: #f7f7f2; } .ds-bottone { display: inline-flex; align-items: center; gap: 0.5em; min-height: 2.9rem; padding: 0.65em 1.25em; font-family: Rubik, 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.01em; text-decoration: none; border: 2px solid #2f5d8a; border-radius: 999px; background: #2f5d8a; color: #fff; transition: background 240ms cubic-bezier(0.16,1,0.3,1), color 240ms cubic-bezier(0.16,1,0.3,1), border-color 240ms cubic-bezier(0.16,1,0.3,1), transform 160ms cubic-bezier(0.16,1,0.3,1); } .ds-bottone:hover { background: #12263d; border-color: #12263d; color: #fff; } .ds-bottone:active { transform: translateY(1px); } .ds-bottone:focus-visible { outline: 3px solid #2f5d8a; outline-offset: 3px; } .ds-bottone--vuoto { background: transparent; color: #2f5d8a; } .ds-bottone--vuoto:hover { background: #2f5d8a; border-color: #2f5d8a; color: #fff; }"
+    },
+    {
+      "name": "Bottone prossimo",
+      "kind": "button",
+      "refersTo": "bottone-prossimo",
+      "description": "L'unico bottone lime, per il prossimo appuntamento; accanto la variante a filo bianco sul campo blu.",
+      "html": "<div class=\"ds-campo\"><a class=\"ds-bottone-p\" href=\"#\">Dettagli dell'appuntamento <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m13 6 6 6-6 6\"/></svg></a><a class=\"ds-bottone-filo\" href=\"#\">Aggiungi al calendario</a></div>",
+      "css": ".ds-campo { display: flex; gap: 0.75rem; flex-wrap: wrap; padding: 1.5rem; background: #2f5d8a; } .ds-bottone-p, .ds-bottone-filo { display: inline-flex; align-items: center; gap: 0.5em; min-height: 2.9rem; padding: 0.65em 1.25em; font-family: Rubik, 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 0.9rem; font-weight: 700; text-decoration: none; border: 2px solid; border-radius: 999px; transition: background 240ms cubic-bezier(0.16,1,0.3,1), color 240ms cubic-bezier(0.16,1,0.3,1), border-color 240ms cubic-bezier(0.16,1,0.3,1); } .ds-bottone-p { background: #9bc53d; border-color: #9bc53d; color: #12263d; } .ds-bottone-p:hover { background: #fff; border-color: #fff; } .ds-bottone-filo { background: transparent; border-color: rgb(255 255 255 / 0.6); color: #fff; } .ds-bottone-filo:hover { background: #fff; border-color: #fff; color: #2f5d8a; } .ds-bottone-p:focus-visible, .ds-bottone-filo:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Etichetta di settore",
+      "kind": "chip",
+      "refersTo": "etichetta",
+      "description": "Piccolo ritaglio pieno a pillola con la tripletta del settore; sta sotto il titolo, mai sopra. Accanto il bollo Comunicato a contorno.",
+      "html": "<div class=\"ds-etichette\"><span class=\"ds-etichetta\" style=\"--col-settore:#2f5d8a;--col-settore-testo:#fff\">Unitario</span><span class=\"ds-etichetta\" style=\"--col-settore:#f2b705;--col-settore-testo:#12263d\">Adulti</span><span class=\"ds-etichetta\" style=\"--col-settore:#f07a3c;--col-settore-testo:#12263d\">Giovani</span><span class=\"ds-etichetta\" style=\"--col-settore:#2ba3de;--col-settore-testo:#12263d\">ACR</span><span class=\"ds-etichetta\" style=\"--col-settore:#7a4fb5;--col-settore-testo:#fff\">MSAC</span><span class=\"ds-etichetta\" style=\"--col-settore:#2e7d5b;--col-settore-testo:#fff\">MLAC</span><span class=\"ds-bollo\">Comunicato</span></div>",
+      "css": ".ds-etichette { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 1rem; background: #f7f7f2; } .ds-etichetta, .ds-bollo { display: inline-flex; align-items: center; padding: 0.2em 0.6em 0.22em; font-family: Rubik, 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.2; border-radius: 999px; white-space: nowrap; } .ds-etichetta { background: var(--col-settore); color: var(--col-settore-testo); } .ds-bollo { border: 1.5px solid currentColor; color: #12263d; }"
+    },
+    {
+      "name": "Riga evento",
+      "kind": "custom",
+      "refersTo": "ritaglio-media",
+      "description": "Data-ritaglio, titolo con etichetta sotto, quando e dove allineati a destra; in hover diventa un foglio bianco.",
+      "html": "<article class=\"ds-riga\" style=\"--col-settore:#7a4fb5;--col-settore-testo:#fff;--col-settore-su-carta:#6a3fa5\"><span class=\"ds-riga__data\"><span>16–18</span><small>ott</small></span><div><h3 class=\"ds-riga__titolo\"><a href=\"#\">Scuola del Bene Comune</a></h3><p class=\"ds-riga__sommario\">Tre giorni di formazione del MSAC.</p><span class=\"ds-riga__etichetta\">MSAC</span></div><dl class=\"ds-riga__meta\"><dd class=\"ds-riga__quando\">venerdì 16 ottobre 2026 <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9.5\"/><path d=\"M12 7v5l3 2\"/></svg></dd><dd>Seveso (MI) <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M20 10c0 5-5.5 10.2-7.4 11.8a1 1 0 0 1-1.2 0C9.5 20.2 4 15 4 10a8 8 0 0 1 16 0\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/></svg></dd></dl></article>",
+      "css": ".ds-riga { display: grid; grid-template-columns: 5.6rem minmax(0,1fr) minmax(10rem,15rem); gap: 1rem 1.5rem; align-items: start; padding: 1.5rem 1rem; border-radius: 14px; background: #f7f7f2; color: #12263d; font-family: 'Atkinson Hyperlegible Next', 'Helvetica Neue', Arial, sans-serif; transition: background 240ms cubic-bezier(0.16,1,0.3,1), box-shadow 240ms cubic-bezier(0.16,1,0.3,1); } .ds-riga:hover { background: #fff; box-shadow: 0 1px 1px rgb(18 38 61 / 0.08), 0 8px 18px -10px rgb(18 38 61 / 0.35); } .ds-riga__data { justify-self: center; display: grid; justify-items: center; padding: 0.6rem 0.55em calc(0.5rem + 7px); min-width: 4.6rem; background: var(--col-settore); color: var(--col-settore-testo); font: 900 1.6rem/1 Rubik, Arial, sans-serif; letter-spacing: -0.02em; rotate: -1.5deg; border-radius: 6px 6px 0 0; -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 7px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 7px repeat-x; mask: linear-gradient(#000 0 0) top / 100% calc(100% - 7px) no-repeat, conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 7px repeat-x; } .ds-riga__data small { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.25em; } .ds-riga__titolo { margin: 0.2rem 0 0.3rem; font: 700 1.3rem/1.05 Rubik, Arial, sans-serif; letter-spacing: -0.01em; } .ds-riga__titolo a { color: #12263d; text-decoration: none; } .ds-riga__titolo a:hover { text-decoration: underline; } .ds-riga__titolo a:focus-visible { outline: 3px solid #2f5d8a; outline-offset: 3px; } .ds-riga__sommario { margin: 0 0 0.5rem; color: #4a5a6e; font-size: 0.9rem; } .ds-riga__etichetta { display: inline-flex; padding: 0.2em 0.6em; border-radius: 999px; background: var(--col-settore); color: var(--col-settore-testo); font: 700 0.78rem/1.2 Rubik, Arial, sans-serif; letter-spacing: 0.04em; text-transform: uppercase; } .ds-riga__meta { margin: 0.2rem 0 0; display: grid; gap: 0.4rem; justify-items: end; text-align: right; font-size: 0.9rem; } .ds-riga__meta dd { margin: 0; display: flex; gap: 0.4rem; color: #4a5a6e; } .ds-riga__meta .ds-riga__quando { color: #12263d; font-weight: 700; font-variant-numeric: tabular-nums; } .ds-riga__meta svg { flex-shrink: 0; margin-top: 0.2em; color: var(--col-settore-su-carta); }"
+    },
+    {
+      "name": "Carta notizia",
+      "kind": "card",
+      "refersTo": "carta-notizia",
+      "description": "Foglio bianco con cartellone pieno del colore del settore dove il titolo è scritto grande; etichetta sotto. Il cartellone accoglierà la foto.",
+      "html": "<article class=\"ds-notizia\" style=\"--col-settore:#2e7d5b;--col-settore-testo:#fff\"><div class=\"ds-notizia__cartellone\"><h3><a href=\"#\">Lavoro e dignità: il MLAC incontra il Progetto Policoro</a></h3></div><div class=\"ds-notizia__corpo\"><p><span class=\"ds-notizia__etichetta\">MLAC</span></p><p class=\"ds-notizia__sommario\">Un confronto pubblico sul lavoro giovanile nel territorio della BAT.</p><p class=\"ds-notizia__data\">16 ottobre 2026</p></div></article>",
+      "css": ".ds-notizia { position: relative; display: flex; flex-direction: column; max-width: 18rem; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 1px rgb(18 38 61 / 0.08), 0 8px 18px -10px rgb(18 38 61 / 0.35); color: #12263d; font-family: 'Atkinson Hyperlegible Next', 'Helvetica Neue', Arial, sans-serif; transition: box-shadow 240ms cubic-bezier(0.16,1,0.3,1), translate 240ms cubic-bezier(0.16,1,0.3,1); } .ds-notizia:hover { translate: 0 -3px; box-shadow: 0 2px 2px rgb(18 38 61 / 0.08), 0 18px 32px -14px rgb(18 38 61 / 0.45); } .ds-notizia:has(a:focus-visible) { outline: 3px solid #2f5d8a; outline-offset: 3px; } .ds-notizia__cartellone { display: flex; align-items: flex-end; min-height: 10.5rem; padding: 1.5rem 1.5rem 1rem; background: var(--col-settore); color: var(--col-settore-testo); } .ds-notizia__cartellone h3 { margin: 0; font: 800 1.3rem/1.12 Rubik, Arial, sans-serif; letter-spacing: -0.01em; } .ds-notizia__cartellone a { color: inherit; text-decoration: none; } .ds-notizia__cartellone a:focus-visible { outline: none; } .ds-notizia__cartellone a::after { content: ''; position: absolute; inset: 0; } .ds-notizia__corpo { padding: 1rem 1.5rem 1.5rem; } .ds-notizia__corpo p { margin: 0 0 0.75rem; } .ds-notizia__etichetta { display: inline-flex; padding: 0.2em 0.6em; border-radius: 999px; background: var(--col-settore); color: var(--col-settore-testo); font: 700 0.78rem/1.2 Rubik, Arial, sans-serif; letter-spacing: 0.04em; text-transform: uppercase; } .ds-notizia__sommario { color: #4a5a6e; font-size: 0.9rem; } .ds-notizia__data { font-size: 0.78rem; font-weight: 700; margin: 0; }"
+    },
+    {
+      "name": "Tessera settore",
+      "kind": "card",
+      "refersTo": "tessera-settore",
+      "description": "Cartoncino pieno del settore con nome grande e fascia d'età; si alza in hover. Sei in fila sul bordo dell'apertura.",
+      "html": "<div class=\"ds-tessere\"><a class=\"ds-tessera\" href=\"#\" style=\"--col-settore:#2ba3de;--col-settore-testo:#12263d\"><span class=\"ds-tessera__nome\">ACR</span><span class=\"ds-tessera__eta\">Dai Piccolissimi ai 14 anni</span></a><a class=\"ds-tessera\" href=\"#\" style=\"--col-settore:#f07a3c;--col-settore-testo:#12263d\"><span class=\"ds-tessera__nome\">Giovani</span><span class=\"ds-tessera__eta\">15 – 30 anni</span></a><a class=\"ds-tessera\" href=\"#\" style=\"--col-settore:#7a4fb5;--col-settore-testo:#fff\"><span class=\"ds-tessera__nome\">MSAC</span><span class=\"ds-tessera__eta\">Studenti delle superiori</span></a></div>",
+      "css": ".ds-tessere { display: grid; grid-template-columns: repeat(3, 10rem); gap: 1rem; padding: 1rem; background: #f7f7f2; } .ds-tessera { display: flex; flex-direction: column; justify-content: flex-end; gap: 0.2rem; min-height: 8.5rem; padding: 1rem; background: var(--col-settore); color: var(--col-settore-testo); border-radius: 14px; box-shadow: 0 1px 1px rgb(18 38 61 / 0.08), 0 8px 18px -10px rgb(18 38 61 / 0.35); text-decoration: none; transition: translate 240ms cubic-bezier(0.16,1,0.3,1), box-shadow 240ms cubic-bezier(0.16,1,0.3,1); } .ds-tessera:hover { translate: 0 -5px; box-shadow: 0 2px 2px rgb(18 38 61 / 0.08), 0 18px 32px -14px rgb(18 38 61 / 0.45); } .ds-tessera:focus-visible { outline: 3px solid #2f5d8a; outline-offset: 3px; } .ds-tessera__nome { font: 900 1.6rem/1 Rubik, Arial, sans-serif; letter-spacing: -0.02em; } .ds-tessera__eta { font: 700 0.78rem/1.3 'Atkinson Hyperlegible Next', Arial, sans-serif; }"
+    },
+    {
+      "name": "Scheda persona",
+      "kind": "card",
+      "refersTo": "scheda-persona",
+      "description": "Foglio bianco con iniziali ritagliate sul cartoncino del settore; ruolo nel colore su carta. Griglia dimensionata da colonnePer(n).",
+      "html": "<ul class=\"ds-persone\"><li class=\"ds-persona\" style=\"--col-settore:#2ba3de;--col-settore-testo:#12263d;--col-settore-su-carta:#13668f\"><span class=\"ds-persona__ritratto\">MR</span><span class=\"ds-persona__nome\">Maria Rossi</span><span class=\"ds-persona__ruolo\">Responsabile diocesana ACR</span></li></ul>",
+      "css": ".ds-persone { list-style: none; margin: 0; padding: 1rem; background: #f7f7f2; display: grid; grid-template-columns: repeat(var(--colonne, 1), minmax(0, 20rem)); gap: 1.5rem; } .ds-persona { display: grid; grid-template-columns: 4.25rem minmax(0,1fr); align-items: center; gap: 0.2rem 1rem; padding: 1rem; background: #fff; border-radius: 14px; box-shadow: 0 1px 1px rgb(18 38 61 / 0.08), 0 8px 18px -10px rgb(18 38 61 / 0.35); color: #12263d; } .ds-persona__ritratto { grid-row: span 2; display: grid; place-items: center; width: 4.25rem; aspect-ratio: 1; border-radius: 10px; background: var(--col-settore); color: var(--col-settore-testo); rotate: -3deg; font: 900 1.35rem/1 Rubik, Arial, sans-serif; letter-spacing: -0.03em; } .ds-persona__nome { align-self: end; font: 800 1.3rem/1.15 Rubik, Arial, sans-serif; } .ds-persona__ruolo { align-self: start; font: 700 0.9rem/1.35 'Atkinson Hyperlegible Next', Arial, sans-serif; color: var(--col-settore-su-carta); }"
+    },
+    {
+      "name": "Navigazione",
+      "kind": "nav",
+      "refersTo": "barra-appuntamenti",
+      "description": "Barra notte dei prossimi appuntamenti con etichetta lime, sopra la testata bianca con menu in Rubik e trattino blu sotto la voce attiva.",
+      "html": "<div class=\"ds-nav\"><div class=\"ds-barra\"><a class=\"ds-barra__titolo\" href=\"#\">Prossimi appuntamenti</a><span class=\"ds-barra__data\" style=\"background:#2f5d8a;color:#fff\">11 ott</span><span class=\"ds-barra__evento\">…fierA di esserCI</span><span class=\"ds-barra__data\" style=\"background:#7a4fb5;color:#fff\">16 ott</span><span class=\"ds-barra__evento\">Scuola del Bene Comune</span></div><nav class=\"ds-testata\"><span class=\"ds-marchio\">Azione Cattolica<small>Trani · Barletta · Bisceglie</small></span><a class=\"ds-voce\" aria-current=\"page\" href=\"#\">Home</a><a class=\"ds-voce\" href=\"#\">Notizie</a><a class=\"ds-voce\" href=\"#\">Eventi</a><a class=\"ds-aderisci\" href=\"#\">Aderisci</a></nav></div>",
+      "css": ".ds-nav { font-family: 'Atkinson Hyperlegible Next', 'Helvetica Neue', Arial, sans-serif; } .ds-barra { display: flex; align-items: center; gap: 0.6rem; min-height: 2.6rem; background: #12263d; color: #fff; font-size: 0.9rem; white-space: nowrap; overflow: hidden; } .ds-barra__titolo { align-self: stretch; display: flex; align-items: center; padding: 0 1rem; background: #9bc53d; color: #12263d; font: 800 0.78rem/1 Rubik, Arial, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; } .ds-barra__titolo:hover { background: #fff; } .ds-barra__data { padding: 0.15em 0.55em; border-radius: 4px; font: 700 0.78rem/1.2 Rubik, Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.03em; font-variant-numeric: tabular-nums; } .ds-barra__evento { margin-right: 1rem; } .ds-testata { display: flex; align-items: center; gap: 0.25rem; padding: 1rem; background: #fff; box-shadow: 0 1px 0 #dcdfd6, 0 10px 24px -22px rgb(18 38 61 / 0.6); } .ds-marchio { display: flex; flex-direction: column; margin-right: auto; font: 800 1.3rem/1.1 Rubik, Arial, sans-serif; letter-spacing: -0.02em; color: #12263d; } .ds-marchio small { font: 700 0.8rem/1.1 'Atkinson Hyperlegible Next', Arial, sans-serif; color: #2f5d8a; letter-spacing: 0; } .ds-voce { position: relative; padding: 0.55rem 0.7rem; font: 700 0.9rem/1.2 Rubik, Arial, sans-serif; color: #12263d; text-decoration: none; border-radius: 8px; } .ds-voce::after { content: ''; position: absolute; left: 0.7rem; right: 0.7rem; bottom: 0.2rem; height: 3px; border-radius: 2px; background: #2f5d8a; scale: 0 1; transition: scale 240ms cubic-bezier(0.16,1,0.3,1); } .ds-voce:hover { background: #f7f7f2; } .ds-voce[aria-current='page']::after { scale: 1 1; } .ds-voce:focus-visible, .ds-aderisci:focus-visible { outline: 3px solid #2f5d8a; outline-offset: 3px; } .ds-aderisci { margin-left: 1rem; display: inline-flex; align-items: center; min-height: 2.9rem; padding: 0.65em 1.25em; border-radius: 999px; background: #2f5d8a; color: #fff; font: 700 0.9rem/1 Rubik, Arial, sans-serif; text-decoration: none; transition: background 240ms cubic-bezier(0.16,1,0.3,1); } .ds-aderisci:hover { background: #12263d; }"
+    },
+    {
+      "name": "Campo di ricerca",
+      "kind": "input",
+      "refersTo": "campo-ricerca",
+      "description": "Pillola bianca senza bordo sul campo blu, con lente a sinistra.",
+      "html": "<div class=\"ds-campo-blu\"><label class=\"ds-ricerca\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m20.5 20.5-4.5-4.5\"/></svg><input type=\"search\" placeholder=\"Cerca un appuntamento\" aria-label=\"Cerca\"></label></div>",
+      "css": ".ds-campo-blu { padding: 1.5rem; background: #2f5d8a; } .ds-ricerca { position: relative; display: block; max-width: 26rem; } .ds-ricerca svg { position: absolute; left: 0.95rem; top: 50%; translate: 0 -50%; color: #4a5a6e; pointer-events: none; } .ds-ricerca input { width: 100%; box-sizing: border-box; min-height: 2.9rem; padding: 0.6rem 1rem 0.6rem 2.8rem; border: 0; border-radius: 999px; background: #fff; color: #12263d; font: 400 1rem 'Atkinson Hyperlegible Next', Arial, sans-serif; } .ds-ricerca input::placeholder { color: #4a5a6e; } .ds-ricerca input:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Cartoncino",
+    "overview": "Il sito è un cartellone dei campi ACR e dell'oratorio. Ogni settore è un foglio di cartoncino del suo colore, pieno e senza sfumature; ogni data è un numero ritagliato con le forbici a zigzag da quel foglio e appoggiato sulla pagina, leggermente storto. Il fondo è carta da disegno chiara (non crema), l'inchiostro è blu notte, il blu del logo fa da campo per testata, apertura e azioni. Il verde lime del logo è un segnale, non un colore: vuol dire solo «il prossimo / oggi».\n\nLa densità è quella di uno strumento di lavoro: il visitatore (responsabile o educatore parrocchiale, spesso dal telefono) deve trovare data, luogo e documento in trenta secondi. Per questo la gerarchia è affidata a una rampa d'importanza fissa (prossimo evento enorme, seguenti medi, elenchi piccoli), a titoli grotteschi pesanti e a un corpo testo ad alta leggibilità. Non ci sono foto: il sito regge su colore e tipografia, e ogni cartellone colorato è uno spazio pronto ad accogliere un'immagine quando arriverà (con liberatoria).\n\nStruttura e menu sono ripresi da acaversa.it per scelta del committente (barra prossimi appuntamenti, testata, apertura, tessere dei settori, notizie in evidenza, eventi per mese, pagine settore con sotto-menu, Presidenza a schede; menu Home · Notizie · Eventi · Settori ▾ · Assemblea ▾ · Informazioni ▾). Si riprende l'impianto, non l'aspetto né gli asset. Rifiuti confermati: il sito parrocchiale crema + serif + oro, e il template Elementor con ombre pesanti e gradienti.\n\nQuesto prototipo Astro (`poc-astro/`) è la fonte di verità; il design va portato nel block theme WordPress (`wordpress/`). Ogni token in `poc-astro/src/styles/tokens.css` ha una voce corrispondente in `theme.json` (vedi la tabella in **Layout → Mappatura su theme.json**).",
+    "keyCharacteristics": [
+      "Campi di colore pieni, nessun gradiente di colore.",
+      "La data-ritaglio con il bordo a zigzag è l'elemento firma, ed è l'unico bordo tagliato del sito.",
+      "Lime = «prossimo / oggi», e niente altro.",
+      "Sei tinte di settore, ognuna in tripletta (riempimento / testo sul riempimento / testo su carta).",
+      "Ombre corte e morbide di un foglio appoggiato su un altro; mai ombre a blocco.",
+      "Angoli arrotondati come un cartoncino tagliato a mano; pillole per bottoni ed etichette.",
+      "Grottesco rotondo pesante (Rubik) per titoli e numeri, Atkinson Hyperlegible Next per il testo; cifre tabulari ovunque ci siano date e orari."
+    ],
+    "rules": [
+      {
+        "name": "The Lime Rule",
+        "body": "Il lime significa «il prossimo / oggi» e niente altro. Mai decorazione, mai sfondo di sezione, mai un secondo bottone lime nella stessa vista. Test: se togli il lime, si perde l'informazione su cosa viene dopo? Se no, non è lime.",
+        "section": "colors"
+      },
+      {
+        "name": "The Triplet Rule",
+        "body": "Un colore di settore non si usa mai da solo: si usa la tripletta. Riempimento con il suo testo-sul-riempimento; su carta si usa la variante `-su-carta`. Il giallo Adulti o l'azzurro ACR come testo su carta sono vietati.",
+        "section": "colors"
+      },
+      {
+        "name": "The Not-Only-Color Rule",
+        "body": "Il settore si riconosce dal colore, ma il suo nome è sempre scritto (etichetta, tessera, nome nel menu). Nessuna informazione affidata al solo colore.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Date, orari e conteggi sono sempre in cifre tabulari (`time`, `.cifre`, il numero del ritaglio).",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Kicker Rule",
+        "body": "Nessun sovrattitolo (eyebrow/kicker) sopra i titoli. L'appartenenza a un settore si dichiara con l'etichetta-pillola **sotto** il titolo (riga evento, notizia, documento, prossimo evento). L'unico testo stampato sopra un numero è la dicitura dentro la data-ritaglio (giorno della settimana o «Il prossimo»), che fa parte del ritaglio stesso.",
+        "section": "typography"
+      },
+      {
+        "name": "The Sheet Rule",
+        "body": "Un'ombra c'è solo dove un foglio è appoggiato su un altro. In hover il foglio si alza (−3/−5px e ombra alta), non si illumina.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Scissor Rule",
+        "body": "Il bordo tagliato a forbice esiste solo sulle date-ritaglio. Nessun altro elemento (card, testate, fasce) ha bordi a zigzag, strappati o seghettati.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** usare campi di colore pieni: blu del logo per testate e apertura, tinte di settore per tutto ciò che appartiene a un settore.",
+      "**Do** applicare sempre la tripletta di settore (`--col-settore`, `--col-settore-testo`, `--col-settore-su-carta`) via `data-settore` o la classe equivalente nel tema WP.",
+      "**Do** mettere l'etichetta di settore sotto il titolo, mai sopra.",
+      "**Do** usare la data-ritaglio in una delle tre misure (piccola / media / grande), con la grande riservata al prossimo evento.",
+      "**Do** allineare orari e luoghi a destra nelle righe evento su desktop.",
+      "**Do** dimensionare le griglie di persone con `colonnePer(n)`, perché le righe siano piene.",
+      "**Do** usare ombre corte e morbide (`--ombra-foglio`, `--ombra-foglio-alta`) solo per fogli appoggiati.",
+      "**Do** usare cifre tabulari per date, orari, anni e conteggi.",
+      "**Do** usare le icone a tratto 2px con estremità arrotondate (un solo set, stile Lucide), inline in SVG."
+    ],
+    "donts": [
+      "**Don't** usare il lime per decorare: solo «prossimo / oggi».",
+      "**Don't** usare gradienti di colore, sfondi sfumati o vetri smerigliati.",
+      "**Don't** usare il bordo a zigzag fuori dalle date-ritaglio.",
+      "**Don't** mettere sovrattitoli (eyebrow/kicker) sopra i titoli.",
+      "**Don't** usare ombre dure sfalsate o ombre lunghe a blocco.",
+      "**Don't** usare il giallo Adulti o l'azzurro ACR come testo su carta: si usa la variante `-su-carta`.",
+      "**Don't** tornare al registro parrocchiale crema + serif + oro.",
+      "**Don't** inventare una data: se il giorno non è fissato si ritaglia il mese e si scrive «da fissare»."
+    ]
+  }
+}
